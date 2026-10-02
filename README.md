@@ -1,7 +1,7 @@
 # บ้านเราหมูกระทะ · Baan Rao Moo Krata — website
 
-Static, mobile-first restaurant site (HTML + CSS + vanilla JS, no build step) with a real online
-booking system (Google Sheets + Google Apps Script). Thai first, English toggle (remembered per visitor).
+Static, mobile-first restaurant site (HTML + CSS + vanilla JS) with a real online
+booking system (Google Sheets + Google Apps Script). Thai is the page at `/`. English is a real page at `/en/`, generated at build time from the Thai page.
 
 ```
 index.html          the website (all sections)
@@ -24,7 +24,7 @@ backend/Code.gs     Google Apps Script booking backend (paste into Google Sheets
 cd baanrao-site    # the unzipped folder that contains index.html
 python3 -m http.server 8000
 ```
-Open <http://localhost:8000>. Add `?lang=en` to force English. Owner page: <http://localhost:8000/owner.html>
+Open <http://localhost:8000>. English page: build it first with `python3 tools/build_en.py .`, then open <http://localhost:8000/en/>. Owner page: <http://localhost:8000/owner.html>
 (demo password: `demo`).
 
 Until a booking URL is set, the booking form runs in **DEMO MODE**: it works end to end, but bookings
@@ -42,7 +42,7 @@ are only stored in that browser (a yellow "โหมดสาธิต" notice i
    **Site configuration → Change site name**, e.g. `baanraomookata.netlify.app`.
 
 The folder already has Netlify's settings, so there's nothing to configure:
-- `netlify.toml`: tells Netlify it's a plain static site (no build step, publish the folder as-is).
+- `netlify.toml`: publishes this folder and runs `python3 tools/build_en.py .` to generate `/en/`.
 - `_headers`: sensible caching (pages always fresh, images and videos cached for a week, fonts for a year) plus basic security headers.
 - `_redirects`: hides the `backend/` folder and this README from the public site.
 
@@ -53,8 +53,9 @@ To update the site later, drag the updated folder onto **Deploys** for the same 
 - **Cloudflare Pages** — Workers & Pages → Create → Pages → *Upload assets* → upload the `baanrao-site` folder.
 - **GitHub Pages** — push the folder to a repo → Settings → Pages → deploy from branch `main` / root.
 
-Then connect a domain if you buy one (e.g. baanraomookata.com) and update the `canonical` / `og:image`
-URLs at the top of `index.html` to the full domain.
+Then connect a domain if you buy one (e.g. baanraomookata.com). Change the one line in
+`tools/site-base-url.txt` and run `python3 tools/build_en.py .` so the canonical, share image,
+sitemap and English page all use the new address.
 
 ## 3. Switch on online booking (about 15 minutes, free)
 
