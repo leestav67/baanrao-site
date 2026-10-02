@@ -1,0 +1,10 @@
+# Netlify config for บ้านเราหมูกระทะ (Baan Rao Moo Krata)
+# Plain static site: no build step. Publish this folder as-is.
+# Works with Netlify Drop (drag-and-drop) and with Git-connected deploys.
+
+[build]
+  publish = "."
+  command = ""
+
+# Caching and security headers are in the `_headers` file.
+# Hidden paths (backend code, README) are in the `_redirects` file.

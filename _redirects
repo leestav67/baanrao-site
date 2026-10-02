@@ -1,0 +1,4 @@
+# Keep the booking backend source and the README off the public site
+/backend/*   /404   404!
+/README.md   /404   404!
+/netlify.toml /404  404!

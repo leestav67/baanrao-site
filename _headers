@@ -1,0 +1,35 @@
+# Default for every page: security headers
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# HTML: always check for a fresh copy so edits show up straight away
+/
+  Cache-Control: public, max-age=0, must-revalidate
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# CSS and JS: short cache (file names aren't versioned)
+/css/*
+  Cache-Control: public, max-age=3600, must-revalidate
+/js/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Fonts: they never change, so cache for a year
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+# Images and video posters: cache for a week
+/images/*
+  Cache-Control: public, max-age=604800
+/videos/posters/*
+  Cache-Control: public, max-age=604800
+
+# Videos: cache for a week, allow seeking
+/videos/*.mp4
+  Cache-Control: public, max-age=604800
+  Accept-Ranges: bytes
+  Content-Type: video/mp4

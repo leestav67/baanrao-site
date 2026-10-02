@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>เจ้าของร้าน · จัดการการจอง | บ้านเราหมูกระทะ</title>
+<link rel="icon" type="image/png" href="images/favicon-32.png">
+<link rel="stylesheet" href="css/fonts.css" id="fontsCss">
+<script>if(location.protocol==="file:")document.getElementById("fontsCss").href="css/fonts-embedded.css";</script>
+<style>
+:root{--ink:#1a1510;--gold:#e9b949;--gold2:#f6d77e;--cream:#fbf6ec;--muted:#6f6556;--red:#c0392b}
+*{box-sizing:border-box}body{margin:0;font-family:"Noto Sans Thai",system-ui,sans-serif;background:var(--cream);color:#2b241b}
+header{background:var(--ink);color:var(--gold2);padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0}
+header img{width:38px;height:38px;border-radius:50%;border:2px solid var(--gold)}header b{font-family:Kanit,sans-serif;font-size:1.1rem}
+header button{margin-left:auto;background:none;border:1px solid var(--gold);color:var(--gold2);border-radius:999px;padding:4px 12px;font:inherit;font-size:.8rem}
+main{max-width:640px;margin:auto;padding:16px}
+.card{background:#fff;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 4px 16px rgba(0,0,0,.06)}
+h2{font-family:Kanit,sans-serif;margin:0 0 10px;font-size:1.2rem}
+input,select,button.b{font:inherit;padding:11px 14px;border-radius:12px;border:1.5px solid #e1d6c1;width:100%}
+button.b{background:var(--gold);border-color:var(--gold);font-weight:600;cursor:pointer;margin-top:10px}
+button.b.dark{background:var(--ink);color:var(--gold2);border-color:var(--ink)}
+.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.stats div{background:var(--cream);border-radius:12px;padding:10px}.stats b{display:block;font-size:1.5rem;font-family:Kanit,sans-serif}
+.bk{border-top:1px solid #eee;padding:12px 0;display:grid;grid-template-columns:60px 1fr auto;gap:10px;align-items:center}
+.bk .t{font-family:Kanit,sans-serif;font-size:1.15rem}.bk small{color:var(--muted)}
+.bk.cancelled{opacity:.45;text-decoration:line-through}
+.x{background:#fff;border:1.5px solid var(--red);color:var(--red);border-radius:10px;padding:6px 10px;font:inherit;font-size:.85rem}
+.pill{display:inline-block;background:#fde9b0;border-radius:999px;padding:2px 10px;font-size:.8rem;margin:2px}
+.demo{background:#fff4d6;border:1px dashed #b98a22;color:#7a5a12;padding:8px;border-radius:10px;font-size:.85rem;margin-bottom:12px}
+.err{color:var(--red)}a{color:#05a447}
+</style>
+</head>
+<body>
+<header><img src="images/logo.jpg" alt=""><b>จัดการการจอง</b><button id="logout" hidden>ออกจากระบบ</button></header>
+<main>
+  <div class="demo" id="demo" hidden>โหมดสาธิต: ยังไม่ได้เชื่อม Google Sheet (ใส่ BOOKING_API_URL ใน js/config.js) · รหัสผ่านทดลอง: <b>demo</b></div>
+  <section class="card" id="login">
+    <h2>เข้าสู่ระบบเจ้าของร้าน</h2>
+    <input type="password" id="pw" placeholder="รหัสผ่าน" autocomplete="current-password">
+    <button class="b dark" id="loginBtn">เข้าสู่ระบบ</button>
+    <p class="err" id="loginErr"></p>
+  </section>
+  <div id="app" hidden>
+    <section class="card">
+      <div class="row"><input type="date" id="day"><button class="b" id="todayBtn" style="margin:0;flex:0 0 auto;width:auto">วันนี้</button></div>
+      <div class="stats" style="margin-top:12px"><div><b id="sBk">0</b>การจอง</div><div><b id="sGu">0</b>ลูกค้า</div><div><b id="sBl">–</b>ปิดรับ</div></div>
+    </section>
+    <section class="card"><h2>รายการจอง</h2><div id="list"></div></section>
+    <section class="card">
+      <h2>ปิดรับจอง</h2>
+      <div class="row"><select id="blkTime"><option value="">ทั้งคืน (ปิดร้าน/เต็ม)</option></select></div>
+      <input id="blkReason" placeholder="เหตุผล (ไม่บังคับ) เช่น เหมาร้าน" style="margin-top:8px">
+      <button class="b dark" id="blkBtn">ปิดรับจองช่วงนี้</button>
+      <div id="blocks" style="margin-top:10px"></div>
+    </section>
+    <p style="font-size:.85rem;color:var(--muted)">เคล็ดลับ: เปิดแอป Google Sheets ในมือถือ ดูชีต “Bookings” ได้ตลอด เปลี่ยนช่อง Status เป็น cancelled เพื่อยกเลิกได้เช่นกัน</p>
+  </div>
+</main>
+<script src="js/config.js"></script>
+<script>
+(function(){
+  var C=window.SITE_CONFIG||{},API=(C.BOOKING_API_URL||'').trim(),DEMO=!API,$=function(i){return document.getElementById(i)};
+  var pw=sessionStorage.getItem('brm_owner_pw')||'';
+  if(DEMO)$('demo').hidden=false;
+  function bkkToday(){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Bangkok'}).format(new Date())}
+  function slots(){var o=toM(C.OPEN_TIME||'17:00'),c=toM(C.CLOSE_TIME||'22:00');if(c<=o)c+=1440;var out=[];for(var m=o;m<=c-(C.LAST_SEATING_BEFORE_CLOSE||60);m+=(C.SLOT_MINUTES||30))out.push(hh(m%1440));return out}
+  function toM(t){var a=t.split(':');return +a[0]*60+ +a[1]}function hh(m){return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')}
+  // demo store
+  var D={get:function(k){return JSON.parse(localStorage.getItem(k)||'[]')},set:function(k,v){localStorage.setItem(k,JSON.stringify(v))}};
+  var api={
+    list:function(date){ if(DEMO){return Promise.resolve({ok:true,bookings:D.get('brm_demo_bookings').filter(function(b){return b.date===date}).sort(function(a,b){return a.time<b.time?-1:1}),blocks:D.get('brm_demo_blocked').filter(function(b){return b.date===date})});}
+      return fetch(API+'?action=list&date='+date+'&pw='+encodeURIComponent(pw)).then(function(r){return r.json()})},
+    post:function(body){ if(DEMO){
+        if(body.action==='cancel'){var a=D.get('brm_demo_bookings');a.forEach(function(b){if(b.ref===body.ref)b.status='cancelled'});D.set('brm_demo_bookings',a)}
+        if(body.action==='block'){var k=D.get('brm_demo_blocked');k.push({date:body.date,time:body.time||'',reason:body.reason||''});D.set('brm_demo_blocked',k)}
+        if(body.action==='unblock'){D.set('brm_demo_blocked',D.get('brm_demo_blocked').filter(function(b){return !(b.date===body.date&&(b.time||'')===(body.time||''))}))}
+        return Promise.resolve({ok:true});}
+      body.pw=pw;return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)}).then(function(r){return r.json()})}
+  };
+  function login(p){
+    if(DEMO){ if(p!=='demo'){$('loginErr').textContent='รหัสผ่านไม่ถูกต้อง';return} pw=p;start();return }
+    pw=p; api.list(bkkToday()).then(function(r){ if(!r.ok){$('loginErr').textContent='รหัสผ่านไม่ถูกต้อง';return} start() }).catch(function(){$('loginErr').textContent='เชื่อมต่อไม่ได้'});
+  }
+  function start(){sessionStorage.setItem('brm_owner_pw',pw);$('login').hidden=true;$('app').hidden=false;$('logout').hidden=false;
+    $('blkTime').innerHTML='<option value="">ทั้งคืน (ปิดร้าน/เต็ม)</option>'+slots().map(function(t){return '<option>'+t+'</option>'}).join('');
+    if(!$('day').value)$('day').value=bkkToday();load()}
+  function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function load(){var d=$('day').value;$('list').innerHTML='กำลังโหลด…';
+    api.list(d).then(function(r){
+      if(!r.ok){$('list').innerHTML='<p class="err">'+esc(r.message||r.error)+'</p>';return}
+      var act=r.bookings.filter(function(b){return b.status!=='cancelled'});
+      $('sBk').textContent=act.length;$('sGu').textContent=act.reduce(function(s,b){return s+(+b.party||0)},0);
+      $('sBl').textContent=r.blocks.length?r.blocks.length:'–';
+      $('list').innerHTML=r.bookings.length?r.bookings.map(function(b){return '<div class="bk '+(b.status==='cancelled'?'cancelled':'')+'"><div class="t">'+b.time+'</div><div><b>'+esc(b.name)+'</b> · '+b.party+' ท่าน<br><small><a href="tel:'+esc(b.phone)+'">'+esc(b.phone)+'</a> · '+esc(b.ref)+(b.note?' · '+esc(b.note):'')+'</small></div>'+(b.status==='cancelled'?'<small>ยกเลิกแล้ว</small>':'<button class="x" data-ref="'+esc(b.ref)+'">ยกเลิก</button>')+'</div>'}).join(''):'<p style="color:#6f6556">ยังไม่มีการจองวันนี้</p>';
+      $('blocks').innerHTML=r.blocks.map(function(b){return '<span class="pill">'+(b.time||'ทั้งคืน')+(b.reason?' · '+esc(b.reason):'')+' <a href="#" data-ub="'+(b.time||'')+'">✕</a></span>'}).join('');
+    }).catch(function(){$('list').innerHTML='<p class="err">เชื่อมต่อไม่ได้</p>'})}
+  $('loginBtn').onclick=function(){login($('pw').value)};$('pw').onkeydown=function(e){if(e.key==='Enter')login($('pw').value)};
+  $('logout').onclick=function(){sessionStorage.removeItem('brm_owner_pw');location.reload()};
+  $('day').onchange=load;$('todayBtn').onclick=function(){$('day').value=bkkToday();load()};
+  $('list').onclick=function(e){var r=e.target.dataset.ref;if(r&&confirm('ยกเลิกการจอง '+r+' ?'))api.post({action:'cancel',ref:r}).then(load)};
+  $('blkBtn').onclick=function(){api.post({action:'block',date:$('day').value,time:$('blkTime').value,reason:$('blkReason').value}).then(function(){$('blkReason').value='';load()})};
+  $('blocks').onclick=function(e){if(e.target.dataset.ub!==undefined){e.preventDefault();api.post({action:'unblock',date:$('day').value,time:e.target.dataset.ub}).then(load)}};
+  if(pw)login(pw);
+})();
+</script>
+</body>
+</html>
