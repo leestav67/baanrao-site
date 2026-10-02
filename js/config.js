@@ -3,8 +3,9 @@
    ============================================================ */
 window.SITE_CONFIG = {
   // ---- BOOKING BACKEND ----
-  // Leave empty "" to run in DEMO MODE (bookings stored only in this browser).
-  // Paste your Google Apps Script Web App URL here to go LIVE, e.g.
+  // Leave empty "" while there is no backend: the booking section then shows the
+  // "จองโต๊ะง่ายๆ ทาง LINE" card (book on LINE / by phone) and the online form is hidden.
+  // Paste your Google Apps Script Web App URL here to switch the real online booking form on, e.g.
   // "https://script.google.com/macros/s/AKfycb.../exec"
   BOOKING_API_URL: "",
 
@@ -14,16 +15,28 @@ window.SITE_CONFIG = {
   CLOSE_TIME: "22:00",
   CLOSED_WEEKDAYS: [],          // 0=Sun ... 6=Sat, e.g. [1] if closed Mondays
 
-  // ---- BOOKING RULES (demo mode uses these; live mode uses the values in Code.gs) ----
+  // ---- BOOKING RULES (used by the form; live mode also enforces the values in Code.gs) ----
   SLOT_MINUTES: 30,             // a new time slot every 30 min
   LAST_SEATING_BEFORE_CLOSE: 60,// last booking 60 min before closing -> slots 17:00 … 21:00
   MAX_GUESTS_PER_SLOT: 40,      // capacity per time slot (guests)
   MAX_PARTY_SIZE: 20,           // bigger groups -> contact on LINE
   DAYS_AHEAD: 60,               // how far ahead guests can book
 
-  // ---- CONTACT ----
+  // ---- LINE (the ONE place for the LINE link: every LINE button on the site reads it) ----
+  // ⚠ https://line.me/R/ti/p/@BaanRaoMookata returned 404 in testing (Oct 2026).
+  // Owner: LINE OA Manager → Home → Gain friends (เพิ่มเพื่อน) → copy the add-friend link
+  // (looks like https://lin.ee/XXXXXXX) and paste it below, plus the real LINE ID.
   LINE_URL: "https://line.me/R/ti/p/@BaanRaoMookata",
   LINE_ID: "@BaanRaoMookata",
+
+  // ---- PHONE ----
   PHONE: "+66932691542",
-  PHONE_DISPLAY: "093 269 1542"
+  PHONE_DISPLAY: "093 269 1542",
+
+  // ---- GOOGLE REVIEWS ----
+  // "Read all reviews" opens the shop's Google Maps place.
+  GOOGLE_REVIEWS_URL: "https://goo.gl/maps/uLo6NqVWW7SKCHQf8",
+  // Owner: Google Business Profile → "Ask for reviews" → copy the link and paste it here.
+  // While empty, the "please review us" link opens the Google Maps place instead.
+  GOOGLE_WRITE_REVIEW_URL: ""
 };

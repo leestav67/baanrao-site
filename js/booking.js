@@ -1,10 +1,14 @@
 /* บ้านเราหมูกระทะ — booking widget
-   DEMO MODE when SITE_CONFIG.BOOKING_API_URL is empty (localStorage simulation).
-   LIVE MODE talks to the Google Apps Script web app in backend/Code.gs.        */
+   LIVE MODE (SITE_CONFIG.BOOKING_API_URL set): talks to the Google Apps Script web app in backend/Code.gs.
+   No URL: the form stays hidden and the page shows the "book on LINE / phone" card instead.
+   TEST MODE (no URL + ?booking=test in the address): the form runs against this browser's localStorage only,
+   clearly labelled "not sent to the restaurant" — for previewing the form. No fake "full" slots, ever.   */
 (function () {
   var C = window.SITE_CONFIG || {};
   var API = (C.BOOKING_API_URL || '').trim();
   var DEMO = !API;
+  var TEST = DEMO && /[?&]booking=test\b/.test(location.search);
+  if (DEMO && !TEST) { window.BRM = { demo: true, off: true }; return; }   // LINE card is shown instead
   var TZ = 'Asia/Bangkok';
   var $ = function (id) { return document.getElementById(id); };
   var T = {
@@ -12,12 +16,14 @@
           dow: ['อา','จ','อ','พ','พฤ','ศ','ส'], left: 'ว่าง {n} ที่', few: 'เหลือ {n} ที่', full: 'เต็ม', loading: 'กำลังโหลดเวลาว่าง…',
           none: 'ขออภัย วันนี้ไม่มีรอบว่างแล้ว กรุณาเลือกวันอื่น หรือแชท LINE', closed: 'วันนี้ร้านปิดรับจอง กรุณาเลือกวันอื่น',
           guests: 'ท่าน', maxHint: 'รอบนี้รับได้อีกสูงสุด {n} ท่าน', date: 'วันที่', time: 'เวลา', party: 'จำนวน', name: 'ชื่อ', phone: 'โทร',
-          err: 'เกิดข้อผิดพลาด กรุณาลองใหม่ หรือแชท LINE', fullErr: 'ขออภัย รอบนี้เพิ่งเต็ม กรุณาเลือกเวลาอื่น', sending: 'กำลังจอง…', yearOff: 543 },
+          err: 'เกิดข้อผิดพลาด กรุณาลองใหม่ หรือแชท LINE', fullErr: 'ขออภัย รอบนี้เพิ่งเต็ม กรุณาเลือกเวลาอื่น', sending: 'กำลังจอง…', yearOff: 543,
+          testTitle: 'โหมดทดสอบ — ยังไม่ได้จองจริง', testText: 'การจองนี้ไม่ได้ส่งถึงร้าน กรุณาจองทาง LINE หรือโทร 093 269 1542' },
     en: { months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
           dow: ['Su','Mo','Tu','We','Th','Fr','Sa'], left: '{n} seats', few: '{n} left', full: 'Full', loading: 'Loading available times…',
           none: 'Sorry, no times left on this day. Please pick another date or chat with us on LINE.', closed: 'We are not taking bookings on this day.',
           guests: 'guests', maxHint: 'Up to {n} guests available at this time', date: 'Date', time: 'Time', party: 'Guests', name: 'Name', phone: 'Phone',
-          err: 'Something went wrong. Please try again or chat with us on LINE.', fullErr: 'Sorry, that time just filled up. Please choose another time.', sending: 'Booking…', yearOff: 0 }
+          err: 'Something went wrong. Please try again or chat with us on LINE.', fullErr: 'Sorry, that time just filled up. Please choose another time.', sending: 'Booking…', yearOff: 0,
+          testTitle: 'Test mode — not a real booking', testText: 'This booking was NOT sent to the restaurant. Please book on LINE or call 093 269 1542.' }
   };
   var L = function () { return T[window.SITE_LANG === 'en' ? 'en' : 'th']; };
   var fmt = function (s, n) { return s.replace('{n}', n); };
@@ -48,20 +54,13 @@
   var DKEY = 'brm_demo_bookings';
   function demoAll() { try { return JSON.parse(localStorage.getItem(DKEY) || '[]'); } catch (e) { return []; } }
   function hash(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
-  function demoSeed(date, time) { // pretend other guests already booked, so the demo looks realistic
-    var cap = C.MAX_GUESTS_PER_SLOT || 40, h = hash(date + time), wd = parse(date).getDay();
-    var busy = (wd === 5 || wd === 6) ? 0.55 : 0.3;
-    if (time === '19:00' && (wd === 5 || wd === 6 || h % 2 === 0)) return cap; // prime time often full (demo only)
-    if (time === '19:30' && h % 3 === 0) return cap;
-    return Math.min(cap, Math.round(cap * busy * ((h % 100) / 100) * 1.6));
-  }
   var demo = {
     availability: function (date) {
       var cap = C.MAX_GUESTS_PER_SLOT || 40, all = demoAll().filter(function (b) { return b.date === date && b.status !== 'cancelled'; });
       var blocked = JSON.parse(localStorage.getItem('brm_demo_blocked') || '[]');
       var dayBlocked = blocked.some(function (b) { return b.date === date && !b.time; });
       return Promise.resolve({ ok: true, date: date, blocked: dayBlocked, slots: slotTimes().map(function (t) {
-        var used = demoSeed(date, t) + all.filter(function (b) { return b.time === t; }).reduce(function (s, b) { return s + b.party; }, 0);
+        var used = all.filter(function (b) { return b.time === t; }).reduce(function (s, b) { return s + b.party; }, 0);
         var isBlocked = dayBlocked || blocked.some(function (b) { return b.date === date && b.time === t; });
         var rem = isBlocked ? 0 : Math.max(0, cap - used);
         return { time: t, capacity: cap, remaining: rem, available: rem > 0 };
@@ -207,6 +206,7 @@
   function renderConfirm() {
     if (!lastConf) return; var l = L(), p = lastConf.p;
     $('confRef').textContent = lastConf.ref;
+    if (DEMO) { $('confTitle').textContent = l.testTitle; $('confText').textContent = l.testText; $('confRef').textContent = 'TEST'; var ic = document.querySelector('.confirm-ico'); if (ic) { ic.textContent = '!'; ic.style.background = '#b98a22'; } }
     var ph = p.phone.length === 10 ? p.phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3') : p.phone;
     $('confList').innerHTML = '<dt>' + l.date + '</dt><dd>' + niceDate(p.date) + '</dd><dt>' + l.time + '</dt><dd>' + p.time + '</dd><dt>' + l.party + '</dt><dd>' + p.party + ' ' + l.guests + '</dd><dt>' + l.name + '</dt><dd>' + esc(p.name) + '</dd><dt>' + l.phone + '</dt><dd>' + ph + '</dd>';
   }

@@ -424,3 +424,80 @@ p{margin:0 0 1em}
 .find-top .map-box{position:relative;min-height:360px}
 .find-top .map-box iframe{position:absolute;inset:0;width:100%;height:100%;min-height:0}
 @media (min-width:960px){.find-top .map-box{min-height:600px;height:auto}.find-top .map-box iframe{min-height:0;height:100%}}
+
+/* ===== v4: marketing-audit round ===== */
+/* booking mode switch (class set by main.js from js/config.js BOOKING_API_URL) */
+html:not(.booking-live) .live-only{display:none!important}
+html.booking-live .demo-only{display:none!important}
+html[lang="en"] .th-only{display:none!important}
+
+/* call button */
+.btn-call{background:#fff;color:var(--ink);box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.btn-call .i{color:var(--gold-d)}
+.hero .btn-call{background:rgba(255,255,255,.94)}
+.btn-dark{background:var(--ink);color:#fff}
+.hdr-phone{display:none;align-items:center;gap:6px;color:var(--gold2);text-decoration:none;font-family:var(--head);font-size:.92rem;white-space:nowrap}
+.hdr-phone .i{width:1em;height:1em}
+@media (min-width:1240px){.hdr-phone{display:inline-flex}}
+
+/* hero (EN H1 with small Thai under it) */
+.hero h1 .h1-th{display:block;font-size:.34em;color:#eadfc8;font-weight:500;letter-spacing:0;margin-top:.15em;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+@media (min-width:960px){.hero-cta .btn{padding:.85em 1.35em}}
+
+/* booking: LINE card (no backend yet) */
+.line-book{max-width:620px;margin:0 auto;background:var(--cream);color:var(--text);border-radius:26px;padding:26px 20px 22px;box-shadow:var(--shadow-lg);border:1px solid rgba(233,185,73,.5);text-align:center}
+.lb-body{font-size:1.04rem;margin:0 0 16px;line-height:1.75}
+.lb-body b{color:var(--line-d);white-space:nowrap}
+.lb-chips{list-style:none;display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:0 0 20px;padding:0}
+.lb-chips li{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #eadfc8;border-radius:999px;padding:6px 14px;font-family:var(--head);font-size:.92rem}
+.lb-chips .i{color:var(--gold-d)}
+.lb-cta{display:grid;gap:10px}
+.lb-cta .btn-call{border-color:#e2d6bd;box-shadow:none}
+.lb-note{margin:16px 0 0;font-size:.86rem;color:var(--muted)}
+@media (min-width:640px){.line-book{padding:34px 36px 28px}.lb-cta{grid-template-columns:1.2fr 1fr}}
+
+/* reviews */
+.reviews{background:var(--cream2)}
+.rv-grid{display:grid;gap:16px}
+.rv{position:relative;margin:0;background:#fff;border-radius:20px;padding:26px 22px 18px;box-shadow:var(--shadow);border:1px solid #efe3c9;display:flex;flex-direction:column}
+.rv-q{position:absolute;top:-6px;left:16px;font-family:Georgia,serif;font-size:4.2rem;line-height:1;color:var(--gold)}
+.rv blockquote{margin:6px 0 14px;font-family:var(--head);font-size:1.12rem;line-height:1.6;color:var(--ink);flex:1}
+.rv figcaption{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--muted)}
+.rv figcaption .i{width:18px;height:18px}
+.rv-cta{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:28px;text-align:center}
+.rv-ask{color:var(--text);font-size:.98rem;text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px}
+@media (min-width:860px){.rv-grid{grid-template-columns:repeat(3,1fr);gap:22px}}
+
+/* "New to moo krata?" explainer */
+.howto{margin:34px auto 0;max-width:980px;background:linear-gradient(160deg,#2a2117,#1d1711);border:1px solid rgba(233,185,73,.35);border-radius:24px;padding:24px 20px}
+.howto-th{margin:0 0 6px;color:var(--gold2);font-family:var(--head);font-size:1rem}
+.howto h3{color:#fff;font-size:clamp(1.3rem,4vw,1.7rem);margin:0 0 16px}
+.howto-steps{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.howto-steps li{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.04);border-radius:16px;padding:12px 14px;color:#e8dcc2;line-height:1.55}
+.howto-steps b{flex:none;width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--black);display:grid;place-items:center;font-family:var(--head)}
+.howto-tip{margin:16px 0 0;color:#cdbf9f;font-size:.95rem}
+.howto-tip b{color:var(--gold2)}
+@media (min-width:860px){.howto{padding:30px 34px}.howto-steps{grid-template-columns:repeat(4,1fr)}.howto-steps li{flex-direction:column}}
+
+/* mobile action bar: Call · Book on LINE · Map */
+.fab-bar{bottom:calc(10px + env(safe-area-inset-bottom));gap:8px;transition:opacity .2s,transform .2s,bottom .2s}
+.fab{padding:13px 10px;font-size:.98rem;gap:6px;min-height:50px}
+.fab-call{flex:1;background:#fff;color:var(--ink)}
+.fab-call .i{color:var(--gold-d)}
+.fab-line{flex:1.6}
+.fab-map{flex:1;width:auto;padding:13px 10px;background:var(--ink);color:var(--gold2);border:1px solid rgba(233,185,73,.4)}
+/* keep page content clear of the bar (bar ≈ 50px + 10px gap + safe area) */
+@media (max-width:959px){
+  body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+  /* Netlify "Powered by Netlify" badge present (bottom-right, ~60px tall): lift the bar above it */
+  html.has-nl-badge .fab-bar{bottom:calc(64px + env(safe-area-inset-bottom))}
+  html.has-nl-badge body{padding-bottom:calc(128px + env(safe-area-inset-bottom))}
+}
+@media (min-width:960px){
+  .fab-call,.fab-map{display:none}
+  html.has-nl-badge .fab-bar{bottom:84px}
+}
+.nav a{white-space:nowrap}
+html[lang="en"] .hero h1{font-size:clamp(2.6rem,10vw,4.2rem)}
+@media (min-width:960px) and (max-width:1499px){html[lang="en"] .hdr-phone{display:none}}
+.js-hours{white-space:nowrap}
