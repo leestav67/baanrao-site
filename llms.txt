@@ -1,0 +1,17 @@
+# บ้านเราหมูกระทะ · Baan Rao Moo Krata (Udon Thani, Thailand)
+
+> Family-friendly charcoal moo krata (Thai barbecue and hot pot) restaurant in Mueang Udon Thani. Open every day 17:00–22:00. Moo krata sets ฿199 (small) and ฿299 (large); extra marinated pork or pork belly ฿100. Prices may change.
+
+## Key facts
+- Name: บ้านเราหมูกระทะ (Baan Rao Moo Krata). "Baan rao" means "our house".
+- Address: 168 ซอยอุดมทรัพย์ หมู่ 7 บ้านเก่าน้อย ต.บ้านเลื่อม อ.เมืองอุดรธานี จ.อุดรธานี 41000 (168 Soi Udom Sap, Moo 7, Ban Kao Noi, Ban Lueam, Mueang Udon Thani, Udon Thani 41000), opposite Wang Badan.
+- Map: 17.440569, 102.794069 — https://goo.gl/maps/uLo6NqVWW7SKCHQf8
+- Phone: +66 93 269 1542 · LINE: @BaanRaoMookata (the add-friend link is in js/config.js; confirm it before quoting a URL)
+- Hours: daily 17:00–22:00 (last booking 21:00)
+- Food: marinated pork, pork belly, beef, chicken, sausages, seafood, fresh vegetables, som tam, spicy salads, noodles, drinks. Dipping sauce, pork and broth are made in-house.
+- Good for: families, kids, birthdays and groups. Live music on some nights. Delivery via GrabFood (search “บ้านเราหมูกระทะ”).
+
+## Pages
+- [Thai home page](https://harmonious-clafoutis-619d0d.netlify.app/): full information in Thai
+- [English home page](https://harmonious-clafoutis-619d0d.netlify.app/en/): full information in English
+- [FAQ](https://harmonious-clafoutis-619d0d.netlify.app/#faq): what moo krata is, location, hours, prices, booking, delivery

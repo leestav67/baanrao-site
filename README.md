@@ -1,8 +1,10 @@
 # บ้านเราหมูกระทะ · Baan Rao Moo Krata — website
 
-Static, mobile-first restaurant site (HTML + CSS + vanilla JS, no build step). Bookings go through
+Static, mobile-first restaurant site (HTML + CSS + vanilla JS). Bookings go through
 **LINE and phone** for now; a real online booking system (Google Sheets + Google Apps Script) is built in
-and switches on with one setting. Thai first, English toggle (remembered per visitor; `?lang=en` link for sharing).
+and switches on with one setting. Thai is the page at `/`. English is a real page at `/en/`, generated
+at build time from the Thai page (`python3 tools/build_en.py .`). The TH/EN links remember the choice;
+an old `?lang=en` link redirects to `/en/`.
 
 Live (preview) address: <https://harmonious-clafoutis-619d0d.netlify.app/>
 
@@ -10,14 +12,16 @@ Live (preview) address: <https://harmonious-clafoutis-619d0d.netlify.app/>
 index.html          the website (all sections)
 owner.html          owner's phone page: see bookings, cancel, block nights/slots (password protected)
 js/config.js        ← THE ONLY FILE YOU NORMALLY EDIT (LINE link, booking URL, hours, capacity, review links)
-js/main.js          language toggle, menu, floating buttons
+js/main.js          language links, menu, floating buttons, LINE/booking mode
 js/booking.js       booking widget (demo mode + live mode)
 js/videos.js        lazy TikTok clips (load on demand, one plays at a time, sound toggle)
 videos/             8 web-ready TikTok clips (H.264 MP4) + posters/
 css/                styles + self-hosted Thai fonts (Kanit, Noto Sans Thai)
 images/             optimised photos, logo, favicon, social share image
 backend/Code.gs     Google Apps Script booking backend (paste into Google Sheets)
-tools/set-site-url.sh  changes the site address in canonical / share tags / JSON-LD (see §2b)
+tools/set-site-url.sh  changes the public address in index.html and tools/site-base-url.txt (see §2b)
+tools/build_en.py      generates /en/ and refreshes sitemap.xml, robots.txt, llms.txt
+tools/site-base-url.txt  the origin the Netlify build copies into those files
 ```
 
 ---
@@ -28,7 +32,7 @@ tools/set-site-url.sh  changes the site address in canonical / share tags / JSON
 cd baanrao-site    # the unzipped folder that contains index.html
 python3 -m http.server 8000
 ```
-Open <http://localhost:8000>. Add `?lang=en` to force English. Owner page: <http://localhost:8000/owner.html>
+Open <http://localhost:8000>. English page: build it first with `python3 tools/build_en.py .`, then open <http://localhost:8000/en/>. Owner page: <http://localhost:8000/owner.html>
 (demo password: `demo`).
 
 **Booking while `BOOKING_API_URL` is empty (now):** the booking section shows the **"จองโต๊ะง่ายๆ ทาง LINE"**
@@ -56,7 +60,7 @@ every slot is shown as available (no invented "full" slots), and it's labelled
    **Site configuration → Change site name**, e.g. `baanraomookata.netlify.app`.
 
 The folder already has Netlify's settings, so there's nothing to configure:
-- `netlify.toml`: tells Netlify it's a plain static site (no build step, publish the folder as-is).
+- `netlify.toml`: publishes this folder and runs `python3 tools/build_en.py .` to generate `/en/`.
 - `_headers`: sensible caching (pages always fresh, images and videos cached for a week, fonts for a year) plus basic security headers.
 - `_redirects`: hides the `backend/` folder and this README from the public site.
 
@@ -70,13 +74,16 @@ To update the site later, drag the updated folder onto **Deploys** for the same 
 ### 2b. The site address (canonical + share previews)
 
 The full site address is written into the top of `index.html` (canonical, `og:url`, `og:image`,
-`twitter:image` and the Google JSON-LD), because LINE/Facebook/Google read those tags without running
+`twitter:image`, hreflang and the Google JSON-LD), because LINE/Facebook/Google read those tags without running
 any JavaScript. It's currently `https://harmonious-clafoutis-619d0d.netlify.app/`.
+The Netlify build reads the same origin from `tools/site-base-url.txt` (no trailing slash) and copies it
+into `index.html`, the generated `/en/` page, `sitemap.xml`, `robots.txt` and `llms.txt`.
 If you rename the Netlify site or connect a domain (e.g. baanraomookata.com), run once from the site folder:
 ```bash
 tools/set-site-url.sh https://baanraomookata.com/
 ```
-(or search-and-replace the old address in `index.html`). Then re-deploy and refresh the preview cache in the
+That updates `index.html` and `tools/site-base-url.txt` together, then regenerates `/en/`. Editing only
+`index.html` would be overwritten on the next build. Then re-deploy and refresh the preview cache in the
 Facebook Sharing Debugger (<https://developers.facebook.com/tools/debug/>); for LINE, share the link with `?v=2` once.
 
 ### 2c. The "Powered by Netlify" badge

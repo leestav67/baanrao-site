@@ -1,2 +1,8 @@
+# robots.txt for บ้านเราหมูกระทะ · Baan Rao Moo Krata
+# owner.html is kept out of search with <meta name="robots" content="noindex"> plus an
+# X-Robots-Tag header (see _headers). It is NOT disallowed here, because a Disallow would
+# stop Google from ever seeing that noindex.
 User-agent: *
-Disallow: /owner.html
+Allow: /
+
+Sitemap: https://harmonious-clafoutis-619d0d.netlify.app/sitemap.xml

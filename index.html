@@ -3,15 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- SEO:BEGIN -->
+<!-- SITE URL: https://harmonious-clafoutis-619d0d.netlify.app
+     Used by canonical, og:url, og:image, twitter:image and the JSON-LD below.
+     The build reads tools/site-base-url.txt. Moving to a new address? Run:
+     tools/set-site-url.sh https://your-new-domain/
+     That updates this file and tools/site-base-url.txt together. -->
+<meta name="site-base-url" content="https://harmonious-clafoutis-619d0d.netlify.app">
 <title>บ้านเราหมูกระทะ อุดรธานี | หมูกระทะเตาถ่าน น้ำจิ้มสูตรบ้านเรา · เปิดทุกวัน 17:00–22:00</title>
 <meta name="description" content="หมูกระทะเตาถ่าน อุดรธานี ตรงข้ามวังบาดาล หมูหมัก น้ำซุป น้ำจิ้มทำเอง ชุดเริ่มต้น ฿199 เหมาะกับครอบครัวและหมู่คณะ มีที่จอดรถ ดนตรีสดบางคืน เปิดทุกวัน 17:00–22:00 จองโต๊ะทาง LINE หรือโทร 093 269 1542">
 <meta name="keywords" content="หมูกระทะ อุดร, บ้านเราหมูกระทะ, หมูกระทะเตาถ่าน, หมูกระทะ อุดรธานี, ร้านอาหาร อุดรธานี, moo krata Udon Thani, Baan Rao Moo Krata">
-<!-- SITE URL: https://harmonious-clafoutis-619d0d.netlify.app/
-     Used by canonical, og:url, og:image, twitter:image and the JSON-LD below.
-     Moving to a new address or custom domain? Run:  tools/set-site-url.sh https://your-new-domain/
-     (or search-and-replace the URL above in this file and robots.txt). -->
 <link rel="canonical" href="https://harmonious-clafoutis-619d0d.netlify.app/">
-<meta name="theme-color" content="#0f0c08">
+<link rel="alternate" hreflang="th" href="https://harmonious-clafoutis-619d0d.netlify.app/">
+<link rel="alternate" hreflang="en" href="https://harmonious-clafoutis-619d0d.netlify.app/en/">
+<link rel="alternate" hreflang="x-default" href="https://harmonious-clafoutis-619d0d.netlify.app/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="บ้านเราหมูกระทะ · Baan Rao Moo Krata">
 <meta property="og:url" content="https://harmonious-clafoutis-619d0d.netlify.app/">
@@ -27,49 +32,123 @@
 <meta name="twitter:title" content="บ้านเราหมูกระทะ อุดรธานี · หมูกระทะเตาถ่าน น้ำจิ้มสูตรบ้านเรา">
 <meta name="twitter:description" content="ชุดเริ่ม ฿199 · เปิดทุกวัน 17:00–22:00 · ตรงข้ามวังบาดาล · จองโต๊ะทาง LINE | Charcoal moo krata in Udon Thani, sets from ฿199, open daily 5–10pm">
 <meta name="twitter:image" content="https://harmonious-clafoutis-619d0d.netlify.app/images/og-image.jpg">
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-<link rel="preload" href="fonts/Kanit-700-thai.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/NotoSansThai-400-thai.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="images/hero-mobile-800.jpg" media="(max-width: 800px)">
-<link rel="preload" as="image" href="images/hero-full-1448.jpg" imagesrcset="images/hero-full-1024.jpg 1024w, images/hero-full-1448.jpg 1448w" imagesizes="(min-width: 960px) 75vw, 100vw" media="(min-width: 801px)">
-<link rel="stylesheet" href="css/fonts.css" id="fontsCss">
-<script>if(location.protocol==="file:")document.getElementById("fontsCss").href="css/fonts-embedded.css";</script>
-<link rel="stylesheet" href="css/style.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Restaurant",
+  "@id": "https://harmonious-clafoutis-619d0d.netlify.app/#restaurant",
   "name": "บ้านเราหมูกระทะ",
-  "alternateName": "Baan Rao Moo Krata",
+  "alternateName": ["Baan Rao Moo Krata", "Baan Rao Mookata", "บ้านเราหมูกระทะ อุดรธานี"],
   "description": "หมูกระทะเตาถ่าน น้ำจิ้มสูตรบ้านเรา บรรยากาศเหมือนนั่งทานที่บ้าน อุดรธานี",
   "url": "https://harmonious-clafoutis-619d0d.netlify.app/",
-  "image": ["https://harmonious-clafoutis-619d0d.netlify.app/images/og-image.jpg", "https://harmonious-clafoutis-619d0d.netlify.app/images/logo.jpg"],
+  "inLanguage": "th",
+  "image": [
+    "https://harmonious-clafoutis-619d0d.netlify.app/images/og-image.jpg",
+    "https://harmonious-clafoutis-619d0d.netlify.app/images/hero-full-1448.jpg",
+    "https://harmonious-clafoutis-619d0d.netlify.app/images/about-interior.jpg"
+  ],
   "logo": "https://harmonious-clafoutis-619d0d.netlify.app/images/logo.jpg",
-  "servesCuisine": ["Thai", "Moo Krata", "Thai BBQ", "Hot pot"],
   "telephone": "+66932691542",
+  "servesCuisine": ["Thai", "Isan", "Moo krata", "Thai barbecue", "Hot pot"],
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "168 ซอยอุดมทรัพย์ หมู่ 7 บ้านเก่าน้อย",
-    "addressLocality": "ต.บ้านเลื่อม อ.เมืองอุดรธานี",
+    "streetAddress": "168 หมู่ 7 ซอยอุดมทรัพย์ บ้านเก่าน้อย ตำบลบ้านเลื่อม",
+    "addressLocality": "อำเภอเมืองอุดรธานี",
     "addressRegion": "อุดรธานี",
     "postalCode": "41000",
     "addressCountry": "TH"
   },
-  "geo": { "@type": "GeoCoordinates", "latitude": 17.440569, "longitude": 102.794069 },
+  "geo": {"@type": "GeoCoordinates", "latitude": 17.440569, "longitude": 102.794069},
   "hasMap": "https://goo.gl/maps/uLo6NqVWW7SKCHQf8",
   "openingHoursSpecification": [{
     "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-    "opens": "17:00", "closes": "22:00"
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "opens": "17:00",
+    "closes": "22:00"
   }],
   "acceptsReservations": true,
+  "amenityFeature": [
+    {"@type": "LocationFeatureSpecification", "name": "เด็กๆ ยินดีต้อนรับ", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "ดนตรีสด (บางคืน)", "value": true}
+  ],
+  "hasMenu": {
+    "@type": "Menu",
+    "name": "เมนูบ้านเราหมูกระทะ",
+    "url": "https://harmonious-clafoutis-619d0d.netlify.app/#menu",
+    "inLanguage": "th",
+    "hasMenuSection": [
+      {
+        "@type": "MenuSection",
+        "name": "ชุดหมูกระทะ",
+        "hasMenuItem": [
+          {
+            "@type": "MenuItem",
+            "name": "ชุดหมูกระทะ ชุดเล็ก",
+            "description": "กระทะร้อนบนเตาถ่าน หมูหมัก น้ำซุป และน้ำจิ้มทำเอง เสิร์ฟพร้อมผักสด วุ้นเส้น และไข่",
+            "offers": {"@type": "Offer", "price": "199", "priceCurrency": "THB"}
+          },
+          {
+            "@type": "MenuItem",
+            "name": "ชุดหมูกระทะ ชุดใหญ่",
+            "description": "ชุดหมูกระทะชุดใหญ่",
+            "offers": {"@type": "Offer", "price": "299", "priceCurrency": "THB"}
+          },
+          {
+            "@type": "MenuItem",
+            "name": "เพิ่มหมูหมัก",
+            "description": "เพิ่มหมูหมักสูตรร้าน",
+            "offers": {"@type": "Offer", "price": "100", "priceCurrency": "THB"}
+          },
+          {
+            "@type": "MenuItem",
+            "name": "เพิ่มหมูสามชั้น",
+            "description": "เพิ่มหมูสามชั้น",
+            "offers": {"@type": "Offer", "price": "100", "priceCurrency": "THB"}
+          }
+        ]
+      },
+      {"@type": "MenuSection", "name": "เนื้อสัตว์", "description": "หมูหมัก สามชั้น เนื้อวัว ไก่ ไส้กรอก และอีกมากมาย"},
+      {"@type": "MenuSection", "name": "อาหารทะเล", "description": "กุ้ง หมึก ปลา หอย ย่างก็ได้ ต้มก็อร่อย"},
+      {"@type": "MenuSection", "name": "ยำ & ส้มตำ", "description": "ส้มตำ ยำรสจัดจ้านสไตล์อีสาน ทานคู่หมูกระทะเข้ากันสุดๆ"},
+      {"@type": "MenuSection", "name": "เส้น & ของทานเล่น", "description": "วุ้นเส้น มาม่า ยำทะเล และเมนูทานเล่นแบ่งกันทาน"},
+      {"@type": "MenuSection", "name": "ผักสด", "description": "ผักบุ้ง ผักกาดขาว เห็ด ข้าวโพด ลงต้มในน้ำซุปหอมหวาน"},
+      {"@type": "MenuSection", "name": "เครื่องดื่ม", "description": "น้ำอัดลม น้ำเปล่าเย็นๆ และเครื่องดื่มสำหรับผู้ใหญ่"}
+    ]
+  },
   "sameAs": [
     "https://www.facebook.com/people/%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%A3%E0%B8%B2%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B8%97%E0%B8%B0/100076134454771/",
     "https://www.tiktok.com/@boom_berler"
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "หมูกระทะคืออะไร", "acceptedAnswer": {"@type": "Answer", "text": "หมูกระทะคือการปิ้งย่างและต้มแบบไทยบนกระทะทรงโดม ย่างหมูและเนื้อสัตว์บนโดมตรงกลาง ส่วนรอบกระทะเป็นน้ำซุปไว้ต้มผัก วุ้นเส้น และไข่ ที่บ้านเราหมูกระทะใช้เตาถ่าน และทำหมูหมัก น้ำซุป และน้ำจิ้มเองด้วยสูตรของครอบครัว"}},
+    {"@type": "Question", "name": "บ้านเราหมูกระทะอยู่ที่ไหน", "acceptedAnswer": {"@type": "Answer", "text": "ร้านอยู่ที่ 168 ซอยอุดมทรัพย์ หมู่ 7 บ้านเก่าน้อย ต.บ้านเลื่อม อ.เมืองอุดรธานี จ.อุดรธานี 41000 ตรงข้ามวังบาดาล จากตัวเมืองอุดรฯ ลอดอุโมงค์แยกรังษิณามุ่งหน้าหนองคาย ผ่านหมวดทางหลวงเก่าน้อย ชิดซ้ายเข้าซอยอุดมทรัพย์ ตรงไปประมาณ 150 ม. แล้วเลี้ยวซ้าย ร้านอยู่ทางขวามือ"}},
+    {"@type": "Question", "name": "ร้านเปิดกี่โมง", "acceptedAnswer": {"@type": "Answer", "text": "เปิดทุกวัน 17:00–22:00 น. รับจองโต๊ะรอบสุดท้าย 21:00 น."}},
+    {"@type": "Question", "name": "หมูกระทะราคาเท่าไหร่", "acceptedAnswer": {"@type": "Answer", "text": "ชุดหมูกระทะชุดเล็ก ฿199 ชุดใหญ่ ฿299 เพิ่มหมูหมักหรือหมูสามชั้น ฿100 (ราคาอาจเปลี่ยนแปลง สอบถามราคาล่าสุดทาง LINE @BaanRaoMookata)"}},
+    {"@type": "Question", "name": "จองโต๊ะได้อย่างไร", "acceptedAnswer": {"@type": "Answer", "text": "จองผ่านแชท LINE @BaanRaoMookata หรือโทร 093 269 1542 กลุ่มมากกว่า 20 ท่านกรุณาแชททาง LINE"}},
+    {"@type": "Question", "name": "พาเด็กหรือมาเป็นกลุ่มใหญ่ได้ไหม", "acceptedAnswer": {"@type": "Answer", "text": "ได้ ร้านมีโต๊ะใหญ่สำหรับครอบครัว งานวันเกิด และกลุ่มเพื่อน เด็กๆ ยินดีต้อนรับ ถ้ามาเป็นกลุ่มใหญ่แนะนำให้จองล่วงหน้า"}},
+    {"@type": "Question", "name": "มีเดลิเวอรี่ไหม", "acceptedAnswer": {"@type": "Answer", "text": "มี สั่งหมูกระทะส่งถึงบ้านผ่านแอป GrabFood ค้นหา “บ้านเราหมูกระทะ”"}},
+    {"@type": "Question", "name": "มีดนตรีสดไหม", "acceptedAnswer": {"@type": "Answer", "text": "มีดนตรีสดจากนักร้องชายบางคืน ติดตามตารางได้ทาง Facebook และ TikTok @boom_berler"}},
+    {"@type": "Question", "name": "มีเมนูที่ไม่ใช่หมูไหม", "acceptedAnswer": {"@type": "Answer", "text": "มี นอกจากหมูยังมีเนื้อวัว ไก่ อาหารทะเล ผักสด ส้มตำ และยำ"}}
+  ]
+}
+</script>
+<!-- SEO:END -->
+<meta name="theme-color" content="#0f0c08">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="preload" href="fonts/Kanit-700-thai.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/NotoSansThai-400-thai.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" href="images/hero-mobile-800.avif" media="(max-width: 800px)">
+<link rel="preload" as="image" type="image/avif" href="images/hero-full-1448.avif" imagesrcset="images/hero-full-1024.avif 1024w, images/hero-full-1448.avif 1448w" imagesizes="(min-width: 960px) 75vw, 100vw" media="(min-width: 801px)">
+<link rel="stylesheet" href="css/fonts.css" id="fontsCss">
+<script>if(location.protocol==="file:")document.getElementById("fontsCss").href="css/fonts-embedded.css";</script>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <a class="skip" href="#main" data-en="Skip to content">ข้ามไปยังเนื้อหา</a>
@@ -87,10 +166,11 @@
       <a href="#videos" data-en="Videos">วิดีโอ</a>
       <a href="#booking" data-en="Book a table">จองโต๊ะ</a>
       <a href="#find" data-en="Find us">การเดินทาง</a>
+      <a href="#faq" data-en="FAQ">คำถามที่พบบ่อย</a>
       <a href="#contact" data-en="Contact">ติดต่อ</a>
     </nav>
     <div class="header-actions">
-      <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language"><span class="on">TH</span><span>EN</span></button>
+      <nav class="lang-toggle" id="langToggle" aria-label="ภาษา / Language"><a href="/" hreflang="th" lang="th" class="on" aria-current="page">TH</a><a href="/en/" hreflang="en" lang="en">EN</a></nav>
       <a class="hdr-phone" href="tel:+66932691542"><svg class="i"><use href="#i-phone"/></svg><span data-en="Call">โทร</span> 093 269 1542</a>
       <a class="btn btn-line btn-sm hide-sm" href="#contact" data-cfg-href="LINE_URL" target="_blank" rel="noopener"><svg class="i"><use href="#i-line"/></svg>LINE</a>
       <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -101,10 +181,18 @@
 <main id="main">
 <!-- HERO -->
 <section class="hero">
-  <img class="hero-blur" src="images/hero-blur-480.jpg" alt="" aria-hidden="true" width="480" height="360">
+  <picture class="hero-blur-pic">
+    <source media="(min-width: 960px)" type="image/avif" srcset="images/hero-blur-480.avif">
+    <source media="(min-width: 960px)" srcset="images/hero-blur-480.jpg">
+    <img class="hero-blur" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" aria-hidden="true" width="480" height="360">
+  </picture>
   <picture class="hero-pic">
-    <source media="(min-width: 801px)" srcset="images/hero-full-1024.jpg 1024w, images/hero-full-1448.jpg 1448w" sizes="(min-width: 960px) 75vw, 100vw" width="1448" height="1086">
-    <img class="hero-bg" src="images/hero-mobile-800.jpg" alt="ลานนั่งทานของร้านบ้านเราหมูกระทะยามค่ำ ใต้หลังคาและไฟประดับ เคาน์เตอร์ ป้ายไฟโลโก้ และโต๊ะไม้" width="800" height="600" fetchpriority="high">
+    <source media="(min-width: 801px)" type="image/avif" srcset="images/hero-full-1024.avif 1024w, images/hero-full-1448.avif 1448w" sizes="(min-width: 960px) 75vw, 100vw">
+    <source media="(min-width: 801px)" type="image/webp" srcset="images/hero-full-1024.webp 1024w, images/hero-full-1448.webp 1448w" sizes="(min-width: 960px) 75vw, 100vw">
+    <source media="(min-width: 801px)" srcset="images/hero-full-1024.jpg 1024w, images/hero-full-1448.jpg 1448w" sizes="(min-width: 960px) 75vw, 100vw">
+    <source type="image/avif" srcset="images/hero-mobile-800.avif">
+    <source type="image/webp" srcset="images/hero-mobile-800.webp">
+    <img class="hero-bg" src="images/hero-mobile-800.jpg" alt="ลานนั่งทานของร้านบ้านเราหมูกระทะยามค่ำ ใต้หลังคาและไฟประดับ เคาน์เตอร์ ป้ายไฟโลโก้ และโต๊ะไม้" data-en-alt="The covered open-air dining area at Baan Rao Moo Krata in Udon Thani at night, with string lights, the drinks counter, the illuminated logo sign and wooden tables" width="800" height="600" fetchpriority="high">
   </picture>
   <div class="hero-shade"></div>
   <div class="wrap hero-content">
@@ -152,8 +240,12 @@
 <section class="section about" id="about">
   <div class="wrap about-grid">
     <div class="about-media">
-      <img class="about-photo" src="images/about-interior.jpg" alt="หน้าร้านบ้านเราหมูกระทะ โต๊ะไม้ ไฟประดับ และป้ายร้าน" loading="lazy" width="960" height="740">
-      <img class="about-logo" src="images/logo.jpg" alt="ป้ายไฟร้านบ้านเราหมูกระทะ" loading="lazy" width="320" height="320">
+      <picture>
+        <source type="image/avif" srcset="images/about-interior.avif">
+        <source type="image/webp" srcset="images/about-interior-480.webp 480w, images/about-interior.webp 960w" sizes="(min-width: 960px) 480px, 100vw">
+        <img class="about-photo" src="images/about-interior.jpg" alt="หน้าร้านบ้านเราหมูกระทะ โต๊ะไม้ ไฟประดับ และป้ายร้าน" data-en-alt="Wooden tables under string lights at Baan Rao Moo Krata" loading="lazy" width="960" height="740">
+      </picture>
+      <img class="about-logo" src="images/logo.jpg" alt="ป้ายไฟร้านบ้านเราหมูกระทะ" data-en-alt="The illuminated Baan Rao Moo Krata logo sign" loading="lazy" width="320" height="320">
     </div>
     <div class="about-text">
       <span class="kicker" data-en="Welcome to our house">ยินดีต้อนรับสู่บ้านเรา</span>
@@ -192,7 +284,12 @@
     <div class="story-media">
       <article class="vcard vcard-wide">
         <div class="vwrap">
-          <video muted playsinline loop preload="none" poster="videos/posters/08-our-story.jpg" data-src="videos/08-our-story.mp4" aria-label="เรื่องราวของบ้านเรา"></video>
+          <picture class="vposter">
+            <source type="image/avif" srcset="videos/posters/08-our-story.avif">
+            <source type="image/webp" srcset="videos/posters/08-our-story.webp">
+            <img src="videos/posters/08-our-story.jpg" alt="" width="768" height="576" loading="lazy">
+          </picture>
+          <video muted playsinline loop preload="none" data-src="videos/08-our-story.mp4" aria-label="เรื่องราวของบ้านเรา" data-en-aria="The Baan Rao story"></video>
           <button class="vplay" type="button" aria-label="เล่น / Play"><svg class="i"><use href="#i-play"/></svg></button>
         </div>
         <div class="vmeta"><h3 data-en="The Baan Rao story">เรื่องราวของบ้านเรา</h3><a href="https://www.tiktok.com/@boom_berler/video/7583550463073684756" target="_blank" rel="noopener"><svg class="i"><use href="#i-tt"/></svg><span data-en="Watch on TikTok">ดูบน TikTok</span> ↗</a></div>
@@ -211,7 +308,7 @@
     </div>
 
     <div class="sets">
-      <img class="sets-img" src="images/food-mookrata.jpg" alt="ชุดหมูกระทะควันกรุ่นบนเตาถ่าน" loading="lazy" width="206" height="206">
+      <img class="sets-img" src="images/food-mookrata.jpg" alt="กระทะหมูกระทะบนเตาถ่าน พร้อมจานหมูสด" data-en-alt="A moo krata pan on a charcoal stove with a plate of raw pork, ready to grill" loading="lazy" width="206" height="206">
       <div class="sets-body">
         <span class="tag" data-en="Signature">เมนูหลัก</span>
         <h3 data-en="Moo krata sets">ชุดหมูกระทะ</h3>
@@ -227,19 +324,19 @@
 
     <div class="menu-grid">
       <article class="menu-card">
-        <img src="images/food-pork-grill.jpg" alt="หมูสไลซ์บนกระทะ" loading="lazy" width="206" height="206">
+        <img src="images/food-pork-grill.jpg" alt="หมูสไลซ์ย่างบนโดมกระทะ น้ำซุปรอบขอบกระทะ" data-en-alt="Sliced pork grilling on the dome of a moo krata pan, with broth around the edge" loading="lazy" width="206" height="206">
         <div class="mc-body"><h3 data-en="Meats">เนื้อสัตว์</h3><p data-en="Marinated pork, pork belly, beef, chicken, sausages and more.">หมูหมัก สามชั้น เนื้อวัว ไก่ ไส้กรอก และอีกมากมาย</p></div>
       </article>
       <article class="menu-card">
-        <img src="images/food-seafood-1.jpg" alt="เมนูทะเลรวม กุ้ง หมึก หอยแมลงภู่" loading="lazy" width="206" height="206">
+        <img src="images/food-seafood-1.jpg" alt="ยำทะเลรวม กุ้ง หมึก หอยแมลงภู่" data-en-alt="Spicy Thai seafood salad (yam talay) with shrimp, squid and mussels" loading="lazy" width="206" height="206">
         <div class="mc-body"><h3 data-en="Seafood">อาหารทะเล</h3><p data-en="Shrimp, squid, fish and mussels — great on the grill or in the broth.">กุ้ง หมึก ปลา หอย ย่างก็ได้ ต้มก็อร่อย</p></div>
       </article>
       <article class="menu-card">
-        <img src="images/food-somtam.jpg" alt="ส้มตำ ยำรสแซ่บ" loading="lazy" width="206" height="206">
+        <img src="images/food-somtam.jpg" alt="ส้มตำใส่ขนมจีนและไข่เค็ม" data-en-alt="Som tam (green papaya salad) with rice noodles and salted egg" loading="lazy" width="206" height="206">
         <div class="mc-body"><h3 data-en="Salads &amp; som tam">ยำ &amp; ส้มตำ</h3><p data-en="Zingy, spicy Isan-style salads to go with the grill.">ส้มตำ ยำรสจัดจ้านสไตล์อีสาน ทานคู่หมูกระทะเข้ากันสุดๆ</p></div>
       </article>
       <article class="menu-card">
-        <img src="images/food-seafood-2.jpg" alt="ยำทะเลและผัก" loading="lazy" width="206" height="206">
+        <img src="images/food-seafood-2.jpg" alt="ยำทะเลรสแซ่บ หอยแมลงภู่ หมึก และผักสด" data-en-alt="Spicy seafood salad with mussels, squid and fresh herbs" loading="lazy" width="206" height="206">
         <div class="mc-body"><h3 data-en="Noodles &amp; sides">เส้น &amp; ของทานเล่น</h3><p data-en="Glass noodles, instant noodles, spicy seafood dishes and shareable sides.">วุ้นเส้น มาม่า ยำทะเล และเมนูทานเล่นแบ่งกันทาน</p></div>
       </article>
       <article class="menu-card icon-card">
@@ -346,7 +443,12 @@
       <div class="vrow" id="vrow">
       <article class="vcard ">
         <div class="vwrap">
-          <video muted playsinline loop preload="none" poster="videos/posters/01-live-music-moo-krata.jpg" data-src="videos/01-live-music-moo-krata.mp4" aria-label="ดนตรีสด คู่หมูกระทะเตาถ่าน"></video>
+          <picture class="vposter">
+            <source type="image/avif" srcset="videos/posters/01-live-music-moo-krata.avif">
+            <source type="image/webp" srcset="videos/posters/01-live-music-moo-krata.webp">
+            <img src="videos/posters/01-live-music-moo-krata.jpg" alt="" width="406" height="720" loading="lazy">
+          </picture>
+          <video muted playsinline loop preload="none" data-src="videos/01-live-music-moo-krata.mp4" aria-label="ดนตรีสด คู่หมูกระทะเตาถ่าน" data-en-aria="Live music and charcoal moo krata"></video>
           <button class="vplay" type="button" aria-label="เล่น / Play"><svg class="i"><use href="#i-play"/></svg></button>
           <button class="vsound" type="button" aria-pressed="false" aria-label="เปิดเสียง / Sound"><svg class="i ico-off"><use href="#i-mute"/></svg><svg class="i ico-on"><use href="#i-sound"/></svg></button>
         </div>
@@ -354,14 +456,24 @@
       </article>
       <article class="vcard ">
         <div class="vwrap">
-          <video muted playsinline loop preload="none" poster="videos/posters/02-food-menu.jpg" data-src="videos/02-food-menu.mp4" aria-label="เมนูของร้าน"></video>
+          <picture class="vposter">
+            <source type="image/avif" srcset="videos/posters/02-food-menu.avif">
+            <source type="image/webp" srcset="videos/posters/02-food-menu.webp">
+            <img src="videos/posters/02-food-menu.jpg" alt="" width="540" height="720" loading="lazy">
+          </picture>
+          <video muted playsinline loop preload="none" data-src="videos/02-food-menu.mp4" aria-label="เมนูของร้าน" data-en-aria="A look at our food"></video>
           <button class="vplay" type="button" aria-label="เล่น / Play"><svg class="i"><use href="#i-play"/></svg></button>
         </div>
         <div class="vmeta"><h3 data-en="A look at our food">เมนูของร้าน</h3><a href="https://www.tiktok.com/@boom_berler/video/7586260466310090005" target="_blank" rel="noopener"><svg class="i"><use href="#i-tt"/></svg><span data-en="Watch on TikTok">ดูบน TikTok</span> ↗</a></div>
       </article>
       <article class="vcard ">
         <div class="vwrap">
-          <video muted playsinline loop preload="none" poster="videos/posters/03-night-atmosphere-tour.jpg" data-src="videos/03-night-atmosphere-tour.mp4" aria-label="บรรยากาศยามค่ำคืน"></video>
+          <picture class="vposter">
+            <source type="image/avif" srcset="videos/posters/03-night-atmosphere-tour.avif">
+            <source type="image/webp" srcset="videos/posters/03-night-atmosphere-tour.webp">
+            <img src="videos/posters/03-night-atmosphere-tour.jpg" alt="" width="406" height="720" loading="lazy">
+          </picture>
+          <video muted playsinline loop preload="none" data-src="videos/03-night-atmosphere-tour.mp4" aria-label="บรรยากาศยามค่ำคืน" data-en-aria="Our evening atmosphere"></video>
           <button class="vplay" type="button" aria-label="เล่น / Play"><svg class="i"><use href="#i-play"/></svg></button>
           <button class="vsound" type="button" aria-pressed="false" aria-label="เปิดเสียง / Sound"><svg class="i ico-off"><use href="#i-mute"/></svg><svg class="i ico-on"><use href="#i-sound"/></svg></button>
         </div>
@@ -369,7 +481,12 @@
       </article>
       <article class="vcard ">
         <div class="vwrap">
-          <video muted playsinline loop preload="none" poster="videos/posters/04-new-year-full-house.jpg" data-src="videos/04-new-year-full-house.mp4" aria-label="ปีใหม่ร้านเต็มทุกโต๊ะ"></video>
+          <picture class="vposter">
+            <source type="image/avif" srcset="videos/posters/04-new-year-full-house.avif">
+            <source type="image/webp" srcset="videos/posters/04-new-year-full-house.webp">
+            <img src="videos/posters/04-new-year-full-house.jpg" alt="" width="540" height="720" loading="lazy">
+          </picture>
+          <video muted playsinline loop preload="none" data-src="videos/04-new-year-full-house.mp4" aria-label="ปีใหม่ร้านเต็มทุกโต๊ะ" data-en-aria="New Year full house"></video>
           <button class="vplay" type="button" aria-label="เล่น / Play"><svg class="i"><use href="#i-play"/></svg></button>
           <button class="vsound" type="button" aria-pressed="false" aria-label="เปิดเสียง / Sound"><svg class="i ico-off"><use href="#i-mute"/></svg><svg class="i ico-on"><use href="#i-sound"/></svg></button>
         </div>
@@ -377,7 +494,12 @@
       </article>
       <article class="vcard ">
         <div class="vwrap">
-          <video muted playsinline loop preload="none" poster="videos/posters/05-friends-and-groups.jpg" data-src="videos/05-friends-and-groups.mp4" aria-label="มากับเพื่อน มาเป็นกลุ่ม"></video>
+          <picture class="vposter">
+            <source type="image/avif" srcset="videos/posters/05-friends-and-groups.avif">
+            <source type="image/webp" srcset="videos/posters/05-friends-and-groups.webp">
+            <img src="videos/posters/05-friends-and-groups.jpg" alt="" width="540" height="720" loading="lazy">
+          </picture>
+          <video muted playsinline loop preload="none" data-src="videos/05-friends-and-groups.mp4" aria-label="มากับเพื่อน มาเป็นกลุ่ม" data-en-aria="Friends and groups"></video>
           <button class="vplay" type="button" aria-label="เล่น / Play"><svg class="i"><use href="#i-play"/></svg></button>
           <button class="vsound" type="button" aria-pressed="false" aria-label="เปิดเสียง / Sound"><svg class="i ico-off"><use href="#i-mute"/></svg><svg class="i ico-on"><use href="#i-sound"/></svg></button>
         </div>
@@ -385,7 +507,12 @@
       </article>
       <article class="vcard ">
         <div class="vwrap">
-          <video muted playsinline loop preload="none" poster="videos/posters/06-roadside-sign-kids.jpg" data-src="videos/06-roadside-sign-kids.mp4" aria-label="ป้ายไฟหน้าซอย ฝีมือเราเอง"></video>
+          <picture class="vposter">
+            <source type="image/avif" srcset="videos/posters/06-roadside-sign-kids.avif">
+            <source type="image/webp" srcset="videos/posters/06-roadside-sign-kids.webp">
+            <img src="videos/posters/06-roadside-sign-kids.jpg" alt="" width="406" height="720" loading="lazy">
+          </picture>
+          <video muted playsinline loop preload="none" data-src="videos/06-roadside-sign-kids.mp4" aria-label="ป้ายไฟหน้าซอย ฝีมือเราเอง" data-en-aria="Our DIY roadside sign"></video>
           <button class="vplay" type="button" aria-label="เล่น / Play"><svg class="i"><use href="#i-play"/></svg></button>
         </div>
         <div class="vmeta"><h3 data-en="Our DIY roadside sign">ป้ายไฟหน้าซอย ฝีมือเราเอง</h3><a href="https://www.tiktok.com/@boom_berler/video/7598958354379050248" target="_blank" rel="noopener"><svg class="i"><use href="#i-tt"/></svg><span data-en="Watch on TikTok">ดูบน TikTok</span> ↗</a></div>
@@ -515,12 +642,17 @@
     </div>
     <div class="find-top">
       <div class="map-box">
-        <iframe id="mapFrame" title="แผนที่ร้านบ้านเราหมูกระทะ" src="https://www.google.com/maps?q=17.440569,102.794069&hl=th&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <iframe id="mapFrame" title="แผนที่ร้านบ้านเราหมูกระทะ" data-en-title="Map of Baan Rao Moo Krata" src="https://www.google.com/maps?q=17.440569,102.794069&hl=th&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
         <a class="map-open" href="https://goo.gl/maps/uLo6NqVWW7SKCHQf8" target="_blank" rel="noopener" data-en="Open in Google Maps ↗">เปิดใน Google Maps ↗</a>
       </div>
       <article class="vcard vcard-find">
         <div class="vwrap">
-          <video muted playsinline loop preload="none" poster="videos/posters/07-how-to-get-here.jpg" data-src="videos/07-how-to-get-here.mp4" aria-label="คลิปเส้นทางมาร้าน"></video>
+          <picture class="vposter">
+            <source type="image/avif" srcset="videos/posters/07-how-to-get-here.avif">
+            <source type="image/webp" srcset="videos/posters/07-how-to-get-here.webp">
+            <img src="videos/posters/07-how-to-get-here.jpg" alt="" width="406" height="720" loading="lazy">
+          </picture>
+          <video muted playsinline loop preload="none" data-src="videos/07-how-to-get-here.mp4" aria-label="คลิปเส้นทางมาร้าน" data-en-aria="Drive with us: how to get here"></video>
           <button class="vplay" type="button" aria-label="เล่น / Play"><svg class="i"><use href="#i-play"/></svg></button>
           <button class="vsound" type="button" aria-pressed="false" aria-label="เปิดเสียง / Sound"><svg class="i ico-off"><use href="#i-mute"/></svg><svg class="i ico-on"><use href="#i-sound"/></svg></button>
         </div>
@@ -553,6 +685,54 @@
           <li><span class="ii"><svg class="i"><use href="#i-phone"/></svg></span><div><b data-en="Phone">โทร</b><p><a href="tel:+66932691542">093 269 1542</a></p></div></li>
         </ul>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker" data-en="FAQ">คำถามที่พบบ่อย</span>
+      <h2 data-en="Moo krata at Baan Rao: your questions answered">คำถามที่พบบ่อยเกี่ยวกับบ้านเราหมูกระทะ</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary data-en="What is moo krata?">หมูกระทะคืออะไร</summary>
+        <p data-en="Moo krata is Thai-style barbecue and hot pot in one: you grill pork and other meats on a domed pan in the middle while vegetables, glass noodles and egg simmer in the broth around the edge. At Baan Rao Moo Krata the pans sit on charcoal, and the marinated pork, broth and dipping sauce are made in-house from family recipes.">หมูกระทะคือการปิ้งย่างและต้มแบบไทยบนกระทะทรงโดม ย่างหมูและเนื้อสัตว์บนโดมตรงกลาง ส่วนรอบกระทะเป็นน้ำซุปไว้ต้มผัก วุ้นเส้น และไข่ ที่บ้านเราหมูกระทะใช้เตาถ่าน และทำหมูหมัก น้ำซุป และน้ำจิ้มเองด้วยสูตรของครอบครัว</p>
+      </details>
+      <details class="faq-item">
+        <summary data-en="Where is Baan Rao Moo Krata?">บ้านเราหมูกระทะอยู่ที่ไหน</summary>
+        <p data-en="168 Soi Udom Sap, Moo 7, Ban Kao Noi, Ban Lueam, Mueang Udon Thani, Udon Thani 41000, opposite Wang Badan. From Udon city, take the Rangsina junction underpass towards Nong Khai, pass the Kao Noi highway office, keep left into Soi Udom Sap, go about 150 m and turn left. The restaurant is on the right.">ร้านอยู่ที่ 168 ซอยอุดมทรัพย์ หมู่ 7 บ้านเก่าน้อย ต.บ้านเลื่อม อ.เมืองอุดรธานี จ.อุดรธานี 41000 ตรงข้ามวังบาดาล จากตัวเมืองอุดรฯ ลอดอุโมงค์แยกรังษิณามุ่งหน้าหนองคาย ผ่านหมวดทางหลวงเก่าน้อย ชิดซ้ายเข้าซอยอุดมทรัพย์ ตรงไปประมาณ 150 ม. แล้วเลี้ยวซ้าย ร้านอยู่ทางขวามือ</p>
+      </details>
+      <details class="faq-item">
+        <summary data-en="What are the opening hours?">ร้านเปิดกี่โมง</summary>
+        <p data-en="Open every day, 17:00–22:00. The last table booking is at 21:00.">เปิดทุกวัน 17:00–22:00 น. รับจองโต๊ะรอบสุดท้าย 21:00 น.</p>
+      </details>
+      <details class="faq-item">
+        <summary data-en="How much does it cost?">หมูกระทะราคาเท่าไหร่</summary>
+        <p data-en="A small moo krata set is ฿199 and a large set is ฿299. Extra marinated pork or pork belly is ฿100. Prices may change; ask on LINE @BaanRaoMookata for current prices.">ชุดหมูกระทะชุดเล็ก ฿199 ชุดใหญ่ ฿299 เพิ่มหมูหมักหรือหมูสามชั้น ฿100 (ราคาอาจเปลี่ยนแปลง สอบถามราคาล่าสุดทาง LINE @BaanRaoMookata)</p>
+      </details>
+      <details class="faq-item">
+        <summary data-en="How do I book a table?">จองโต๊ะได้อย่างไร</summary>
+        <p data-en="Message us on LINE @BaanRaoMookata or call 093 269 1542. For groups of more than 20, please book on LINE.">จองผ่านแชท LINE @BaanRaoMookata หรือโทร 093 269 1542 กลุ่มมากกว่า 20 ท่านกรุณาแชททาง LINE</p>
+      </details>
+      <details class="faq-item">
+        <summary data-en="Is it good for kids and big groups?">พาเด็กหรือมาเป็นกลุ่มใหญ่ได้ไหม</summary>
+        <p data-en="Yes. We have big tables for families, birthdays and groups of friends, and kids are welcome. Please book ahead for big groups.">ได้ ร้านมีโต๊ะใหญ่สำหรับครอบครัว งานวันเกิด และกลุ่มเพื่อน เด็กๆ ยินดีต้อนรับ ถ้ามาเป็นกลุ่มใหญ่แนะนำให้จองล่วงหน้า</p>
+      </details>
+      <details class="faq-item">
+        <summary data-en="Do you deliver?">มีเดลิเวอรี่ไหม</summary>
+        <p data-en="Yes, order on GrabFood: search for “บ้านเราหมูกระทะ”.">มี สั่งหมูกระทะส่งถึงบ้านผ่านแอป GrabFood ค้นหา “บ้านเราหมูกระทะ”</p>
+      </details>
+      <details class="faq-item">
+        <summary data-en="Is there live music?">มีดนตรีสดไหม</summary>
+        <p data-en="A male singer performs on some nights. Check our Facebook page or TikTok @boom_berler for the schedule.">มีดนตรีสดจากนักร้องชายบางคืน ติดตามตารางได้ทาง Facebook และ TikTok @boom_berler</p>
+      </details>
+      <details class="faq-item">
+        <summary data-en="Do you have options other than pork?">มีเมนูที่ไม่ใช่หมูไหม</summary>
+        <p data-en="Yes: beef, chicken, seafood, fresh vegetables, som tam and spicy salads.">มี นอกจากหมูยังมีเนื้อวัว ไก่ อาหารทะเล ผักสด ส้มตำ และยำ</p>
+      </details>
     </div>
   </div>
 </section>
