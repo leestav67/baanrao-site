@@ -1,5 +1,5 @@
-# Public site origin — the one place to change when a custom domain is connected.
-# No trailing slash. After editing, run:  python3 tools/build_en.py .
-# The script copies this into index.html (canonical, Open Graph, JSON-LD),
-# the generated /en/ page, sitemap.xml, robots.txt and llms.txt.
+# Public site origin. No trailing slash.
+# Change it with tools/set-site-url.sh (that also updates index.html), or edit this
+# line and run:  python3 tools/build_en.py .
+# The build copies this into index.html, the generated /en/ page, sitemap.xml, robots.txt and llms.txt.
 https://harmonious-clafoutis-619d0d.netlify.app

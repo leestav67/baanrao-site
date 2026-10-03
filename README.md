@@ -1,19 +1,27 @@
 # บ้านเราหมูกระทะ · Baan Rao Moo Krata — website
 
-Static, mobile-first restaurant site (HTML + CSS + vanilla JS) with a real online
-booking system (Google Sheets + Google Apps Script). Thai is the page at `/`. English is a real page at `/en/`, generated at build time from the Thai page.
+Static, mobile-first restaurant site (HTML + CSS + vanilla JS). Bookings go through
+**LINE and phone** for now; a real online booking system (Google Sheets + Google Apps Script) is built in
+and switches on with one setting. Thai is the page at `/`. English is a real page at `/en/`, generated
+at build time from the Thai page (`python3 tools/build_en.py .`). The TH/EN links remember the choice;
+an old `?lang=en` link redirects to `/en/`.
+
+Live (preview) address: <https://harmonious-clafoutis-619d0d.netlify.app/>
 
 ```
 index.html          the website (all sections)
 owner.html          owner's phone page: see bookings, cancel, block nights/slots (password protected)
-js/config.js        ← THE ONLY FILE YOU NORMALLY EDIT (booking URL, opening hours, capacity)
-js/main.js          language toggle, menu, floating buttons
+js/config.js        ← THE ONLY FILE YOU NORMALLY EDIT (LINE link, booking URL, hours, capacity, review links)
+js/main.js          language links, menu, floating buttons, LINE/booking mode
 js/booking.js       booking widget (demo mode + live mode)
 js/videos.js        lazy TikTok clips (load on demand, one plays at a time, sound toggle)
 videos/             8 web-ready TikTok clips (H.264 MP4) + posters/
 css/                styles + self-hosted Thai fonts (Kanit, Noto Sans Thai)
 images/             optimised photos, logo, favicon, social share image
 backend/Code.gs     Google Apps Script booking backend (paste into Google Sheets)
+tools/set-site-url.sh  changes the public address in index.html and tools/site-base-url.txt (see §2b)
+tools/build_en.py      generates /en/ and refreshes sitemap.xml, robots.txt, llms.txt
+tools/site-base-url.txt  the origin the Netlify build copies into those files
 ```
 
 ---
@@ -27,8 +35,18 @@ python3 -m http.server 8000
 Open <http://localhost:8000>. English page: build it first with `python3 tools/build_en.py .`, then open <http://localhost:8000/en/>. Owner page: <http://localhost:8000/owner.html>
 (demo password: `demo`).
 
-Until a booking URL is set, the booking form runs in **DEMO MODE**: it works end to end, but bookings
-are only stored in that browser (a yellow "โหมดสาธิต" notice is shown). Nothing is sent anywhere.
+**Booking while `BOOKING_API_URL` is empty (now):** the booking section shows the **"จองโต๊ะง่ายๆ ทาง LINE"**
+card with two buttons, **จองผ่าน LINE** (opens `LINE_URL`) and **โทรจอง 093 269 1542**, plus the note
+"ระบบจองออนไลน์ เปิดให้ใช้เร็วๆ นี้". The online form is hidden, so guests never get a fake confirmation,
+a fake booking code or fake "เต็ม" (full) slots. The hero and the mobile bar also lead with LINE and Call.
+
+**Once `BOOKING_API_URL` is set (§3):** the LINE card disappears and the real online form shows
+(date → time → details → confirmation with a booking reference), with real availability from the Sheet.
+An extra gold "จองโต๊ะออนไลน์" button also appears in the hero. LINE and phone stay available.
+
+**Test the form before going live:** open `index.html?booking=test`. The form runs in this browser only,
+every slot is shown as available (no invented "full" slots), and it's labelled
+"โหมดทดสอบ — การจองนี้ไม่ได้ส่งถึงร้าน". Nothing is sent anywhere. Normal visitors never see this mode.
 
 ## 2. Put it online for free (pick one)
 
@@ -53,9 +71,28 @@ To update the site later, drag the updated folder onto **Deploys** for the same 
 - **Cloudflare Pages** — Workers & Pages → Create → Pages → *Upload assets* → upload the `baanrao-site` folder.
 - **GitHub Pages** — push the folder to a repo → Settings → Pages → deploy from branch `main` / root.
 
-Then connect a domain if you buy one (e.g. baanraomookata.com). Change the one line in
-`tools/site-base-url.txt` and run `python3 tools/build_en.py .` so the canonical, share image,
-sitemap and English page all use the new address.
+### 2b. The site address (canonical + share previews)
+
+The full site address is written into the top of `index.html` (canonical, `og:url`, `og:image`,
+`twitter:image`, hreflang and the Google JSON-LD), because LINE/Facebook/Google read those tags without running
+any JavaScript. It's currently `https://harmonious-clafoutis-619d0d.netlify.app/`.
+The Netlify build reads the same origin from `tools/site-base-url.txt` (no trailing slash) and copies it
+into `index.html`, the generated `/en/` page, `sitemap.xml`, `robots.txt` and `llms.txt`.
+If you rename the Netlify site or connect a domain (e.g. baanraomookata.com), run once from the site folder:
+```bash
+tools/set-site-url.sh https://baanraomookata.com/
+```
+That updates `index.html` and `tools/site-base-url.txt` together, then regenerates `/en/`. Editing only
+`index.html` would be overwritten on the next build. Then re-deploy and refresh the preview cache in the
+Facebook Sharing Debugger (<https://developers.facebook.com/tools/debug/>); for LINE, share the link with `?v=2` once.
+
+### 2c. The "Powered by Netlify" badge
+
+New free-plan Netlify sites (created on/after 19 Aug 2026) show a small "Powered by Netlify" badge
+bottom-right. It's injected by Netlify, not part of this site. To turn it off for everyone:
+Netlify → the project → **Project configuration → General → Powered by Netlify badge → off → Save**
+(no redeploy needed). While it's on, the site lifts the mobile button bar above it so it never covers
+Call / LINE / Map.
 
 ## 3. Switch on online booking (about 15 minutes, free)
 
@@ -76,7 +113,7 @@ sitemap and English page all use the new address.
    ```js
    BOOKING_API_URL: "https://script.google.com/macros/s/XXXX/exec",
    ```
-   Re-upload the site. The demo notice disappears and bookings now go to the Sheet.
+   Re-upload the site. The LINE booking card is replaced by the online form and bookings now go to the Sheet.
 9. If you change `Code.gs` later: **Deploy → Manage deployments → Edit → Version: New version** (the URL stays the same).
 
 **How it prevents double-booking:** every booking request takes a `LockService` script lock, re-checks the
@@ -103,6 +140,14 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
 
 ## 5. Everyday edits
 
+- **LINE link:** only in `js/config.js` → `LINE_URL` (and `LINE_ID` for the displayed ID). Every LINE button
+  (header, hero, booking card, promo, contact card, footer, mobile bar) reads it. The `href="#contact"` in the
+  HTML is only a no-JavaScript fallback. Once the real link is confirmed, you can also add it to `"sameAs"`
+  in the JSON-LD at the top of `index.html` (left out while the link is unconfirmed).
+- **Google reviews:** `GOOGLE_REVIEWS_URL` ("อ่านรีวิวทั้งหมด") and `GOOGLE_WRITE_REVIEW_URL` (the "ฝากรีวิว"
+  link; get it from Google Business Profile → *Ask for reviews*). The three quotes are real public Google
+  reviews. Only ever add real ones, and never offer a reward for a review (Google removes incentivised reviews).
+
 - Opening hours / capacity: `js/config.js` (and the same values in `Code.gs` CONFIG). Also update the hours in the JSON-LD
   block at the top of `index.html` for Google.
 - Texts: in `index.html` — Thai text is the element content, English is in the `data-en="…"` attribute next to it.
@@ -126,12 +171,17 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
 4. **“5 แถม เนื้อออส 1” promo** — exact terms (5 sets? which days?) and is it still running?
 5. **60/40 co-payment scheme via G-Wallet / เป๋าตัง** (posted 1 July 2026) — still running? The shop sign calls it “ไทยช่วยไทย พลัส 60/40”; the site says “คนละครึ่งพลัส 60/40” — which name is right?
 6. **Permission to use the TikTok videos** on the website (8 clips from @boom_berler).
-7. **LINE ID** — `@BaanRaoMookata` (button: https://line.me/R/ti/p/@BaanRaoMookata). Please test it opens the right account.
+7. **LINE link returned 404, owner to check.** `https://line.me/R/ti/p/@BaanRaoMookata` returned 404 in testing (Oct 2026), like a
+   non-existent ID. In LINE OA Manager → Home → *Gain friends (เพิ่มเพื่อน)* copy the official add-friend link
+   (`https://lin.ee/…`) and the real LINE ID, and put them in `js/config.js` (`LINE_URL`, `LINE_ID`).
+   **This matters most: LINE is now the main way to book.**
 8. **Parking** — site says "parking for cars and motorbikes at the restaurant". How many cars?
 9. **Menu** — category cards (meats, seafood, salads, noodles/sides, veg, drinks) are examples; send a fuller menu to add.
 10. **Live music** — which nights? **GrabFood** — direct link to add? **Rao Cafe** — address/link?
 11. **Booking capacity** — guests per 30-minute slot (default 40) and largest online group (default 20).
 12. **Owner email + Google account** for the booking sheet, and whether he wants LINE notifications.
+13. **Google reviews** — OK to quote the three public Google reviews on the site (shown without names)? Are they still live?
+    And the Google "Ask for reviews" link for `GOOGLE_WRITE_REVIEW_URL`.
 
 Photos: the owner is happy for the photos to be used and edited. The hero and About photos are retouched versions
 (promo sign / old banner and sparkles removed); food photos are the small originals.
