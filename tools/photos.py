@@ -30,6 +30,7 @@ JSONLD_IMAGES = [
     ("fb-beef-platter", "baanrao-australian-beef-platter-1200.jpg"),  # platter
     ("owner-courtyard-day", "baanrao-storefront-courtyard-day-1200.jpg"),  # storefront (no sign photo exists)
     ("courtyard-night", "baanrao-courtyard-dusk-1200.jpg"),                # courtyard, early evening before dark
+    ("clean-night", "baanrao-dining-area-night-4x3-1200.jpg"),             # real night shot of the covered courtyard (= About)
     ("food-pan-owner", "baanrao-moo-krata-pan-pork-belly-1200.jpg"),
     ("set-moo-krata", "baanrao-moo-krata-set-table-1200.jpg"),
     ("peaceii-topdown-pan", "baanrao-moo-krata-spread-topdown-1200.jpg"),

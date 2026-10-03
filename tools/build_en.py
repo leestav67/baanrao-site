@@ -83,7 +83,7 @@ def sync_origin(site, base):
 
 
 def write_sitemap(site, base):
-    today = "2026-10-02"
+    today = "2026-10-03"
     xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">

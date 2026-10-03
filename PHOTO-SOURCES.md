@@ -35,7 +35,7 @@ Derivatives are made by `tools/make_photos.py` from the originals in `/workspace
 | Site files | Source | Where |
 |---|---|---|
 | `baanrao-australian-beef-platter-480/960.*`, `baanrao-australian-beef-platter-1200.jpg` | Owner's Facebook (`fb/menu-dish-thaiplus.jpg`). Confirmed as sliced Australian beef | Menu: meats card; JSON-LD image #2; **`hasMenu.image` (PLACEHOLDER until there's a menu-board photo: save it as `images/baanrao-menu-board.jpg` ≥1200 px and point `hasMenu.image` at it in both `index.html` and `tools/head-en.html`)** |
-| `baanrao-dining-area-night-4x3-480/800.{avif,webp,jpg}` | Owner's Facebook night photo (`hero-new.jpg`, the previous hero); promo sign removed and sky cleaned up by the retouch bot. **The only real night shot we have** | About section photo, caption "ไฟระยิบระยับยามค่ำ นั่งชิลได้ทั้งคืน" / "Fairy lights and warm evenings. Open daily 5–10 pm." Not in the JSON-LD (its old 16x9/4x3/1x1 crops were dropped on SEO review) |
+| `baanrao-dining-area-night-4x3-480/800.{avif,webp,jpg}`, `baanrao-dining-area-night-4x3-1200.jpg` | Owner's Facebook night photo (`hero-new.jpg`, the previous hero); promo sign removed and sky cleaned up by the retouch bot. **The only real night shot we have** | About section photo, caption "ไฟระยิบระยับยามค่ำ นั่งชิลได้ทั้งคืน" / "Fairy lights and warm evenings. Open daily 5–10 pm." JSON-LD: `baanrao-dining-area-night-4x3-1200.jpg` (the old 16x9/4x3/1x1 crops were dropped on SEO review) |
 | `logo.jpg`, video posters | Owner | logo badge / videos |
 | `og-image.jpg` | Owner (old night photo) | no longer referenced; kept so old share links still show a picture |
 

@@ -128,4 +128,6 @@ if __name__ == '__main__':
     card(load('customer-food-03.jpg'), 'baanrao-covered-seating-day')
     # ABOUT (owner, Facebook): the real night shot of the covered courtyard; promo sign removed and sky
     # cleaned up by the retouch bot. courtyard-night.jpg is actually daylight (EXIF 18:22, before sunset).
-    card(Image.open('/workspace/baanrao/photos-clean/hero-new.jpg').convert('RGB'), 'baanrao-dining-area-night-4x3')
+    night = Image.open('/workspace/baanrao/photos-clean/hero-new.jpg').convert('RGB')   # 1448x1086
+    card(night, 'baanrao-dining-area-night-4x3')
+    jsonld(night, 'baanrao-dining-area-night-4x3')   # 1200x900 for JSON-LD
