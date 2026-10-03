@@ -1,5 +1,5 @@
 :root{
-  --black:#0f0c08; --ink:#1a1510; --ink2:#241d15; --gold:#e9b949; --gold2:#f6d77e; --gold-d:#b98a22;
+  --black:#0f0c08; --ink:#1a1510; --ink2:#241d15; --gold:#e9b949; --gold2:#f6d77e; --gold-d:#8c6516; /* light backgrounds only (all current uses are); dark sections use --gold, e.g. .dark .kicker */
   --cream:#fbf6ec; --cream2:#f3ead8; --text:#2b241b; --muted:#6f6556; --line:#06c755; --line-d:#05a447;
   --radius:18px; --shadow:0 10px 30px rgba(15,12,8,.12); --shadow-lg:0 20px 50px rgba(0,0,0,.35);
   --head:"Kanit","Noto Sans Thai",system-ui,sans-serif; --body:"Noto Sans Thai","Kanit",system-ui,sans-serif;
