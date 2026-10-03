@@ -57,6 +57,7 @@ p{margin:0 0 1em}
 .hero-content{position:relative;padding:120px 0 48px}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(15,12,8,.6);border:1px solid rgba(233,185,73,.5);padding:6px 14px;border-radius:999px;font-size:.9rem;color:#f2e7cc}
 .eyebrow b{color:var(--gold2)}
+.eyebrow{flex-wrap:wrap;row-gap:2px}.eyebrow>span:not(.dot),.eyebrow b{white-space:nowrap}/* EN: keep "Open daily" / "opposite Wang Badan" whole on narrow phones */
 .dot{width:8px;height:8px;border-radius:50%;background:var(--line);box-shadow:0 0 0 4px rgba(6,199,85,.25)}
 .hero h1{font-size:clamp(2.8rem,11vw,6rem);margin:.25em 0 .1em;text-shadow:0 4px 30px rgba(0,0,0,.6);letter-spacing:-.01em}
 .hero-tag{font-family:var(--head);font-size:clamp(1.15rem,3.6vw,1.75rem);color:var(--gold2);margin-bottom:.5em;font-weight:500}

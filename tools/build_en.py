@@ -142,13 +142,20 @@ def swap_attr(html, attr, data_attr):
     return pattern.sub(repl, html)
 
 
-def root_relative(html):
-    html = re.sub(r'((?:src|href|poster|data-src)=")(?=(?:images|css|js|fonts|videos)/)', r"\1/", html)
+def up_one_level(html):
+    """en/index.html lives one folder down: point local assets at ../ (relative, so the page works both
+    on the web server and when opened from the unzipped folder via file://). Absolute https URLs
+    (canonical, hreflang, og, JSON-LD) are untouched."""
+    html = re.sub(r'((?:src|href|poster|data-src)=")(?=(?:images|css|js|fonts|videos)/)', r"\1../", html)
 
     def fix_srcset(match):
-        return re.sub(r'(^|,\s*|")(?=(?:images|videos)/)', r"\1/", match.group(0))
+        return re.sub(r'(^|,\s*|")(?=(?:images|videos)/)', r"\1../", match.group(0))
 
-    return re.sub(r'(?:srcset|imagesrcset)="[^"]*"', fix_srcset, html)
+    out = re.sub(r'(?:srcset|imagesrcset)="[^"]*"', fix_srcset, html)
+    left = re.findall(r'(?:src|href|poster|data-src|srcset)="/(?!/)[^"]*"', out)
+    if left:
+        raise SystemExit("en/index.html still has root-relative paths: " + ", ".join(left[:5]))
+    return out
 
 
 def check_markup(html):
@@ -200,11 +207,12 @@ def build(site):
         raise SystemExit("index.html is missing the <!-- SEO:BEGIN --> / <!-- SEO:END --> markers")
     out = swapped
     out = out.replace('<html lang="th">', '<html lang="en">', 1)
-    out = out.replace(
-        '<a href="/" hreflang="th" lang="th" class="on" aria-current="page">TH</a><a href="/en/" hreflang="en" lang="en">EN</a>',
-        '<a href="/" hreflang="th" lang="th">TH</a><a href="/en/" hreflang="en" lang="en" class="on" aria-current="page">EN</a>',
-    )
-    out = root_relative(out)
+    th_toggle = '<a href="./" hreflang="th" lang="th" class="on" aria-current="page">TH</a><a href="en/" hreflang="en" lang="en">EN</a>'
+    if th_toggle not in out:
+        raise SystemExit("index.html language toggle not found (expected the relative ./ and en/ links)")
+    out = out.replace(th_toggle,
+        '<a href="../" hreflang="th" lang="th">TH</a><a href="./" hreflang="en" lang="en" class="on" aria-current="page">EN</a>')
+    out = up_one_level(out)
     if placeholder_host in out or "{{SITE_URL}}" in out:
         raise SystemExit("generated English page still has a placeholder URL")
     en_dir = os.path.join(site, "en")

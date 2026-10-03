@@ -24,7 +24,16 @@
 
   // Old ?lang=en / ?lang=th links, from before /en/ existed.
   var q = new URLSearchParams(location.search).get('lang');
-  if ((q === 'en' || q === 'th') && q !== PAGE) { location.replace(q === 'en' ? '/en/' : '/'); return; }
+  if ((q === 'en' || q === 'th') && q !== PAGE) { location.replace(q === 'en' ? 'en/' : '../'); return; }
+
+  // Opened from a folder (file://): "en/" and "../" would show a folder listing, so point the
+  // language links (and any other folder link) at the index.html inside.
+  if (location.protocol === 'file:') {
+    document.querySelectorAll('a[hreflang]').forEach(function (a) {
+      var h = a.getAttribute('href');
+      if (h && /\/$/.test(h) && !/^[a-z]+:/i.test(h)) a.setAttribute('href', h + 'index.html');
+    });
+  }
 
   var t = document.getElementById('langToggle');
   if (t) t.addEventListener('click', function (e) {
