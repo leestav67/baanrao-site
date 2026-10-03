@@ -206,7 +206,7 @@
   function renderConfirm() {
     if (!lastConf) return; var l = L(), p = lastConf.p;
     $('confRef').textContent = lastConf.ref;
-    if (DEMO) { $('confTitle').textContent = l.testTitle; $('confText').textContent = l.testText; $('confRef').textContent = 'TEST'; var ic = document.querySelector('.confirm-ico'); if (ic) { ic.textContent = '!'; ic.style.background = '#b98a22'; } }
+    if (DEMO) { $('confTitle').textContent = l.testTitle; $('confText').textContent = l.testText; $('confRef').textContent = 'TEST'; var ic = document.querySelector('.confirm-ico'); if (ic) { ic.textContent = '!'; ic.style.background = 'var(--gold-d)'; } }
     var ph = p.phone.length === 10 ? p.phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3') : p.phone;
     $('confList').innerHTML = '<dt>' + l.date + '</dt><dd>' + niceDate(p.date) + '</dd><dt>' + l.time + '</dt><dd>' + p.time + '</dd><dt>' + l.party + '</dt><dd>' + p.party + ' ' + l.guests + '</dd><dt>' + l.name + '</dt><dd>' + esc(p.name) + '</dd><dt>' + l.phone + '</dt><dd>' + ph + '</dd>';
   }

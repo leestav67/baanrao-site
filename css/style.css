@@ -585,3 +585,5 @@ html[lang="en"] .hero h1{font-size:clamp(2.6rem,10vw,4.2rem)}
 @media (min-width:960px){.gal-3{grid-auto-rows:260px}}
 @media (min-width:700px){.gal-3 .g-big{grid-column:span 1}}
 @media (max-width:699px){.gal-3{grid-auto-rows:190px}}
+/* two kickers on the darkest light backgrounds: #88620f passes 4.5:1 (reviews #f3ead8 4.62, promo gradient end #fde9b0 4.59) */
+.reviews .kicker,.promo-main .kicker{color:#88620f}
