@@ -124,5 +124,8 @@ if __name__ == '__main__':
     card(to_ratio(load('apisit-seafood-salad.jpg'), 4, 5, yb=0.62), 'baanrao-yam-talay-seafood-salad')
     # GALLERY (customer, hellosammy0601): pan on the charcoal stove; crop away diners' torsos
     card(crop(load('hellosammy-pan.jpg'), (0, 0.16, 0.86, 1.0)), 'baanrao-moo-krata-pan-charcoal-stove')
-    # GALLERY venue (customer, จีรศักดิ์ แหล้ยัง): covered seating, venue confirmed by the owner via Lee
-    card(load('customer-food-03.jpg'), 'baanrao-covered-seating-dusk')
+    # GALLERY venue (customer, จีรศักดิ์ แหล้ยัง): covered seating by day, venue confirmed by the owner via Lee
+    card(load('customer-food-03.jpg'), 'baanrao-covered-seating-day')
+    # ABOUT (owner, Facebook): the real night shot of the covered courtyard; promo sign removed and sky
+    # cleaned up by the retouch bot. courtyard-night.jpg is actually daylight (EXIF 18:22, before sunset).
+    card(Image.open('/workspace/baanrao/photos-clean/hero-new.jpg').convert('RGB'), 'baanrao-dining-area-night-4x3')

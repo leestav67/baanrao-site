@@ -151,6 +151,18 @@ def root_relative(html):
     return re.sub(r'(?:srcset|imagesrcset)="[^"]*"', fix_srcset, html)
 
 
+def check_markup(html):
+    """Fail the build on the kind of damage a bad regex replacement leaves behind (e.g. a literal \\1
+    where a <symbol …> tag used to be), and on icons used with <use href="#…"> but never defined."""
+    stray = re.search(r"(?m)^\s*\\[0-9g]", html) or re.search(r"\\[1-9](?= viewBox=)", html)
+    if stray:
+        raise SystemExit("index.html has a literal regex back-reference: " + html[stray.start():stray.start() + 60])
+    defined = set(re.findall(r'<symbol id="([^"]+)"', html))
+    missing = sorted(set(re.findall(r'<use href="#([^"]+)"', html)) - defined)
+    if missing:
+        raise SystemExit("index.html uses undefined SVG icons: " + ", ".join(missing))
+
+
 def build(site):
     base = site_base(site)
     # Photo blocks, JSON-LD image arrays and og:image come from tools/photos.py (one config list).
@@ -159,6 +171,7 @@ def build(site):
     import photos
     photos.apply(site, base)
     src = sync_origin(site, base)
+    check_markup(src)
     placeholder_host = "example" + ".com"
     if placeholder_host in src:
         raise SystemExit("index.html still contains the placeholder host")

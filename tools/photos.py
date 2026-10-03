@@ -18,22 +18,19 @@ import json, os, re
 # ------------------------------------------------------------------ switches
 HERO = "customer-food-01"           # one-line switch: "food-pan-owner" = owner-safe fallback hero
 SHOW_CUSTOMER_PHOTOS = True         # False = owner photos only, everywhere
-ABOUT = "courtyard-night"
+ABOUT = "clean-night"               # the real night shot (courtyard-night.jpg is daylight)
 SETS = "set-moo-krata"              # falls back to SETS_OWNER when customer photos are off
 SETS_OWNER = "food-pan-owner"
 MENU_PHOTOS = ["peaceii-topdown-pan", "hellosammy-dish-03", "customer-food-02", "apisit-seafood-salad"]
-GALLERY = ["hellosammy-pan", "food-pan-owner", "courtyard-night", "fb-beef-platter", "customer-food-03"]  # venue every 3rd slot
+GALLERY = ["hellosammy-pan", "food-pan-owner", "customer-food-03"]  # big food tile, food, venue (no repeats of About/menu photos)
 STOREFRONT = "owner-courtyard-day"
 # JSON-LD image array (absolute URLs, every file ≥1200 px wide), in this order. Thumbnails never go here.
 JSONLD_IMAGES = [
     ("customer-food-01", "baanrao-moo-krata-pan-night-1200.jpg"),     # best dish-on-pan shot (= hero)
     ("fb-beef-platter", "baanrao-australian-beef-platter-1200.jpg"),  # platter
-    ("owner-courtyard-day", "baanrao-storefront-courtyard-day.jpg"),  # storefront (no sign photo exists)
-    ("courtyard-night", "baanrao-courtyard-dusk.jpg"),                # courtyard at dusk/night
-    ("clean-night", "baanrao-dining-area-night-16x9.jpg"),
-    ("clean-night", "baanrao-dining-area-night-4x3.jpg"),
-    ("clean-night", "baanrao-dining-area-night-1x1.jpg"),
-    ("food-pan-owner", "baanrao-moo-krata-pan-pork-belly.jpg"),
+    ("owner-courtyard-day", "baanrao-storefront-courtyard-day-1200.jpg"),  # storefront (no sign photo exists)
+    ("courtyard-night", "baanrao-courtyard-dusk-1200.jpg"),                # courtyard, early evening before dark
+    ("food-pan-owner", "baanrao-moo-krata-pan-pork-belly-1200.jpg"),
     ("set-moo-krata", "baanrao-moo-krata-set-table-1200.jpg"),
     ("peaceii-topdown-pan", "baanrao-moo-krata-spread-topdown-1200.jpg"),
 ]
@@ -43,20 +40,21 @@ JSONLD_IMAGES = [
 # files: stem + list of (width, height) that exist as .avif/.webp/.jpg in images/
 P = {
     "customer-food-01": dict(kind="customer", by="Sariya Wattanapong", stem="baanrao-moo-krata-pan-night", files=[(800, 600), (1200, 900)],
-        alt_th="หมูกระทะเตาถ่าน บ้านเราหมูกระทะ หมูย่างบนกระทะร้อน มีน้ำซุปรอบขอบ ควันกรุ่น ไฟประดับยามค่ำ",
-        alt_en="Charcoal moo krata at Baan Rao: pork grilling on the hot dome pan, steaming broth around the rim, fairy lights behind",
+        alt_th="หมูกระทะ บ้านเราหมูกระทะ หมูย่างบนโดมกระทะร้อน น้ำซุปและวุ้นเส้นรอบขอบ ควันกรุ่น ไฟประดับยามค่ำ",
+        alt_en="Moo krata at Baan Rao: pork grilling on the hot dome pan, glass noodles in the steaming broth around the rim, fairy lights behind",
         cap_th="หมูกระทะเตาถ่าน ร้อนๆ หอมๆ ทุกโต๊ะ", cap_en="Charcoal-grilled moo krata, sizzling at every table",
         blur="baanrao-moo-krata-pan-night-blur-480", og="baanrao-moo-krata-pan-night-og-1200.jpg"),
     "food-pan-owner": dict(kind="owner", stem="baanrao-moo-krata-pan-pork-belly-4x5", files=[(480, 600), (800, 1000)],
         hero_stem="baanrao-moo-krata-pan-pork-belly-4x3", hero_files=[(800, 600), (1200, 900)],
         alt_th="หมูกระทะ บ้านเราหมูกระทะ หมูสามชั้นย่างบนโดมกระทะ น้ำซุปรอบขอบกับผักกาดขาวและผักบุ้ง",
         alt_en="Moo krata at Baan Rao: pork belly grilling on the dome pan, broth with Chinese cabbage and morning glory around the rim",
-        cap_th="หมูหมัก น้ำซุปสูตรบ้านเรา ทำเองทุกขั้นตอน", cap_en="Our own marinated pork and broth, made from scratch",
+        cap_th='หมูหมัก น้ำซุปสูตรบ้านเรา <span class="nw">ทำเองทุกขั้นตอน</span>', cap_en="Our own marinated pork and broth, made from scratch",
         blur="baanrao-moo-krata-pan-pork-belly-4x3-blur-480", og="baanrao-moo-krata-pan-pork-belly-og-1200.jpg"),
+    # Owner photo, but it's DAYLIGHT (EXIF 2022-08-08 18:22, before sunset), not night: caption/alt say so.
     "courtyard-night": dict(kind="owner", stem="baanrao-courtyard-dusk", files=[(480, 360), (800, 600)], venue=True,
-        alt_th="บรรยากาศร้านบ้านเราหมูกระทะยามพลบค่ำ ไฟประดับ โต๊ะไม้ และป้ายไฟโลโก้ร้าน",
-        alt_en="Baan Rao Moo Krata courtyard at dusk, with string lights, wooden tables and the illuminated logo sign",
-        cap_th="ไฟระยิบระยับยามค่ำ นั่งชิลได้ทั้งคืน", cap_en="Fairy lights and warm evenings. Open daily 5–10 pm."),
+        alt_th="ลานนั่งทานบ้านเราหมูกระทะ ไฟประดับ โต๊ะไม้ ต้นไม้ และเคาน์เตอร์ป้ายไฟโลโก้ร้าน ช่วงเย็นก่อนฟ้ามืด",
+        alt_en="The Baan Rao Moo Krata courtyard in the early evening before dark: string lights, wooden tables, trees and the logo-sign counter",
+        cap_th="ลานกว้าง ร่มรื่น ไฟประดับรอบร้าน", cap_en="A leafy courtyard strung with lights. Open daily 5–10 pm."),
     "set-moo-krata": dict(kind="customer", by="Sasithonk", stem="baanrao-moo-krata-set-table", files=[(480, 480), (800, 800)],
         alt_th="ชุดหมูกระทะจัดเต็มโต๊ะยาว น้ำจิ้ม ผักสด ข้าวโพด และจานหมูกับทะเล ร้านบ้านเราหมูกระทะ อุดรธานี",
         alt_en="A long table set for moo krata at Baan Rao, Udon Thani: dipping sauces, fresh veg, corn and a pork and seafood plate",
@@ -74,26 +72,30 @@ P = {
         alt_en="Som tam (green papaya salad) with dried shrimp, soybeans, tomato and lime at Baan Rao Moo Krata, Udon Thani",
         cap_th="ส้มตำแซ่บๆ คู่หมูกระทะ", cap_en="Spicy papaya salad, the perfect side"),
     "apisit-seafood-salad": dict(kind="customer", by="อภิสิทธิ์ นวลปักษี", stem="baanrao-yam-talay-seafood-salad", files=[(480, 600), (800, 1000)],
-        alt_th="ยำทะเลวุ้นเส้น กุ้ง หอยแมลงภู่ หมูยอ และผักชีฝรั่ง ร้านบ้านเราหมูกระทะ อุดรธานี",
-        alt_en="Spicy seafood glass-noodle salad with shrimp, mussels, Thai sausage and herbs at Baan Rao Moo Krata, Udon Thani",
+        alt_th="ยำทะเลวุ้นเส้น กุ้ง หอยแมลงภู่ ไส้กรอก และขึ้นฉ่าย ร้านบ้านเราหมูกระทะ อุดรธานี",
+        alt_en="Spicy seafood glass-noodle salad with shrimp, mussels, Thai sausage and Chinese celery at Baan Rao Moo Krata, Udon Thani",
         cap_th="ยำรสจัดจ้าน สั่งเพิ่มได้", cap_en="Zingy Thai salads to share"),
     "hellosammy-pan": dict(kind="customer", by="hellosammy0601", stem="baanrao-moo-krata-pan-charcoal-stove", files=[(480, 352), (800, 586)],
         alt_th="กระทะหมูกระทะบนเตาถ่าน หมูย่างบนโดม ผักกาดและวุ้นเส้นในน้ำซุป ชามหมูหมัก และน้ำจิ้ม",
         alt_en="Moo krata on a charcoal stove: pork on the dome, cabbage and glass noodles in the broth, marinated pork and chilli sauce",
         cap_th="ปิ้งไป ต้มไป อร่อยครบในกระทะเดียว", cap_en="Grill on top, simmer below: it all happens in one pan"),
-    "customer-food-03": dict(kind="customer", by="จีรศักดิ์ แหล้ยัง", stem="baanrao-covered-seating-dusk", files=[(480, 360), (800, 600)], venue=True,
-        alt_th="โซนนั่งทานมีหลังคาของร้านบ้านเราหมูกระทะ ไฟประดับ ต้นไม้ และโต๊ะ ยามเย็น",
-        alt_en="The covered seating area at Baan Rao Moo Krata in the evening, with string lights, plants and tables",
+    "customer-food-03": dict(kind="customer", by="จีรศักดิ์ แหล้ยัง", stem="baanrao-covered-seating-day", files=[(480, 360), (800, 600)], venue=True,
+        alt_th="โซนนั่งทานมีหลังคาของร้านบ้านเราหมูกระทะ ไฟประดับ ต้นไม้ และโต๊ะ ตอนกลางวัน",
+        alt_en="The covered seating area at Baan Rao Moo Krata by day, with string lights, plants and tables",
         cap_th="มีหลังคา นั่งสบาย ทั้งครอบครัว", cap_en="Covered seating for the whole family"),
     "fb-beef-platter": dict(kind="owner", stem="baanrao-australian-beef-platter", files=[(480, 320), (960, 640)],
-        alt_th="เนื้ออสเตรเลียสไลซ์พร้อมปีกไก่ ส้มตำ และสลัด สำหรับหมูกระทะ บ้านเราหมูกระทะ อุดรธานี",
-        alt_en="Sliced Australian beef with chicken wings, som tam and salad for moo krata at Baan Rao Moo Krata, Udon Thani",
+        alt_th="เนื้ออสเตรเลียสไลซ์พร้อมปีกไก่ ส้มตำ และยำ สำหรับหมูกระทะ บ้านเราหมูกระทะ อุดรธานี",
+        alt_en="Sliced Australian beef with chicken wings, som tam and a spicy Thai salad for moo krata at Baan Rao Moo Krata, Udon Thani",
         cap_th="เนื้ออสเตรเลียสไลซ์ ปิ้งบนกระทะร้อน", cap_en="Sliced Australian beef, ready for the hot pan"),
     "owner-courtyard-day": dict(kind="owner", stem="baanrao-storefront-courtyard-day", files=[(480, 360)], venue=True,
         alt_th="หน้าร้านบ้านเราหมูกระทะ อุดรธานี เคาน์เตอร์ ป้ายโลโก้ร้าน และโต๊ะไม้ ตอนกลางวัน",
         alt_en="The front of Baan Rao Moo Krata in Udon Thani by day: the counter, the logo sign and wooden tables",
         cap_th="มาถึงแล้ว! สังเกตเคาน์เตอร์และป้ายโลโก้ร้าน", cap_en="You’re here! Look for our counter and logo sign"),
-    "clean-night": dict(kind="owner"),
+    # Owner's Facebook night photo of the covered courtyard (promo sign removed, sky cleaned by the retouch bot).
+    "clean-night": dict(kind="owner", stem="baanrao-dining-area-night-4x3", files=[(480, 360), (800, 600)], venue=True,
+        alt_th="ลานนั่งทานของร้านบ้านเราหมูกระทะยามค่ำ ใต้หลังคาและไฟประดับ เคาน์เตอร์ ป้ายไฟโลโก้ และโต๊ะไม้",
+        alt_en="The covered dining courtyard at Baan Rao Moo Krata at night, with string lights, the counter, the lit logo sign and wooden tables",
+        cap_th="ไฟระยิบระยับยามค่ำ นั่งชิลได้ทั้งคืน", cap_en="Fairy lights and warm evenings. Open daily 5–10 pm."),
 }
 
 
@@ -125,7 +127,12 @@ def credit(pid):
     p = P[pid]
     if p["kind"] != "customer":
         return ""
-    return f'<small class="pcredit" data-en="Photo: {esc(p.get("by_en", p["by"]))}">ภาพโดย {esc(p["by"])}</small>'
+    name = p.get("by_en", p["by"])
+    en = f'<span lang="th">{name}</span>' if is_thai(name) else name   # screen readers switch voice on /en/
+    return f'<small class="pcredit" data-en="Photo: {esc(en)}">ภาพโดย {esc(p["by"])}</small>'
+
+def is_thai(text):
+    return bool(re.search("[\u0e00-\u0e7f]", text))
 
 def cap(pid):
     p = P[pid]
@@ -156,7 +163,8 @@ def block_hero():
     ])
 
 def block_about():
-    return picture(ABOUT, "(min-width: 960px) 480px, 100vw", cls="about-photo")
+    return (picture(ABOUT, "(min-width: 960px) 480px, 100vw", cls="about-photo") +
+            f'\n<p class="about-cap">{cap(ABOUT)}{credit(ABOUT)}</p>')
 
 def block_sets():
     pid = SETS if on(SETS) else SETS_OWNER
@@ -180,7 +188,7 @@ def block_gallery():
     for n, i in enumerate(items):
         big = n == 0
         tiles.append(f'    <figure class="g{" g-big" if big else ""}{" g-venue" if P[i].get("venue") else ""}">'
-                     f'{picture(i, "(min-width: 960px) 640px, 100vw" if big else "(min-width: 960px) 320px, 50vw")}'
+                     f'{picture(i, "(min-width: 960px) 830px, (min-width: 700px) 66vw, 100vw" if big else "(min-width: 960px) 420px, (min-width: 700px) 33vw, 50vw")}'
                      f'<figcaption>{cap(i)}{credit(i)}</figcaption></figure>')
     return ('<section class="section gallery" id="gallery" aria-labelledby="galleryTitle">\n  <div class="wrap">\n'
             '    <div class="section-head">\n'
@@ -207,8 +215,19 @@ def _swap_block(html, name, body):
     return pat.sub(lambda m: m.group(1) + "\n" + body + "\n" + m.group(3), html, count=1)
 
 def _images_json(base, indent="    "):
-    urls = [f"{base}/images/{f}" for pid, f in JSONLD_IMAGES if on(pid)]
-    return "[\n" + ",\n".join(f'{indent}"{u}"' for u in urls) + "\n  ]"
+    items = []
+    for pid, f in JSONLD_IMAGES:
+        if not on(pid):
+            continue
+        url = f"{base}/images/{f}"
+        p = P[pid]
+        if p["kind"] == "customer":   # image-licence metadata: credit the uploader
+            items.append(json.dumps({"@type": "ImageObject", "contentUrl": url, "url": url,
+                                     "creditText": p["by"], "creator": {"@type": "Person", "name": p["by"]}},
+                                    ensure_ascii=False))
+        else:
+            items.append(json.dumps(url))
+    return "[\n" + ",\n".join(indent + i for i in items) + "\n  ]"
 
 def _og(html, base, lang):
     p = P[hero_id()]

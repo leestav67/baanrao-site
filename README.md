@@ -194,6 +194,8 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
     (no price shown). Is it in every set or an extra? Add a price only once the owner confirms one.
 15. **Menu-board photo** — `hasMenu.image` in the JSON-LD temporarily uses the Australian beef platter photo
     (placeholder). Send a photo of the menu board (≥1200 px) to replace it.
+16. **Som tam photo credit** — uploader to verify: our sources disagree (จีรศักดิ์ แหล้ยัง vs Baster Nutnaree) for
+    `customer-food-02`. Check it on the Google listing; see `PHOTO-SOURCES.md`. (Also: are the beans in it ถั่วแระ or สะตอ? The alt says ถั่วแระ.)
 
 Photos: the owner is happy for the shop's own photos to be used and edited. The Google Maps photos from customers
 belong to the people who uploaded them; Lee has approved using them, and each one carries a small on-page credit.
