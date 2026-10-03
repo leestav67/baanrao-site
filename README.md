@@ -151,7 +151,14 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
 - Opening hours / capacity: `js/config.js` (and the same values in `Code.gs` CONFIG). Also update the hours in the JSON-LD
   block at the top of `index.html` for Google.
 - Texts: in `index.html` — Thai text is the element content, English is in the `data-en="…"` attribute next to it.
-- Photos: replace files in `images/` with the same names (keep them under ~200 KB).
+- **Photos:** which photo goes where (hero, About, sets, menu photo row, gallery, storefront), the captions,
+  alt text, customer-photo credits, the JSON-LD `image` arrays and `og:image` all come from **`tools/photos.py`**.
+  Edit that file, then run `python3 tools/build_en.py .` (Netlify runs it on every deploy). Don't hand-edit
+  between the `<!-- PHOTOS:… BEGIN/END -->` markers in `index.html`.
+  - One-line switches: `HERO = "food-pan-owner"` (owner-safe hero), `SHOW_CUSTOMER_PHOTOS = False` (removes
+    every customer photo). Details and the uploader/URL of every photo: **`PHOTO-SOURCES.md`**.
+  - New photo sizes are made with `tools/make_photos.py` (needs Pillow ≥ 11.3; sources are kept outside the repo).
+    Budgets: hero 1200 px AVIF ≤120 KB / WebP ≤160 KB / JPEG ≤220 KB; cards 800 px WebP ≤60 KB / JPEG ≤90 KB.
 - Videos: clips live in `videos/` (posters in `videos/posters/`). Each card in `index.html` has `data-src` (the clip),
   `poster` and a TikTok link. Nothing downloads until a clip is visible or tapped; only one plays at a time, muted.
   Clips 01, 03, 04, 05, 07 have a sound button; 02, 06, 08 have no audio (commercial music removed).
@@ -183,5 +190,11 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
 13. **Google reviews** — OK to quote the three public Google reviews on the site (shown without names)? Are they still live?
     And the Google "Ask for reviews" link for `GOOGLE_WRITE_REVIEW_URL`.
 
-Photos: the owner is happy for the photos to be used and edited. The hero and About photos are retouched versions
-(promo sign / old banner and sparkles removed); food photos are the small originals.
+14. **Australian beef** — the menu now names "เนื้ออสเตรเลียสไลซ์ / Sliced Australian beef" in the meats card
+    (no price shown). Is it in every set or an extra? Add a price only once the owner confirms one.
+15. **Menu-board photo** — `hasMenu.image` in the JSON-LD temporarily uses the Australian beef platter photo
+    (placeholder). Send a photo of the menu board (≥1200 px) to replace it.
+
+Photos: the owner is happy for the shop's own photos to be used and edited. The Google Maps photos from customers
+belong to the people who uploaded them; Lee has approved using them, and each one carries a small on-page credit.
+See `PHOTO-SOURCES.md` for every file, uploader and Google URL, and how to switch customer photos off.

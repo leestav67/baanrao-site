@@ -153,6 +153,11 @@ def root_relative(html):
 
 def build(site):
     base = site_base(site)
+    # Photo blocks, JSON-LD image arrays and og:image come from tools/photos.py (one config list).
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    sys.dont_write_bytecode = True
+    import photos
+    photos.apply(site, base)
     src = sync_origin(site, base)
     placeholder_host = "example" + ".com"
     if placeholder_host in src:
