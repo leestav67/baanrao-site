@@ -30,8 +30,8 @@ window.SITE_CONFIG = {
   LINE_ID: "@BaanRaoMookata",
 
   // ---- PHONE ----
-  PHONE: "+66932691542",
-  PHONE_DISPLAY: "093 269 1542",
+  PHONE: "0656154656",
+  PHONE_DISPLAY: "065 615 4656",
 
   // ---- GOOGLE REVIEWS ----
   // "Read all reviews" opens the shop's Google Maps place.

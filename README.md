@@ -36,7 +36,7 @@ Open <http://localhost:8000>. English page: build it first with `python3 tools/b
 (demo password: `demo`).
 
 **Booking while `BOOKING_API_URL` is empty (now):** the booking section shows the **"จองโต๊ะง่ายๆ ทาง LINE"**
-card with two buttons, **จองผ่าน LINE** (opens `LINE_URL`) and **โทรจอง 093 269 1542**, plus the note
+card with two buttons, **จองผ่าน LINE** (opens `LINE_URL`) and **โทรจอง 065 615 4656**, plus the note
 "ระบบจองออนไลน์ เปิดให้ใช้เร็วๆ นี้". The online form is hidden, so guests never get a fake confirmation,
 a fake booking code or fake "เต็ม" (full) slots. The hero and the mobile bar also lead with LINE and Call.
 

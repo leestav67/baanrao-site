@@ -34,7 +34,7 @@ var CONFIG = {
   DAYS_AHEAD: 60,
   MIN_LEAD_MINUTES: 30,                  // can't book a slot starting in < 30 min
   LINE_ID: '@BaanRaoMookata',
-  PHONE_DISPLAY: '093 269 1542',
+  PHONE_DISPLAY: '065 615 4656',
   MAPS_URL: 'https://goo.gl/maps/uLo6NqVWW7SKCHQf8'
 };
 // Secrets live in Project Settings → Script properties (never in the website code):
