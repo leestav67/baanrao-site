@@ -1,6 +1,6 @@
 /* บ้านเราหมูกระทะ — booking widget
    LIVE MODE (SITE_CONFIG.BOOKING_API_URL set): talks to the Google Apps Script web app in backend/Code.gs.
-   No URL: the form stays hidden and the page shows the "book on LINE / phone" card instead.
+   No URL: the form stays hidden and the page shows the "book by phone" card instead.
    TEST MODE (no URL + ?booking=test in the address): the form runs against this browser's localStorage only,
    clearly labelled "not sent to the restaurant" — for previewing the form. No fake "full" slots, ever.   */
 (function () {
@@ -14,16 +14,16 @@
   var T = {
     th: { months: ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'],
           dow: ['อา','จ','อ','พ','พฤ','ศ','ส'], left: 'ว่าง {n} ที่', few: 'เหลือ {n} ที่', full: 'เต็ม', loading: 'กำลังโหลดเวลาว่าง…',
-          none: 'ขออภัย วันนี้ไม่มีรอบว่างแล้ว กรุณาเลือกวันอื่น หรือแชท LINE', closed: 'วันนี้ร้านปิดรับจอง กรุณาเลือกวันอื่น',
+          none: 'ขออภัย วันนี้ไม่มีรอบว่างแล้ว กรุณาเลือกวันอื่น หรือโทร 065 615 4656', closed: 'วันนี้ร้านปิดรับจอง กรุณาเลือกวันอื่น',
           guests: 'ท่าน', maxHint: 'รอบนี้รับได้อีกสูงสุด {n} ท่าน', date: 'วันที่', time: 'เวลา', party: 'จำนวน', name: 'ชื่อ', phone: 'โทร',
-          err: 'เกิดข้อผิดพลาด กรุณาลองใหม่ หรือแชท LINE', fullErr: 'ขออภัย รอบนี้เพิ่งเต็ม กรุณาเลือกเวลาอื่น', sending: 'กำลังจอง…', yearOff: 543,
-          testTitle: 'โหมดทดสอบ — ยังไม่ได้จองจริง', testText: 'การจองนี้ไม่ได้ส่งถึงร้าน กรุณาจองทาง LINE หรือโทร 065 615 4656' },
+          err: 'เกิดข้อผิดพลาด กรุณาลองใหม่ หรือโทร 065 615 4656', fullErr: 'ขออภัย รอบนี้เพิ่งเต็ม กรุณาเลือกเวลาอื่น', sending: 'กำลังจอง…', yearOff: 543,
+          testTitle: 'โหมดทดสอบ — ยังไม่ได้จองจริง', testText: 'การจองนี้ไม่ได้ส่งถึงร้าน กรุณาโทรจอง 065 615 4656' },
     en: { months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
           dow: ['Su','Mo','Tu','We','Th','Fr','Sa'], left: '{n} seats', few: '{n} left', full: 'Full', loading: 'Loading available times…',
-          none: 'Sorry, no times left on this day. Please pick another date or chat with us on LINE.', closed: 'We are not taking bookings on this day.',
+          none: 'Sorry, no times left on this day. Please pick another date or call 065 615 4656.', closed: 'We are not taking bookings on this day.',
           guests: 'guests', maxHint: 'Up to {n} guests available at this time', date: 'Date', time: 'Time', party: 'Guests', name: 'Name', phone: 'Phone',
-          err: 'Something went wrong. Please try again or chat with us on LINE.', fullErr: 'Sorry, that time just filled up. Please choose another time.', sending: 'Booking…', yearOff: 0,
-          testTitle: 'Test mode — not a real booking', testText: 'This booking was NOT sent to the restaurant. Please book on LINE or call 065 615 4656.' }
+          err: 'Something went wrong. Please try again or call 065 615 4656.', fullErr: 'Sorry, that time just filled up. Please choose another time.', sending: 'Booking…', yearOff: 0,
+          testTitle: 'Test mode — not a real booking', testText: 'This booking was NOT sent to the restaurant. Please call 065 615 4656 to book.' }
   };
   var L = function () { return T[window.SITE_LANG === 'en' ? 'en' : 'th']; };
   var fmt = function (s, n) { return s.replace('{n}', n); };

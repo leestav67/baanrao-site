@@ -83,7 +83,7 @@ def sync_origin(site, base):
 
 
 def write_sitemap(site, base):
-    today = "2026-10-03"
+    today = "2026-10-04"
     xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -206,7 +206,9 @@ def build(site):
     if swapped == out:
         raise SystemExit("index.html is missing the <!-- SEO:BEGIN --> / <!-- SEO:END --> markers")
     out = swapped
-    out = out.replace('<html lang="th">', '<html lang="en">', 1)
+    if '<html lang="th"' not in out:
+        raise SystemExit('index.html has no <html lang="th" ...> tag')
+    out = out.replace('<html lang="th"', '<html lang="en"', 1)   # keeps class="no-line"
     th_toggle = '<a href="./" hreflang="th" lang="th" class="on" aria-current="page">TH</a><a href="en/" hreflang="en" lang="en">EN</a>'
     if th_toggle not in out:
         raise SystemExit("index.html language toggle not found (expected the relative ./ and en/ links)")

@@ -85,6 +85,33 @@ def blur(im, stem):
     b.save(f'{OUT}/{stem}-blur-480.avif', 'AVIF', quality=40)
     b.save(f'{OUT}/{stem}-blur-480.jpg', 'JPEG', quality=60, optimize=True)
 
+CREDIT_FONT = '/usr/share/fonts/truetype/sand-box/google/Noto Sans/NotoSans-VariableFont_wdth,wght.ttf'
+
+def burn_credit(im, text):
+    """Small credit pill, bottom-right, for customer photos used as share images (LINE/Facebook previews
+    don't show the on-page credit). Latin text so one file works for TH and EN."""
+    from PIL import ImageDraw, ImageFont
+    im = im.copy()
+    f = ImageFont.truetype(CREDIT_FONT, 22)
+    try: f.set_variation_by_name('SemiBold')
+    except Exception: pass
+    d = ImageDraw.Draw(im, 'RGBA')
+    l, t, r, b = d.textbbox((0, 0), text, font=f)
+    w, h = r - l, b - t
+    x1, y1 = im.width - 18, im.height - 16
+    x0, y0 = x1 - w - 28, y1 - h - 18
+    d.rounded_rectangle((x0, y0, x1, y1), radius=(y1 - y0) // 2, fill=(15, 12, 8, 170))
+    d.text((x0 + 14 - l, y0 + 9 - t), text, font=f, fill=(255, 255, 255, 255))
+    return im
+
+def og_night():
+    """Share image (og:image / twitter:image): the hero pan photo, 1200x630, with the uploader's credit burnt in."""
+    pan = load('customer-food-01.jpg')
+    og = to_ratio(pan, 1200, 630, yb=0.62).resize((1200, 630), Image.LANCZOS)
+    og = burn_credit(og, 'Photo: Sariya Wattanapong')
+    save(og, f'{OUT}/baanrao-moo-krata-pan-night-og-1200.jpg', 'jpg', 82, 200*KB, 60)
+    print('baanrao-moo-krata-pan-night-og-1200.jpg  1200x630  (credit burnt in)')
+
 def menu_cards():
     """Menu category cards (r5): square 480/800 crops of real customer photos."""
     # SEAFOOD card (customer, hellosammy0601): prawn salad; crop away the pork plate and sauce bowl at the top
@@ -109,9 +136,9 @@ def placeholders():
         b.close()
 
 if __name__ == '__main__' and len(sys.argv) > 1:
-    # python3 tools/make_photos.py menu-cards placeholders   (only those sets; no args = everything)
+    # python3 tools/make_photos.py menu-cards placeholders og   (only those sets; no args = everything)
     for what in sys.argv[1:]:
-        {'menu-cards': menu_cards, 'placeholders': placeholders}[what]()
+        {'menu-cards': menu_cards, 'placeholders': placeholders, 'og': og_night}[what]()
     sys.exit(0)
 
 if __name__ == '__main__':
@@ -120,8 +147,7 @@ if __name__ == '__main__':
     for w in (800, 1200): three(pan, 'baanrao-moo-krata-pan-night', w, HERO)
     blur(pan, 'baanrao-moo-krata-pan-night')
     jsonld(pan, 'baanrao-moo-krata-pan-night')      # same pixels as hero-1200, for JSON-LD
-    og = to_ratio(pan, 1200, 630, yb=0.62).resize((1200, 630), Image.LANCZOS)
-    save(og, f'{OUT}/baanrao-moo-krata-pan-night-og-1200.jpg', 'jpg', 82, 200*KB, 60)
+    og_night()                                       # 1200x630 share image, credit burnt in
     # HERO fallback (owner): pork belly on the pan, 4:3 crop of a portrait photo
     own = load('food-pan-owner.jpg')
     own43 = to_ratio(own, 4, 3, yb=0.48)

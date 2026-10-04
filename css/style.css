@@ -124,13 +124,12 @@ p{margin:0 0 1em}
 .promo-main{display:grid;gap:22px;align-items:center;background:linear-gradient(135deg,#fff7e0,#fde9b0);border-radius:26px;padding:26px;box-shadow:var(--shadow);border:1px solid #f0d58c}
 .promo-main img{width:100%;max-width:260px;margin:auto;border-radius:18px;box-shadow:0 12px 30px rgba(120,80,0,.25);transform:rotate(-2deg)}
 .promo-main h2{font-size:clamp(1.7rem,5vw,2.4rem);color:var(--ink)}
-.promo-main .kicker{padding-left:0}.promo-main .kicker::before{display:none}
+.promo-main .btn{white-space:normal;text-align:center;max-width:100%}.promo-main .kicker{padding-left:0}.promo-main .kicker::before{display:none}
 .promo-side{display:grid;gap:14px}
 .mini-card{display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:18px;padding:18px;box-shadow:0 4px 18px rgba(15,12,8,.07);border:1px solid var(--cream2)}
 .mini-card h3{font-size:1.1rem;margin:0 0 .2em}
 .mini-card p{margin:0;color:var(--muted);font-size:.92rem}
 .mini-ico{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:var(--ink);color:var(--gold2)}
-.mini-ico.grab{background:#00b14f;color:#fff}
 
 /* booking */
 .booking-wrap{max-width:760px}
@@ -231,7 +230,7 @@ p{margin:0 0 1em}
 .f-brand strong{font-family:var(--head);color:var(--gold2);font-size:1.3rem}
 .f-brand p{margin:0;font-size:.9rem}
 .f-cols p{margin:0 0 6px;font-size:.92rem}
-.f-cols a{color:var(--gold2)}
+.f-cols a{color:var(--gold2);display:inline-block;min-height:24px}
 .f-bottom{margin-top:24px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);font-size:.8rem;color:#857a65}
 
 /* floating mobile bar */
@@ -356,7 +355,7 @@ p{margin:0 0 1em}
 .vcard.sound-on .vsound .ico-on{display:block}.vcard.sound-on .vsound .ico-off{display:none}
 .vmeta{padding:10px 14px 14px;display:flex;flex-direction:column;gap:4px}
 .vmeta h3{font-size:1rem;color:var(--gold2);margin:0;line-height:1.35}
-.vmeta a{display:inline-flex;align-items:center;gap:5px;color:#c9bda2;font-size:.82rem;text-decoration:none}
+.vmeta a{display:inline-flex;align-items:center;min-height:24px;gap:5px;color:#c9bda2;font-size:.82rem;text-decoration:none}
 .vmeta a:hover{color:#fff}.vmeta a .i{width:1em;height:1em}
 .vrow-wrap{position:relative}
 .vrow{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 20px 14px;margin:0 -20px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
@@ -413,8 +412,6 @@ p{margin:0 0 1em}
 .steps-route b{color:var(--ink)}
 .landmarks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
 .lm{display:inline-flex;align-items:center;gap:6px;background:#fde9b0;border-radius:999px;padding:6px 12px;font-size:.88rem;font-weight:600}
-.grab-note{display:flex;gap:8px;align-items:center;margin:0;background:#e9f9ef;color:#0b6b36;border-radius:12px;padding:10px 12px;font-size:.9rem}
-.grab-note .i{color:#00b14f}
 @media (min-width:960px){
   .find-top{grid-template-columns:1fr 300px;align-items:stretch}
   .find-top .map-box,.find-top .map-box iframe{min-height:100%;height:100%}
@@ -604,3 +601,11 @@ html[lang="en"] .hero h1{font-size:clamp(2.6rem,10vw,4.2rem)}
 @media (max-width:699px){.gal-3{grid-auto-rows:190px}}
 /* two kickers on the darkest light backgrounds: #88620f passes 4.5:1 (reviews #f3ead8 4.62, promo gradient end #fde9b0 4.59) */
 .reviews .kicker,.promo-main .kicker{color:#88620f}
+/* LINE_URL empty in js/config.js: hide LINE buttons (no dead links) */
+html.no-line [data-cfg-href="LINE_URL"],html.no-line .line-only{display:none!important}
+html:not(.no-line) .no-line-only{display:none}
+/* LINE off: keep the remaining booking/contact items centred */
+html.no-line .lb-cta{grid-template-columns:minmax(0,380px);justify-content:center}
+html.no-line .contact-grid{grid-template-columns:minmax(0,1fr);max-width:680px;margin-inline:auto}
+/* visually hidden, still read by screen readers and crawlers */
+.vh{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}

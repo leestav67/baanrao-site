@@ -23,11 +23,13 @@ window.SITE_CONFIG = {
   DAYS_AHEAD: 60,               // how far ahead guests can book
 
   // ---- LINE (the ONE place for the LINE link: every LINE button on the site reads it) ----
-  // ⚠ https://line.me/R/ti/p/@BaanRaoMookata returned 404 in testing (Oct 2026).
+  // ⚠ The placeholder line.me link used before returned 404 in testing (Oct 2026), so LINE is off for now.
   // Owner: LINE OA Manager → Home → Gain friends (เพิ่มเพื่อน) → copy the add-friend link
   // (looks like https://lin.ee/XXXXXXX) and paste it below, plus the real LINE ID.
-  LINE_URL: "https://line.me/R/ti/p/@BaanRaoMookata",
-  LINE_ID: "@BaanRaoMookata",
+  // While LINE_URL is empty every LINE button is hidden (html.no-line) and booking is by phone only.
+  // Re-enable LINE: set LINE_URL (and LINE_ID, shown on the contact card and in the footer), then rebuild/deploy.
+  LINE_URL: "",
+  LINE_ID: "",
 
   // ---- PHONE ----
   PHONE: "0656154656",
@@ -35,7 +37,7 @@ window.SITE_CONFIG = {
 
   // ---- GOOGLE REVIEWS ----
   // "Read all reviews" opens the shop's Google Maps place.
-  GOOGLE_REVIEWS_URL: "https://goo.gl/maps/uLo6NqVWW7SKCHQf8",
+  GOOGLE_REVIEWS_URL: "https://maps.google.com/?cid=10793292857098184680",
   // Owner: Google Business Profile → "Ask for reviews" → copy the link and paste it here.
   // While empty, the "please review us" link opens the Google Maps place instead.
   GOOGLE_WRITE_REVIEW_URL: ""
