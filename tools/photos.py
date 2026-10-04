@@ -23,7 +23,8 @@ SHOW_CUSTOMER_PHOTOS = True         # False = owner photos only, everywhere
 ABOUT = "clean-night"               # the real night shot (courtyard-night.jpg is daylight)
 SETS = "set-moo-krata"              # falls back to SETS_OWNER when customer photos are off
 SETS_OWNER = "food-pan-owner"
-MENU_PHOTOS = ["peaceii-topdown-pan", "hellosammy-dish-03", "customer-food-02", "apisit-seafood-salad"]
+MENU_PHOTOS = ["peaceii-topdown-pan", "hellosammy-dish-03", "customer-food-02"]  # r9: yam talay moved to the noodles card
+# (the row adapts to 3 or 4 photos: class mp-n3 / mp-n4 in css/style.css)
 GALLERY = ["hellosammy-pan", "food-pan-owner", "customer-food-03"]  # big food tile, food, venue (no repeats of About/menu photos)
 STOREFRONT = "owner-courtyard-day"
 SHOW_PLACEHOLDERS = True            # False = placeholder cards fall back to their icon
@@ -37,7 +38,7 @@ MENU_CARDS = {
     "meat":    ("fb-beef-platter", None, "(min-width: 960px) 200px, 100vw"),          # full width below 960 px
     "seafood": ("hellosammy-dish-02", "i-fish", _CARD),
     "salads":  ("peaceii-papaya", "i-chili", _CARD),
-    "noodles": ("placeholder-noodles", "i-bowl", _CARD),
+    "noodles": ("apisit-yam-card", "i-bowl", _CARD),                                  # r9: real photo (was placeholder-noodles)
     "veg":     ("surachat-tray", "i-leaf", "(min-width: 960px) 200px, 50vw"),   # half width at 640–959
     "drinks":  ("placeholder-drinks", "i-drink", "(min-width: 960px) 200px, (min-width: 640px) 50vw, 100vw"),  # full width < 640
 }
@@ -131,6 +132,12 @@ P = {
         alt_th="ถาดผักสดสำหรับหมูกระทะ เห็ดเข็มทอง ฟักทอง แครอท ผักกาด วุ้นเส้น ผักบุ้ง และข้าวโพดถ้วยเล็ก ร้านบ้านเราหมูกระทะ อุดรธานี",
         alt_en="A tray of fresh vegetables for moo krata at Baan Rao Moo Krata, Udon Thani: enoki mushrooms, pumpkin, carrot, cabbage, glass noodles, morning glory and a small bowl of corn",
         cap_th="ผักสดจัดเต็มถาด", cap_en="A full tray of fresh vegetables"),
+    # r9: the yam talay photo (customer อภิสิทธิ์ นวลปักษี), square crop for the noodles & sides card (it left the menu photo row;
+    # the 4:5 row files of "apisit-seafood-salad" are kept so it can go back into MENU_PHOTOS)
+    "apisit-yam-card": dict(kind="customer", by="อภิสิทธิ์ นวลปักษี", stem="baanrao-yam-woon-sen-talay-square", files=[(480, 480), (800, 800)],
+        alt_th="ยำวุ้นเส้นทะเลรสจัดจ้าน กุ้ง หอยแมลงภู่ ไส้กรอก มะเขือเทศ หอมใหญ่ และขึ้นฉ่าย ในจานขาว ร้านบ้านเราหมูกระทะ อุดรธานี",
+        alt_en="Spicy glass-noodle seafood salad (yam woon sen talay) with shrimp, a mussel, Thai sausage, tomato, onion and Chinese celery on a white plate at Baan Rao Moo Krata, Udon Thani",
+        cap_th="ยำวุ้นเส้นทะเล", cap_en="Spicy glass-noodle seafood salad"),
     # PLACEHOLDERS: gold line drawings from tools/placeholders/*.svg (tools/make_photos.py placeholders). Not photos.
     "placeholder-noodles": dict(kind="placeholder", stem="baanrao-menu-placeholder-noodles", files=[(480, 480), (800, 800)],
         alt_th="ภาพตัวอย่าง ไม่ใช่ภาพจริงจากร้าน: ภาพลายเส้นสีทอง ชามเส้นควันกรุ่นกับตะเกียบ ไข่ต้ม และจานเล็ก",
@@ -225,10 +232,16 @@ def block_menu_photos():
     items = [i for i in MENU_PHOTOS if on(i)]
     if not items:
         return ""
+    n = len(items)
+    # 4 photos: 2 columns, 4 from 960 px. 3 photos (r9): the first spans the full width below 640 px, then 3 columns.
+    def sizes(k):
+        if n == 3:
+            return "(min-width: 960px) 360px, (min-width: 640px) 33vw, 100vw" if k == 0 else "(min-width: 960px) 360px, (min-width: 640px) 33vw, 50vw"
+        return "(min-width: 960px) 260px, 50vw"
     tiles = "\n".join(
-        f'  <figure class="mp">{picture(i, "(min-width: 960px) 260px, 50vw")}{credit(i)}<figcaption>{cap(i)}</figcaption></figure>'
-        for i in items)
-    return f'<div class="menu-photos">\n{tiles}\n</div>'
+        f'  <figure class="mp">{picture(i, sizes(k))}{credit(i)}<figcaption>{cap(i)}</figcaption></figure>'
+        for k, i in enumerate(items))
+    return f'<div class="menu-photos mp-n{n}">\n{tiles}\n</div>'
 
 def block_gallery():
     items = [i for i in GALLERY if on(i) and not (i == hero_id())]

@@ -167,8 +167,10 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
   - New photo sizes are made with `tools/make_photos.py` (needs Pillow ≥ 11.3; sources are kept outside the repo).
     Budgets: hero 1200 px AVIF ≤120 KB / WebP ≤160 KB / JPEG ≤220 KB; cards 800 px WebP ≤60 KB / JPEG ≤90 KB.
   - **Menu category cards** (meats, seafood, salads, noodles, veg, drinks) each have a picture, set in `MENU_CARDS`
-    in `tools/photos.py`. Vegetables has a real customer photo since r7; noodles and drinks are still **PLACEHOLDERS**
-    (gold line drawings with a "ภาพตัวอย่าง / Sample photo" badge) until a real photo turns up (see `PHOTO-SOURCES.md`). **To swap in a real photo:** put the original (≥ 800 px, ideally square, no
+    in `tools/photos.py`. Vegetables (r7/r8) and noodles & sides (r9, the yam talay photo moved from the menu photo row) have real
+    customer photos; only drinks is still a **PLACEHOLDER** (gold line drawing with a "ภาพตัวอย่าง / Sample photo" badge)
+    until a real photo turns up (see `PHOTO-SOURCES.md`). The menu photo row (`MENU_PHOTOS`) takes 3 or 4 photos: with 3,
+    the first one is full width below 640 px, then it is 3 across (classes `mp-n3`/`mp-n4`). **To swap in a real photo:** put the original (≥ 800 px, ideally square, no
     people's faces) in `/workspace/baanrao/photos/…`, add a square crop to `menu_cards()` in `tools/make_photos.py` and
     run `python3 tools/make_photos.py menu-cards` (makes `-480`/`-800` AVIF/WebP/JPEG); add an entry to `P` in
     `tools/photos.py` (`kind="owner"`, or `kind="customer"` with `by="…"` for a credit) with Thai `alt_th` and English

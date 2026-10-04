@@ -548,6 +548,10 @@ html[lang="en"] .hero h1{font-size:clamp(2.6rem,10vw,4.2rem)}
 .mp figcaption{padding:10px 12px 12px;font:500 .92rem/1.35 var(--head);color:#f3ead6}
 .mp .pcredit{position:absolute;right:8px;top:8px}
 @media (min-width:960px){.menu-photos{grid-template-columns:repeat(4,1fr);gap:18px}.mp figcaption{font-size:1rem}}
+/* r9: menu photo row with 3 photos: first one full width (landscape) below 640px, then 3 columns (4:3 from 960px so the row stays low) */
+.menu-photos.mp-n3 .mp:first-child{grid-column:1/-1}.menu-photos.mp-n3 .mp:first-child img{aspect-ratio:16/10}
+@media (min-width:640px){.menu-photos.mp-n3{grid-template-columns:repeat(3,1fr)}.menu-photos.mp-n3 .mp:first-child{grid-column:auto}.menu-photos.mp-n3 .mp:first-child img{aspect-ratio:4/5}}
+@media (min-width:960px){.menu-photos.mp-n3{grid-template-columns:repeat(3,1fr)}.menu-photos.mp-n3 .mp img,.menu-photos.mp-n3 .mp:first-child img{aspect-ratio:4/3}}
 /* meats card: Australian beef label */
 .mc-beef{position:relative}
 .mc-tag{position:absolute;left:10px;top:10px;font:600 .78rem/1.2 var(--head);color:#1a140d;background:var(--gold2);padding:4px 9px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,.35)}
