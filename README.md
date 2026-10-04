@@ -159,6 +159,15 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
     every customer photo). Details and the uploader/URL of every photo: **`PHOTO-SOURCES.md`**.
   - New photo sizes are made with `tools/make_photos.py` (needs Pillow ≥ 11.3; sources are kept outside the repo).
     Budgets: hero 1200 px AVIF ≤120 KB / WebP ≤160 KB / JPEG ≤220 KB; cards 800 px WebP ≤60 KB / JPEG ≤90 KB.
+  - **Menu category cards** (meats, seafood, salads, noodles, veg, drinks) each have a picture, set in `MENU_CARDS`
+    in `tools/photos.py`. Noodles, vegetables and drinks are **PLACEHOLDERS** for now (gold line drawings with a
+    "ภาพตัวอย่าง / Sample photo" badge). **To swap in a real photo:** put the original (≥ 800 px, ideally square, no
+    people's faces) in `/workspace/baanrao/photos/…`, add a square crop to `menu_cards()` in `tools/make_photos.py` and
+    run `python3 tools/make_photos.py menu-cards` (makes `-480`/`-800` AVIF/WebP/JPEG); add an entry to `P` in
+    `tools/photos.py` (`kind="owner"`, or `kind="customer"` with `by="…"` for a credit) with Thai `alt_th` and English
+    `alt_en` describing what is in the photo; point the card at it in `MENU_CARDS`; run `python3 tools/build_en.py .`.
+    The badge disappears by itself once the card no longer uses a placeholder. `SHOW_PLACEHOLDERS = False` hides all
+    placeholders (icon cards instead). Then update `PHOTO-SOURCES.md`.
 - Videos: clips live in `videos/` (posters in `videos/posters/`). Each card in `index.html` has `data-src` (the clip),
   `poster` and a TikTok link. Nothing downloads until a clip is visible or tapped; only one plays at a time, muted.
   Clips 01, 03, 04, 05, 07 have a sound button; 02, 06, 08 have no audio (commercial music removed).
@@ -184,6 +193,8 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
    **This matters most: LINE is now the main way to book.**
 8. **Parking** — site says "parking for cars and motorbikes at the restaurant". How many cars?
 9. **Menu** — category cards (meats, seafood, salads, noodles/sides, veg, drinks) are examples; send a fuller menu to add.
+   **Photos wanted:** noodles & sides, fresh vegetables and drinks still use sample drawings ("ภาพตัวอย่าง"). Real photos of
+   these (and of a seafood plate before grilling) would replace them.
 10. **Live music** — which nights? **GrabFood** — direct link to add? **Rao Cafe** — address/link?
 11. **Booking capacity** — guests per 30-minute slot (default 40) and largest online group (default 20).
 12. **Owner email + Google account** for the booking sheet, and whether he wants LINE notifications.

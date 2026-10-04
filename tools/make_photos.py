@@ -85,6 +85,35 @@ def blur(im, stem):
     b.save(f'{OUT}/{stem}-blur-480.avif', 'AVIF', quality=40)
     b.save(f'{OUT}/{stem}-blur-480.jpg', 'JPEG', quality=60, optimize=True)
 
+def menu_cards():
+    """Menu category cards (r5): square 480/800 crops of real customer photos."""
+    # SEAFOOD card (customer, hellosammy0601): prawn salad; crop away the pork plate and sauce bowl at the top
+    card(load('hellosammy-dish-02.jpg').crop((100, 400, 1500, 1800)), 'baanrao-prawn-salad-seafood')
+    # SALADS & SOM TAM card (customer, Peaceii Keeratika): som tam on a plate; crop away the hand and the plants
+    card(load('peaceii-papaya.jpg').crop((500, 100, 1900, 1500)), 'baanrao-somtam-plate')
+
+def placeholders():
+    """Menu-card PLACEHOLDERS: gold line drawings (tools/placeholders/*.svg), NOT photos. Rendered with
+    headless Chrome (Playwright), then saved like any other card. Replace them with real photos: see README."""
+    import tempfile
+    from playwright.sync_api import sync_playwright
+    here = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'placeholders')
+    with sync_playwright() as p:
+        b = p.chromium.launch(executable_path=os.environ.get('CHROME', '/usr/bin/google-chrome'), args=['--headless=new'])
+        pg = b.new_page(viewport={'width': 800, 'height': 800})
+        for name in ('noodles', 'vegetables', 'drinks'):
+            pg.goto('file://' + os.path.join(here, f'placeholder-{name}.svg'))
+            png = os.path.join(tempfile.gettempdir(), f'placeholder-{name}.png')
+            pg.screenshot(path=png)
+            card(Image.open(png).convert('RGB'), f'baanrao-menu-placeholder-{name}')
+        b.close()
+
+if __name__ == '__main__' and len(sys.argv) > 1:
+    # python3 tools/make_photos.py menu-cards placeholders   (only those sets; no args = everything)
+    for what in sys.argv[1:]:
+        {'menu-cards': menu_cards, 'placeholders': placeholders}[what]()
+    sys.exit(0)
+
 if __name__ == '__main__':
     # HERO (customer, Sariya Wattanapong): smoking pan, fairy-light bokeh. 1200x900 source.
     pan = load('customer-food-01.jpg')
@@ -131,3 +160,5 @@ if __name__ == '__main__':
     night = Image.open('/workspace/baanrao/photos-clean/hero-new.jpg').convert('RGB')   # 1448x1086
     card(night, 'baanrao-dining-area-night-4x3')
     jsonld(night, 'baanrao-dining-area-night-4x3')   # 1200x900 for JSON-LD
+    menu_cards()
+    placeholders()

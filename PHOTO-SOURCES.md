@@ -10,6 +10,8 @@ Lee has approved using them; each one shows a small credit on the page (TH "ภ�
 | Owner-safe hero (no customer photo in the hero) | `HERO = "customer-food-01"` → `HERO = "food-pan-owner"` (caption becomes "หมูหมัก น้ำซุปสูตรบ้านเรา ทำเองทุกขั้นตอน" / "Our own marinated pork and broth, made from scratch"; og:image switches too) |
 | Remove **all** customer photos | `SHOW_CUSTOMER_PHOTOS = False` (hero → owner pan, sets photo → owner pan, menu photo row disappears, gallery and JSON-LD keep owner photos only) |
 | Remove one photo | delete its id from `MENU_PHOTOS` / `GALLERY`, or add `enabled=False` to its entry in `P` |
+| Hide the menu-card **placeholders** | `SHOW_PLACEHOLDERS = False` (those cards go back to plain icon cards) |
+| Change a menu-card photo | `MENU_CARDS` (card → photo id). A card whose photo is switched off falls back to its icon |
 
 The page blocks between `<!-- PHOTOS:… BEGIN -->` and `<!-- PHOTOS:… END -->` in `index.html`, the Restaurant JSON-LD `image` arrays and `og:image`/`twitter:image` (in `index.html` and `tools/head-en.html`) are rewritten by that script on every build. Don't hand-edit them.
 Derivatives are made by `tools/make_photos.py` from the originals in `/workspace/baanrao/photos/google/` (not in the repo): sRGB, EXIF/GPS stripped.
@@ -29,6 +31,8 @@ Derivatives are made by `tools/make_photos.py` from the originals in `/workspace
 | `hellosammy-pan.jpg` | `baanrao-moo-krata-pan-charcoal-stove-*.{avif,webp,jpg}` | hellosammy0601 | customer | Gallery tile 1 (big) | [Google photo](https://lh3.googleusercontent.com/grass-cs/AABkmLc1FFf9i_n5Kj9pgKQ8cMM_kzyh1wTIj_-hb2XFqYBZM6ef1j29_zQiQ3dsu9SOHC6zyAbQUxZMgBzyqUFjK6VzmmgBAfK1mvoonm0logb6K1YpTENOLyVwiY8YEq-FUD0ZjgQMP26AxvZ9=s2000) |
 | `customer-food-03.jpg` | `baanrao-covered-seating-day-*.{avif,webp,jpg}` | จีรศักดิ์ แหล้ยัง | customer | Gallery tile 3 (venue; daytime photo) **Venue confirmed by the owner via Lee (3 Oct 2026).** | [Google photo](https://lh3.googleusercontent.com/gps-cs-s/ANWiy9SnBJFZFWoI9bVbJi_9W9Tqts0Hq5RiHqvi8VhbngkaL3YftpqCkwOQHVlLyaxowCVLvrJBgFDpAXyFgYkfDGxto8czUpVnaUkw-p6uHxm-1Jvny2kfyUtmZftHLe9BKDc3UB6axn2ilLI=s2000) |
 | `owner-courtyard-day.jpg` | `baanrao-storefront-courtyard-day-*.{avif,webp,jpg}`<br>`baanrao-storefront-courtyard-day-1200.jpg (JSON-LD, from SEO)` | บ้านเราหมูกระทะ (owner) | owner | Find us: small storefront photo under the directions; JSON-LD (`baanrao-storefront-courtyard-day-1200.jpg`) | [Google photo](https://lh3.googleusercontent.com/gps-cs-s/ANWiy9SJya_PcR8G5OFdEIc6FL6Xe6MNAy906y9IrdNxCyWJ9h6JdV-quCxM2HXzsJoWNaqjlWOjhH7xmgMp1hO-xv266AJPyo_vVOXSQ2kfkkEl-ucxNinGlgNgdxOrkSkuoLE1fWWULA=s2000) |
+| `hellosammy-dish-02.jpg` | `baanrao-prawn-salad-seafood-480/800.{avif,webp,jpg}` (square crop, pork plate and sauce bowl cropped out) | hellosammy0601 | customer | Menu: **seafood card** (r5). Alt describes what is shown (prawns, corn, tomato, onion, spring onion); the exact dish name (ยำ or ตำ) is for the owner to confirm | [Google photo](https://lh3.googleusercontent.com/grass-cs/AABkmLdXjmniAi7qmQkaNBqxrsZ5NgPGzSU3mL0MHIO8q1RlnCitU4v8jq7_8TvySkR0KneJRl_MYqDvbOsuG4FCy3X59XuOreJs8xbVkfGsAnaOrTw3ru9Q-UgcU-UXDR8i0BV_599pnBW3yJIW=s2000) |
+| `peaceii-papaya.jpg` | `baanrao-somtam-plate-480/800.{avif,webp,jpg}` (square crop, hand and plants cropped out) | Peaceii Keeratika | customer | Menu: **salads & som tam card** (r5). A different som tam photo from the one in the menu photo row | [Google photo](https://lh3.googleusercontent.com/grass-cs/AABkmLfif8UkkvnomCQJG8rmESixy-Gvi9bW-9TStFAsf-Xzbt_0Do6sc8M4eD0HV4yj6kGx3XjuY9ih4oC3pLUHnssesRPxrwgq6eNmI_Tvz7LEu5y434qHH2TZvUgYxhU5JRUYjE2-7CV2fhfy=s2000) |
 
 ## Other photos (owner's own Facebook / signage, already on the site)
 
@@ -39,11 +43,23 @@ Derivatives are made by `tools/make_photos.py` from the originals in `/workspace
 | `logo.jpg`, video posters | Owner | logo badge / videos |
 | `og-image.jpg` | Owner (old night photo) | no longer referenced; kept so old share links still show a picture |
 
+## PLACEHOLDERS (not photos of the restaurant)
+
+| Site files (`images/`) | Made from | Where | Status |
+|---|---|---|---|
+| `baanrao-menu-placeholder-noodles-480/800.{avif,webp,jpg}` | `tools/placeholders/placeholder-noodles.svg` (gold line drawing: noodle bowl, chopsticks, egg) | Menu: noodles & sides card | **PLACEHOLDER**: replace with a real photo |
+| `baanrao-menu-placeholder-vegetables-480/800.{avif,webp,jpg}` | `tools/placeholders/placeholder-vegetables.svg` (cabbage, morning glory, mushrooms, corn) | Menu: fresh vegetables card | **PLACEHOLDER**: replace with a real photo |
+| `baanrao-menu-placeholder-drinks-480/800.{avif,webp,jpg}` | `tools/placeholders/placeholder-drinks.svg` (two iced drinks and a water bottle, no brands) | Menu: drinks card | **PLACEHOLDER**: replace with a real photo |
+
+`kind="placeholder"` in `tools/photos.py`. Each shows a **"ภาพตัวอย่าง" / "Sample photo"** badge, the alt text starts with
+"ภาพตัวอย่าง ไม่ใช่ภาพจริงจากร้าน" / "Sample image, not a real photo from the restaurant", and they can never go into the
+JSON-LD `image` arrays or og:image (the build stops if one is added). Rebuild them with `python3 tools/make_photos.py placeholders`.
+How to swap in a real photo: README, *Photos*.
+
 ## Not used (and why)
 
 | Original | Uploader | Why |
 |---|---|---|
-| `peaceii-papaya.jpg` | Peaceii Keeratika (customer) | Duplicate of the som tam shot (Marketing) |
-| `hellosammy-dish-02.jpg` | hellosammy0601 (customer) | Duplicate angle of the stove/sauce shot (Marketing) |
-| `apisit-pan.jpg` | อภิสิทธิ์ นวลปักษี (customer) | Pale raw pork, not appetising (Marketing) |
-| `apisit-platter.jpg` | อภิสิทธิ์ นวลปักษี (customer) | SEO skips it; the owner's Australian beef platter is used instead |
+| `apisit-pan.jpg` | อภิสิทธิ์ นวลปักษี (customer) | Pale raw pork, not appetising (Marketing). Looked at again for the vegetables card (r5): the pork still fills the frame, and there is a camera watermark ("vivo V29 · Pichaya Pot…") bottom left, so a placeholder is used instead |
+| `apisit-platter.jpg` | อภิสิทธิ์ นวลปักษี (customer) | SEO skips it; the owner's Australian beef platter is used instead. (Seafood papaya salad with squid: spare option for the seafood or salads card) |
+| `food-noodles-*.jpg`, `food-dishes-1.jpg` (old site) | owner | Only 206 px: too small for a card (needs ≥ 800 px) |

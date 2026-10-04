@@ -12,6 +12,8 @@ QUICK SWITCHES (see PHOTO-SOURCES.md):
   SHOW_CUSTOMER_PHOTOS = True ->  False removes EVERY customer photo (hero falls back to the owner photo,
                                    the menu photo row disappears, gallery/JSON-LD keep owner photos only)
   To drop one customer photo: delete its id from MENU_PHOTOS / GALLERY (or set its "enabled": False).
+  SHOW_PLACEHOLDERS = True    ->  False turns the PLACEHOLDER menu cards (gold line drawings, kind="placeholder")
+                                   back into plain icon cards. To swap in a real photo: see MENU_CARDS below / README.
 """
 import json, os, re
 
@@ -24,6 +26,21 @@ SETS_OWNER = "food-pan-owner"
 MENU_PHOTOS = ["peaceii-topdown-pan", "hellosammy-dish-03", "customer-food-02", "apisit-seafood-salad"]
 GALLERY = ["hellosammy-pan", "food-pan-owner", "customer-food-03"]  # big food tile, food, venue (no repeats of About/menu photos)
 STOREFRONT = "owner-courtyard-day"
+SHOW_PLACEHOLDERS = True            # False = placeholder cards fall back to their icon
+# Menu category cards (index.html <!-- PHOTOS:menu-card-<card> -->): card -> (photo id, fallback icon, sizes).
+# The photo falls back to the icon when it's switched off (customer photo with SHOW_CUSTOMER_PHOTOS = False,
+# placeholder with SHOW_PLACEHOLDERS = False, or "enabled": False). Card texts stay in index.html.
+# To replace a placeholder with a real photo: make square 480/800 files with tools/make_photos.py (see
+# menu_cards()), add an entry to P (kind "owner" or "customer" + by=…), and put its id here.
+_CARD = "(min-width: 960px) 200px, (min-width: 640px) 33vw, 50vw"
+MENU_CARDS = {
+    "meat":    ("fb-beef-platter", None, "(min-width: 960px) 200px, 100vw"),          # full width below 960 px
+    "seafood": ("hellosammy-dish-02", "i-fish", _CARD),
+    "salads":  ("peaceii-papaya", "i-chili", _CARD),
+    "noodles": ("placeholder-noodles", "i-bowl", _CARD),
+    "veg":     ("placeholder-vegetables", "i-leaf", "(min-width: 960px) 200px, 50vw"),   # half width at 640–959
+    "drinks":  ("placeholder-drinks", "i-drink", "(min-width: 960px) 200px, (min-width: 640px) 50vw, 100vw"),  # full width < 640
+}
 # JSON-LD image array (absolute URLs, every file ≥1200 px wide), in this order. Thumbnails never go here.
 JSONLD_IMAGES = [
     ("customer-food-01", "baanrao-moo-krata-pan-night-1200.jpg"),     # best dish-on-pan shot (= hero)
@@ -37,7 +54,9 @@ JSONLD_IMAGES = [
 ]
 
 # ------------------------------------------------------------------ the photos
-# kind: "owner" (the shop's own upload) or "customer" (belongs to the uploader: credit shown on the page).
+# kind: "owner" (the shop's own upload) or "customer" (belongs to the uploader: credit shown on the page)
+#       or "placeholder" (NOT a photo of the restaurant: a "ภาพตัวอย่าง / Sample photo" badge is shown on the page,
+#       and it may never go into JSON-LD / og).
 # files: stem + list of (width, height) that exist as .avif/.webp/.jpg in images/
 P = {
     "customer-food-01": dict(kind="customer", by="Sariya Wattanapong", stem="baanrao-moo-krata-pan-night", files=[(800, 600), (1200, 900)],
@@ -97,12 +116,36 @@ P = {
         alt_th="ลานนั่งทานของร้านบ้านเราหมูกระทะยามค่ำ ใต้หลังคาและไฟประดับ เคาน์เตอร์ ป้ายไฟโลโก้ และโต๊ะไม้",
         alt_en="The covered dining courtyard at Baan Rao Moo Krata at night, with string lights, the counter, the lit logo sign and wooden tables",
         cap_th="ไฟระยิบระยับยามค่ำ นั่งชิลได้ทั้งคืน", cap_en="Fairy lights and warm evenings. Open daily 5–10 pm."),
+    # ---- menu category cards (r5) ----
+    "hellosammy-dish-02": dict(kind="customer", by="hellosammy0601", stem="baanrao-prawn-salad-seafood", files=[(480, 480), (800, 800)],
+        alt_th="เมนูแซ่บใส่กุ้งตัวโต ข้าวโพด มะเขือเทศ หอมใหญ่ และต้นหอม ร้านบ้านเราหมูกระทะ อุดรธานี",
+        alt_en="A spicy Thai dish with big prawns, corn, tomato, onion and spring onion at Baan Rao Moo Krata, Udon Thani",
+        cap_th="กุ้งตัวโต แซ่บๆ", cap_en="Big prawns, nice and spicy"),
+    "peaceii-papaya": dict(kind="customer", by="Peaceii Keeratika", stem="baanrao-somtam-plate", files=[(480, 480), (800, 800)],
+        alt_th="ส้มตำมะละกอจานใหญ่ ใส่มะเขือเทศ ถั่วฝักยาว และถั่วลิสง ร้านบ้านเราหมูกระทะ อุดรธานี",
+        alt_en="A big plate of som tam (green papaya salad) with tomato, long beans and peanuts at Baan Rao Moo Krata, Udon Thani",
+        cap_th="ส้มตำจานใหญ่", cap_en="A big plate of som tam"),
+    # PLACEHOLDERS: gold line drawings from tools/placeholders/*.svg (tools/make_photos.py placeholders). Not photos.
+    "placeholder-noodles": dict(kind="placeholder", stem="baanrao-menu-placeholder-noodles", files=[(480, 480), (800, 800)],
+        alt_th="ภาพตัวอย่าง ไม่ใช่ภาพจริงจากร้าน: ภาพลายเส้นสีทอง ชามเส้นควันกรุ่นกับตะเกียบ ไข่ต้ม และจานเล็ก",
+        alt_en="Sample image, not a real photo from the restaurant: gold line drawing of a steaming noodle bowl with chopsticks, a boiled egg and a small side dish",
+        cap_th="ภาพตัวอย่าง", cap_en="Sample photo"),
+    "placeholder-vegetables": dict(kind="placeholder", stem="baanrao-menu-placeholder-vegetables", files=[(480, 480), (800, 800)],
+        alt_th="ภาพตัวอย่าง ไม่ใช่ภาพจริงจากร้าน: ภาพลายเส้นสีทอง จานผักสด กะหล่ำปลี ผักบุ้ง เห็ด และข้าวโพด",
+        alt_en="Sample image, not a real photo from the restaurant: gold line drawing of a plate of fresh vegetables with cabbage, morning glory, mushrooms and corn",
+        cap_th="ภาพตัวอย่าง", cap_en="Sample photo"),
+    "placeholder-drinks": dict(kind="placeholder", stem="baanrao-menu-placeholder-drinks", files=[(480, 480), (800, 800)],
+        alt_th="ภาพตัวอย่าง ไม่ใช่ภาพจริงจากร้าน: ภาพลายเส้นสีทอง เครื่องดื่มเย็นใส่น้ำแข็งและหลอดสองแก้ว กับขวดน้ำเปล่า",
+        alt_en="Sample image, not a real photo from the restaurant: gold line drawing of two iced drinks with straws and a bottle of water",
+        cap_th="ภาพตัวอย่าง", cap_en="Sample photo"),
 }
 
 
 # ------------------------------------------------------------------ helpers
 def on(pid):
     p = P[pid]
+    if p["kind"] == "placeholder":
+        return p.get("enabled", True) and SHOW_PLACEHOLDERS
     return p.get("enabled", True) and (SHOW_CUSTOMER_PHOTOS or p["kind"] == "owner")
 
 def esc(s):
@@ -204,8 +247,20 @@ def block_storefront():
         return ""
     return f'<figure class="storefront">{picture(STOREFRONT, "(min-width: 960px) 240px, 40vw")}<figcaption>{cap(STOREFRONT)}</figcaption></figure>'
 
+def sample_badge(pid):
+    return '<small class="mc-sample" data-en="Sample photo">ภาพตัวอย่าง</small>' if P[pid]["kind"] == "placeholder" else ""
+
+def block_menu_card(card):
+    pid, icon, sizes = MENU_CARDS[card]
+    if not on(pid):
+        if not icon:
+            raise SystemExit(f"menu card {card!r}: photo {pid!r} is off and there is no fallback icon")
+        return f'<span class="mc-ico"><svg class="i"><use href="#{icon}"/></svg></span>'
+    return f'<div class="mc-pic">{picture(pid, sizes)}{sample_badge(pid)}{credit(pid)}</div>'
+
 BLOCKS = {"hero-preload": block_hero_preload, "hero": block_hero, "about": block_about, "sets": block_sets,
           "menu-photos": block_menu_photos, "gallery": block_gallery, "storefront": block_storefront}
+BLOCKS.update({f"menu-card-{c}": (lambda c=c: block_menu_card(c)) for c in MENU_CARDS})
 
 
 # ------------------------------------------------------------------ apply
@@ -218,6 +273,8 @@ def _swap_block(html, name, body):
 def _images_json(base, indent="    "):
     items = []
     for pid, f in JSONLD_IMAGES:
+        if P[pid]["kind"] == "placeholder":
+            raise SystemExit(f"JSONLD_IMAGES: {pid} is a placeholder, not a real photo; keep it out of JSON-LD")
         if not on(pid):
             continue
         url = f"{base}/images/{f}"
@@ -232,6 +289,8 @@ def _images_json(base, indent="    "):
 
 def _og(html, base, lang):
     p = P[hero_id()]
+    if p["kind"] == "placeholder":
+        raise SystemExit("og:image can't be a placeholder")
     url = f"{base}/images/{p['og']}"
     alt = p["alt_th"] if lang == "th" else p["alt_en"]
     html = re.sub(r'(<meta property="og:image" content=")[^"]*(")', lambda m: m.group(1) + url + m.group(2), html, count=1)
@@ -256,5 +315,8 @@ def apply(site, base):
     h = _restaurant_images(h, "{{SITE_URL}}")
     h = _og(h, "{{SITE_URL}}", "en")
     open(head, "w", encoding="utf-8").write(h)
-    n = sum(1 for i in set(MENU_PHOTOS + GALLERY + [HERO, SETS]) if on(i) and P[i]["kind"] == "customer")
-    print(f"photos: hero={hero_id()} customer photos {'on' if SHOW_CUSTOMER_PHOTOS else 'OFF'} ({n} in use)")
+    cards = [v[0] for v in MENU_CARDS.values()]
+    n = sum(1 for i in set(MENU_PHOTOS + GALLERY + [HERO, SETS] + cards) if on(i) and P[i]["kind"] == "customer")
+    ph = sum(1 for i in cards if on(i) and P[i]["kind"] == "placeholder")
+    print(f"photos: hero={hero_id()} customer photos {'on' if SHOW_CUSTOMER_PHOTOS else 'OFF'} ({n} in use), "
+          f"menu-card placeholders {ph}")
