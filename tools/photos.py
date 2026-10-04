@@ -125,7 +125,8 @@ P = {
         alt_th="ส้มตำมะละกอจานใหญ่ ใส่มะเขือเทศ ถั่วฝักยาว และถั่วลิสง ร้านบ้านเราหมูกระทะ อุดรธานี",
         alt_en="A big plate of som tam (green papaya salad) with tomato, long beans and peanuts at Baan Rao Moo Krata, Udon Thani",
         cap_th="ส้มตำจานใหญ่", cap_en="A big plate of som tam"),
-    # r7: real vegetable tray from Google Maps (customer สุรชาติ ยั่งยืน), replaces placeholder-vegetables on the veg card
+    # r7: real vegetable tray from Google Maps (customer สุรชาติ ยั่งยืน), replaces placeholder-vegetables on the veg card.
+    # r8: files made from the retouched version (light/colour/crop, crumbs removed, no food added); same contents, same alt.
     "surachat-tray": dict(kind="customer", by="สุรชาติ ยั่งยืน", stem="baanrao-vegetable-tray", files=[(480, 480), (800, 800)],
         alt_th="ถาดผักสดสำหรับหมูกระทะ เห็ดเข็มทอง ฟักทอง แครอท ผักกาด วุ้นเส้น ผักบุ้ง และข้าวโพดถ้วยเล็ก ร้านบ้านเราหมูกระทะ อุดรธานี",
         alt_en="A tray of fresh vegetables for moo krata at Baan Rao Moo Krata, Udon Thani: enoki mushrooms, pumpkin, carrot, cabbage, glass noodles, morning glory and a small bowl of corn",
