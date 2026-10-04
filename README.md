@@ -186,7 +186,7 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
 ## 6. Details the owner must confirm before going live
 
 **Confirmed by the owner:**
-- **Opening hours**: moo krata 17:00–22:00 every day; lunch beef noodle soup 11:00–15:30 Tuesday–Sunday (no noodles on Mondays; owner via Lee, 4 Oct 2026). Booking slots (moo krata evenings only) run 17:00–21:00 (last seating 1 h before close).
+- **Opening hours**: moo krata 17:00–22:00 every day; lunch stewed beef noodle soup (ก๋วยเตี๋ยวเนื้อตุ๋น, owner's name for it) 11:00–15:30 Tuesday–Sunday (no noodles on Mondays; owner via Lee, 4 Oct 2026). Booking slots (moo krata evenings only) run 17:00–21:00 (last seating 1 h before close).
 
 **Double-check (taken from the shop's own recent signage / videos):**
 1. **Address** — shown as *168 ซอยอุดมทรัพย์ หมู่ 7 บ้านเก่าน้อย ต.บ้านเลื่อม อ.เมืองอุดรธานี 41000*. Is the map pin (17.440569, 102.794069) on the entrance?

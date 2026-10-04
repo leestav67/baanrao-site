@@ -35,7 +35,7 @@ var CONFIG = {
   MIN_LEAD_MINUTES: 30,                  // can't book a slot starting in < 30 min
   LINE_ID: '@BaanRaoMookata',
   PHONE_DISPLAY: '065 615 4656',
-  MAPS_URL: 'https://goo.gl/maps/uLo6NqVWW7SKCHQf8'
+  MAPS_URL: 'https://maps.google.com/?cid=10793292857098184680'
 };
 // Secrets live in Project Settings → Script properties (never in the website code):
 //   OWNER_PASSWORD          password for owner.html (list / cancel / block)

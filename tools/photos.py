@@ -116,9 +116,9 @@ P = {
         cap_th="มาถึงแล้ว! สังเกตเคาน์เตอร์และป้ายโลโก้ร้าน", cap_en="You’re here! Look for our counter and logo sign"),
     # Owner's Facebook night photo of the covered courtyard (promo sign removed, sky cleaned by the retouch bot).
     "clean-night": dict(kind="owner", stem="baanrao-dining-area-night-4x3", files=[(480, 360), (800, 600)], venue=True,
-        alt_th="ลานนั่งทานของร้านบ้านเราหมูกระทะยามค่ำ ใต้หลังคาและไฟประดับ เคาน์เตอร์ ป้ายไฟโลโก้ และโต๊ะไม้",
-        alt_en="The covered dining courtyard at Baan Rao Moo Krata at night, with string lights, the counter, the lit logo sign and wooden tables",
-        cap_th="ไฟระยิบระยับยามค่ำ นั่งชิลได้ทั้งคืน", cap_en="Fairy lights and warm evenings. Open daily 17:00–22:00."),
+        alt_th="บรรยากาศหมูกระทะในสวนยามค่ำ ลานนั่งทานบ้านเราหมูกระทะ ต้นไม้ ไฟประดับ หลังคาโปร่ง เคาน์เตอร์ ป้ายไฟโลโก้ และโต๊ะไม้",
+        alt_en="Moo krata in a garden setting at night: trees and string lights around the covered dining courtyard at Baan Rao Moo Krata, with the counter, the lit logo sign and wooden tables",
+        cap_th="หมูกระทะในสวน ไฟระยิบระยับยามค่ำ", cap_en="Moo krata in the garden under the fairy lights. Open daily 17:00–22:00."),
     # ---- menu category cards (r5) ----
     # replaced on the page in r10 by fb-seafood-bowl (kept for rollback)
     "hellosammy-dish-02": dict(kind="customer", by="hellosammy0601", stem="baanrao-prawn-salad-seafood", files=[(480, 480), (800, 800)],
@@ -176,9 +176,9 @@ P = {
     # r10: noodles card. Owner photo of the beef noodle soup (lunch menu, 11:00–15:30), supplied by Lee on 4 Oct 2026
     # (master: /workspace/baanrao/photos/owner-noodles/). Replaces apisit-yam-card on the card.
     "owner-beef-noodle-soup": dict(kind="owner", stem="baanrao-beef-noodle-soup", files=[(480, 480), (800, 800)],
-        alt_th="ก๋วยเตี๋ยวเนื้อ เนื้อเปื่อย ลูกชิ้นเนื้อ และถั่วงอก บ้านเราหมูกระทะ",
-        alt_en="Beef noodle soup with tender beef, beef balls and bean sprouts at Baan Rao Moo Krata",
-        cap_th="ก๋วยเตี๋ยวเนื้อ", cap_en="Beef noodle soup"),
+        alt_th="ก๋วยเตี๋ยวเนื้อตุ๋น เนื้อเปื่อยในน้ำซุปใส บ้านเราหมูกระทะ",
+        alt_en="Stewed beef noodle soup with tender beef in a clear broth at Baan Rao Moo Krata",
+        cap_th="ก๋วยเตี๋ยวเนื้อตุ๋น", cap_en="Stewed beef noodle soup"),
     # PLACEHOLDERS: gold line drawings from tools/placeholders/*.svg (tools/make_photos.py placeholders). Not photos.
     "placeholder-noodles": dict(kind="placeholder", stem="baanrao-menu-placeholder-noodles", files=[(480, 480), (800, 800)],
         alt_th="ภาพตัวอย่าง ไม่ใช่ภาพจริงจากร้าน: ภาพลายเส้นสีทอง ชามเส้นควันกรุ่นกับตะเกียบ ไข่ต้ม และจานเล็ก",
