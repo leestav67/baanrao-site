@@ -38,7 +38,7 @@ MENU_CARDS = {
     "seafood": ("hellosammy-dish-02", "i-fish", _CARD),
     "salads":  ("peaceii-papaya", "i-chili", _CARD),
     "noodles": ("placeholder-noodles", "i-bowl", _CARD),
-    "veg":     ("placeholder-vegetables", "i-leaf", "(min-width: 960px) 200px, 50vw"),   # half width at 640–959
+    "veg":     ("surachat-tray", "i-leaf", "(min-width: 960px) 200px, 50vw"),   # half width at 640–959
     "drinks":  ("placeholder-drinks", "i-drink", "(min-width: 960px) 200px, (min-width: 640px) 50vw, 100vw"),  # full width < 640
 }
 # JSON-LD image array (absolute URLs, every file ≥1200 px wide), in this order. Thumbnails never go here.
@@ -96,8 +96,8 @@ P = {
         alt_en="Spicy seafood glass-noodle salad with shrimp, mussels, Thai sausage and Chinese celery at Baan Rao Moo Krata, Udon Thani",
         cap_th="ยำรสจัดจ้าน สั่งเพิ่มได้", cap_en="Zingy Thai salads to share"),
     "hellosammy-pan": dict(kind="customer", by="hellosammy0601", stem="baanrao-moo-krata-pan-charcoal-stove", files=[(480, 352), (800, 586)],
-        alt_th="กระทะหมูกระทะบนเตาถ่าน หมูย่างบนโดม ผักกาดและวุ้นเส้นในน้ำซุป ชามหมูหมัก และน้ำจิ้ม",
-        alt_en="Moo krata on a charcoal stove: pork on the dome, cabbage and glass noodles in the broth, marinated pork and chilli sauce",
+        alt_th="กระทะหมูกระทะบนเตาถ่าน หมูย่างบนโดม ผักกาด ผักบุ้ง และเห็ดเข็มทองในน้ำซุป ชามหมูหมัก และน้ำจิ้ม",
+        alt_en="Moo krata on a charcoal stove: pork on the dome, cabbage, morning glory and enoki mushrooms in the broth, marinated pork and chilli sauce",
         cap_th="ปิ้งไป ต้มไป อร่อยครบในกระทะเดียว", cap_en="Grill on top, simmer below: it all happens in one pan"),
     "customer-food-03": dict(kind="customer", by="จีรศักดิ์ แหล้ยัง", stem="baanrao-covered-seating-day", files=[(480, 360), (800, 600)], venue=True,
         alt_th="โซนนั่งทานมีหลังคาของร้านบ้านเราหมูกระทะ ไฟประดับ ต้นไม้ และโต๊ะ ตอนกลางวัน",
@@ -125,6 +125,11 @@ P = {
         alt_th="ส้มตำมะละกอจานใหญ่ ใส่มะเขือเทศ ถั่วฝักยาว และถั่วลิสง ร้านบ้านเราหมูกระทะ อุดรธานี",
         alt_en="A big plate of som tam (green papaya salad) with tomato, long beans and peanuts at Baan Rao Moo Krata, Udon Thani",
         cap_th="ส้มตำจานใหญ่", cap_en="A big plate of som tam"),
+    # r7: real vegetable tray from Google Maps (customer สุรชาติ ยั่งยืน), replaces placeholder-vegetables on the veg card
+    "surachat-tray": dict(kind="customer", by="สุรชาติ ยั่งยืน", stem="baanrao-vegetable-tray", files=[(480, 480), (800, 800)],
+        alt_th="ถาดผักสดสำหรับหมูกระทะ เห็ดเข็มทอง ฟักทอง แครอท ผักกาด วุ้นเส้น ผักบุ้ง และข้าวโพดถ้วยเล็ก ร้านบ้านเราหมูกระทะ อุดรธานี",
+        alt_en="A tray of fresh vegetables for moo krata at Baan Rao Moo Krata, Udon Thani: enoki mushrooms, pumpkin, carrot, cabbage, glass noodles, morning glory and a small bowl of corn",
+        cap_th="ผักสดจัดเต็มถาด", cap_en="A full tray of fresh vegetables"),
     # PLACEHOLDERS: gold line drawings from tools/placeholders/*.svg (tools/make_photos.py placeholders). Not photos.
     "placeholder-noodles": dict(kind="placeholder", stem="baanrao-menu-placeholder-noodles", files=[(480, 480), (800, 800)],
         alt_th="ภาพตัวอย่าง ไม่ใช่ภาพจริงจากร้าน: ภาพลายเส้นสีทอง ชามเส้นควันกรุ่นกับตะเกียบ ไข่ต้ม และจานเล็ก",

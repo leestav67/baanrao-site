@@ -113,11 +113,14 @@ def og_night():
     print('baanrao-moo-krata-pan-night-og-1200.jpg  1200x630  (credit burnt in)')
 
 def menu_cards():
-    """Menu category cards (r5): square 480/800 crops of real customer photos."""
+    """Menu category cards (r5, r7): square 480/800 crops of real customer photos."""
     # SEAFOOD card (customer, hellosammy0601): prawn salad; crop away the pork plate and sauce bowl at the top
     card(load('hellosammy-dish-02.jpg').crop((100, 400, 1500, 1800)), 'baanrao-prawn-salad-seafood')
     # SALADS & SOM TAM card (customer, Peaceii Keeratika): som tam on a plate; crop away the hand and the plants
     card(load('peaceii-papaya.jpg').crop((500, 100, 1900, 1500)), 'baanrao-somtam-plate')
+    # VEGETABLES card (r7, customer, สุรชาติ ยั่งยืน): the raw vegetable tray, tight square; the table token (left)
+    # and the bowl of marinated pork (right) are cropped out (source 2000x1364, no ICC/EXIF)
+    card(load('surachat-tray.jpg').crop((232, 225, 1080, 1073)), 'baanrao-vegetable-tray')
 
 def placeholders():
     """Menu-card PLACEHOLDERS: gold line drawings (tools/placeholders/*.svg), NOT photos. Rendered with
