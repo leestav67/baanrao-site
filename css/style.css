@@ -447,6 +447,9 @@ html[lang="en"] .th-only{display:none!important}
 .btn-call .i{color:var(--gold-d)}
 .hero .btn-call{background:rgba(255,255,255,.94)}
 .btn-dark{background:var(--ink);color:#fff}
+/* GrabFood order button (H): Grab green, dark enough for white text (4.6:1), no Grab logo file */
+.btn-grab{background:#00873d;color:#fff;box-shadow:0 6px 18px rgba(0,135,61,.3)}.btn-grab:hover{background:#00752f}
+.c-grab .i{color:#2fd27a}
 .hdr-phone{display:none;align-items:center;gap:6px;color:var(--gold2);text-decoration:none;font-family:var(--head);font-size:.92rem;white-space:nowrap}
 .hdr-phone .i{width:1em;height:1em}
 @media (min-width:1240px){.hdr-phone{display:inline-flex}}

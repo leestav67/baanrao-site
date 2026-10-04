@@ -205,8 +205,10 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
 9. **Menu** — category cards (meats, seafood, salads, noodles/sides, veg, drinks) are examples; send a fuller menu to add.
    **Photos:** every menu card has a real photo since r10 (drinks: the owner's iced red soda). Any future drinks photo:
    soft drinks, water or ice only (no alcohol and no beer/liquor brands: Thai alcohol advertising rules).
-10. **Live music** — which nights? **GrabFood** — is the shop on Grab? All GrabFood claims were removed (no store
-    could be found; the FAQ now says there's no delivery yet). If there is a store, send its share link (`https://r.grab.com/…`). **Rao Cafe** — address/link?
+10. **Live music** — which nights? **GrabFood** — answered (Lee, 4 Oct 2026): https://app.grab.com/s/EXayu7w4 (GrabFood merchant 3-C6VDFE3KALMVGA,
+    listed as "ครัวบ้านเรา ส้มตำ ยำ สุกี้ - บ้านเก่าน้อย"). "สั่งผ่าน GrabFood / Order on GrabFood" buttons in the hero and contact
+    sections, and the delivery FAQ and llms.txt say so. Not in JSON-LD (the Grab listing name differs from the restaurant name, so no
+    `sameAs`; no `OrderAction`). **Rao Cafe** — address/link?
 11. **Booking capacity** — guests per 30-minute slot (default 40) and largest online group (default 20).
 12. **Owner email + Google account** for the booking sheet, and whether he wants LINE notifications.
 13. **Google reviews** — OK to quote the three public Google reviews on the site (shown without names)? Are they still live?
