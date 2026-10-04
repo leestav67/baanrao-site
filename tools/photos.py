@@ -152,7 +152,7 @@ P = {
         alt_en="Seafood for the broth: prawns, crab sticks, squid, sliced pork and eggs in a bowl at Baan Rao Moo Krata",
         cap_th="ชุดทะเลลงต้ม", cap_en="Seafood for the broth"),
     "fb-set-charcoal": dict(kind="owner", stem="baanrao-moo-krata-set-charcoal", files=[(480, 480), (800, 800)],
-        alt_th="ชุดหมูกระทะเตาถ่านครบชุด เตาถ่าน ชามน้ำซุป ถาดผัก ยำ ส้มตำ ปีกไก่ และเนื้อสไลซ์สองจาน บ้านเราหมูกระทะ",
+        alt_th="ชุดหมูกระทะเตาถ่านครบชุด เตาถ่าน ชามน้ำซุป ถาดผัก ยำ ส้มตำ ปีกไก่ และเนื้อสัตว์สไลซ์สองจาน บ้านเราหมูกระทะ",
         alt_en="A full charcoal moo krata set at Baan Rao Moo Krata: grill, broth bowl, vegetable tray, yam, som tam, chicken wings and two plates of sliced meat",
         cap_th="ชุดเริ่มต้น ฿199 อิ่มคุ้มทั้งโต๊ะ", cap_en="Sets from ฿199. Great value for the whole table.",
         # the photo shows extra side dishes (yam, som tam, wings) next to the set: say so under the photo
@@ -176,7 +176,7 @@ P = {
     # r10: noodles card. Owner photo of the beef noodle soup (lunch menu, 11:00–15:30), supplied by Lee on 4 Oct 2026
     # (master: /workspace/baanrao/photos/owner-noodles/). Replaces apisit-yam-card on the card.
     "owner-beef-noodle-soup": dict(kind="owner", stem="baanrao-beef-noodle-soup", files=[(480, 480), (800, 800)],
-        alt_th="ก๋วยเตี๋ยวเนื้อน้ำตก เนื้อเปื่อย ลูกชิ้นเนื้อ และถั่วงอก บ้านเราหมูกระทะ",
+        alt_th="ก๋วยเตี๋ยวเนื้อ เนื้อเปื่อย ลูกชิ้นเนื้อ และถั่วงอก บ้านเราหมูกระทะ",
         alt_en="Beef noodle soup with tender beef, beef balls and bean sprouts at Baan Rao Moo Krata",
         cap_th="ก๋วยเตี๋ยวเนื้อ", cap_en="Beef noodle soup"),
     # PLACEHOLDERS: gold line drawings from tools/placeholders/*.svg (tools/make_photos.py placeholders). Not photos.
