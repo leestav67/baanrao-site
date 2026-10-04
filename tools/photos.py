@@ -33,14 +33,14 @@ SHOW_PLACEHOLDERS = True            # False = placeholder cards fall back to the
 # placeholder with SHOW_PLACEHOLDERS = False, or "enabled": False). Card texts stay in index.html.
 # To replace a placeholder with a real photo: make square 480/800 files with tools/make_photos.py (see
 # menu_cards()), add an entry to P (kind "owner" or "customer" + by=…), and put its id here.
-_CARD = "(min-width: 960px) 200px, (min-width: 640px) 33vw, 50vw"
+_CARD = "(min-width: 960px) 240px, 50vw"  # r11: 5 columns from 960 px, 2 per row below
 MENU_CARDS = {
-    "meat":    ("fb-beef-platter", None, "(min-width: 960px) 200px, 100vw"),          # full width below 960 px
+    "meat":    ("fb-beef-platter", None, "(min-width: 960px) 240px, 100vw"),          # full width below 960 px
     "seafood": ("fb-seafood-bowl", "i-fish", _CARD),                                 # r10: owner FB (was hellosammy-dish-02)
     "salads":  ("fb-somtam-oval", "i-chili", _CARD),                                  # r10: owner FB (was peaceii-papaya)
-    "noodles": ("owner-beef-noodle-soup", "i-bowl", _CARD),                           # r10: owner photo (r9: apisit-yam-card)
-    "veg":     ("surachat-tray", "i-leaf", "(min-width: 960px) 200px, 50vw"),   # half width at 640–959
-    "drinks":  ("owner-iced-red-soda", "i-drink", "(min-width: 960px) 200px, (min-width: 640px) 50vw, 100vw"),  # full width < 640; r10: real owner photo (was placeholder-drinks)
+    "noodles": ("owner-beef-noodle-soup", "i-bowl", "(min-width: 960px) 400px, (min-width: 640px) 34vw, 100vw"),  # r11: wide lunch card, last in the grid                           # r10: owner photo (r9: apisit-yam-card)
+    "veg":     ("surachat-tray", "i-leaf", _CARD),   # half width at 640–959
+    "drinks":  ("owner-iced-red-soda", "i-drink", _CARD),  # full width < 640; r10: real owner photo (was placeholder-drinks)
 }
 # JSON-LD image array (absolute URLs, every file ≥1200 px wide), in this order. Thumbnails never go here.
 JSONLD_IMAGES = [

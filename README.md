@@ -194,6 +194,7 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
 
 **Please confirm:**
 3. **Set prices** — ชุดเล็ก ฿199 / ชุดใหญ่ ฿299 (Dec 2025 banner). **Add-ons** — เพิ่มหมูหมัก ฿100, เพิ่มหมูสามชั้น ฿100: correct?
+   **Lunch noodle prices** (noodle stall price board, photo from Lee, 4 Oct 2026; board title ก๋วยเตี๋ยวเนื้อ @บ้านเรา): ธรรมดา ฿50 / พิเศษ ฿60 / จัมโบ้ ฿70 (EN Regular / Large / Jumbo), ลวกจิ้มรวม ฿100, ข้าวเปล่า ฿10. Choices: เนื้อสด/เนื้อเปื่อย/เนื้อตุ๋น, น้ำตก/น้ำใส, เส้นเล็ก/บะหมี่/หมี่ขาว/มาม่า. Drinks on the board (น้ำเปล่า, น้ำอัดลม, น้ำหวาน) have no prices, so the site shows none. EN wording is Lee's.
 4. **“5 แถม เนื้อออส 1” promo** — exact terms (5 sets? which days?) and is it still running?
 5. **60/40 co-payment scheme via G-Wallet / เป๋าตัง** (posted 1 July 2026) — still running? The shop sign calls it “ไทยช่วยไทย พลัส 60/40”; the site says “คนละครึ่งพลัส 60/40” — which name is right?
 6. **Permission to use the TikTok videos** on the website (8 clips from @boom_berler).

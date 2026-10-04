@@ -625,3 +625,35 @@ html.no-line .lb-cta{grid-template-columns:minmax(0,380px);justify-content:cente
 html.no-line .contact-grid{grid-template-columns:minmax(0,1fr);max-width:680px;margin-inline:auto}
 /* visually hidden, still read by screen readers and crawlers */
 .vh{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* r11: noodles = wide lunch card (choices + prices), last in the menu grid */
+.menu-grid>.menu-card.mc-wide{grid-column:1/-1}
+.mc-wide .mc-body{display:grid;gap:12px;align-content:start}
+.mc-wide .mc-body p{margin:0 0 .3em}
+.mc-opts{margin:0;display:grid;gap:5px;font-size:.88rem;line-height:1.45;color:#d8ccb1}
+.mc-opts div{display:flex;flex-wrap:wrap;column-gap:8px}
+.mc-opts dt{color:var(--gold2);font-weight:600}
+.mc-opts dd{margin:0}
+.mc-prices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-content:start}
+.mc-prices .price{padding:6px 6px;border-radius:12px}
+.mc-prices .price small{font-size:.8rem}
+.mc-prices .price b{font-size:1.6rem}
+.mc-prices .addons{font-size:.86rem;margin:2px 0 0}
+.mc-prices .pnote{grid-column:1/-1;text-align:center;color:#a8997b;font-size:.75rem}
+@media (max-width:639px){.menu-grid>.menu-card.mc-wide img{aspect-ratio:4/3}}
+@media (min-width:640px){
+  .menu-grid>.menu-card.mc-wide{display:grid;grid-template-columns:minmax(220px,32%) 1fr}
+  .mc-wide .mc-pic{min-height:260px}
+  .mc-wide .mc-pic picture{position:absolute;inset:0}
+  .menu-grid>.menu-card.mc-wide .mc-pic img{height:100%;aspect-ratio:auto}
+  .mc-wide .mc-body{padding:16px 18px 18px}
+}
+@media (min-width:640px) and (max-width:959px){
+  .menu-grid>.menu-card:nth-child(n+2):nth-child(-n+5){grid-column:span 3}
+  .menu-grid>.menu-card:nth-child(n+2):nth-child(-n+5) img{aspect-ratio:3/2}
+}
+@media (min-width:960px){
+  .menu-grid{grid-template-columns:repeat(5,1fr)}
+  .mc-wide .mc-body{grid-template-columns:1.1fr 1fr;grid-template-areas:"intro prices" "opts prices";column-gap:26px;align-items:start}
+  .mc-wide .mc-intro{grid-area:intro}.mc-wide .mc-opts{grid-area:opts}.mc-wide .mc-prices{grid-area:prices}
+}
