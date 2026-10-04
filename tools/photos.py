@@ -21,9 +21,9 @@ import json, os, re
 HERO = "customer-food-01"           # one-line switch: "food-pan-owner" = owner-safe fallback hero
 SHOW_CUSTOMER_PHOTOS = True         # False = owner photos only, everywhere
 ABOUT = "clean-night"               # the real night shot (courtyard-night.jpg is daylight)
-SETS = "set-moo-krata"              # falls back to SETS_OWNER when customer photos are off
+SETS = "fb-set-charcoal"            # r10: owner FB photo (was "set-moo-krata", customer); SETS_OWNER if switched off
 SETS_OWNER = "food-pan-owner"
-MENU_PHOTOS = ["peaceii-topdown-pan", "hellosammy-dish-03", "customer-food-02"]  # r9: yam talay moved to the noodles card
+MENU_PHOTOS = ["peaceii-topdown-pan", "hellosammy-dish-03", "fb-beef-plate-night"]  # r9: yam talay moved to the noodles card; r10: owner beef plate replaces customer-food-02 (som tam)
 # (the row adapts to 3 or 4 photos: class mp-n3 / mp-n4 in css/style.css)
 GALLERY = ["hellosammy-pan", "food-pan-owner", "customer-food-03"]  # big food tile, food, venue (no repeats of About/menu photos)
 STOREFRONT = "owner-courtyard-day"
@@ -36,11 +36,11 @@ SHOW_PLACEHOLDERS = True            # False = placeholder cards fall back to the
 _CARD = "(min-width: 960px) 200px, (min-width: 640px) 33vw, 50vw"
 MENU_CARDS = {
     "meat":    ("fb-beef-platter", None, "(min-width: 960px) 200px, 100vw"),          # full width below 960 px
-    "seafood": ("hellosammy-dish-02", "i-fish", _CARD),
-    "salads":  ("peaceii-papaya", "i-chili", _CARD),
-    "noodles": ("apisit-yam-card", "i-bowl", _CARD),                                  # r9: real photo (was placeholder-noodles)
+    "seafood": ("fb-seafood-bowl", "i-fish", _CARD),                                 # r10: owner FB (was hellosammy-dish-02)
+    "salads":  ("fb-somtam-oval", "i-chili", _CARD),                                  # r10: owner FB (was peaceii-papaya)
+    "noodles": ("owner-beef-noodle-soup", "i-bowl", _CARD),                           # r10: owner photo (r9: apisit-yam-card)
     "veg":     ("surachat-tray", "i-leaf", "(min-width: 960px) 200px, 50vw"),   # half width at 640–959
-    "drinks":  ("placeholder-drinks", "i-drink", "(min-width: 960px) 200px, (min-width: 640px) 50vw, 100vw"),  # full width < 640
+    "drinks":  ("owner-iced-red-soda", "i-drink", "(min-width: 960px) 200px, (min-width: 640px) 50vw, 100vw"),  # full width < 640; r10: real owner photo (was placeholder-drinks)
 }
 # JSON-LD image array (absolute URLs, every file ≥1200 px wide), in this order. Thumbnails never go here.
 JSONLD_IMAGES = [
@@ -50,7 +50,7 @@ JSONLD_IMAGES = [
     ("courtyard-night", "baanrao-courtyard-dusk-1200.jpg"),                # courtyard, early evening before dark
     ("clean-night", "baanrao-dining-area-night-4x3-1200.jpg"),             # real night shot of the covered courtyard (= About)
     ("food-pan-owner", "baanrao-moo-krata-pan-pork-belly-1200.jpg"),
-    ("set-moo-krata", "baanrao-moo-krata-set-table-1200.jpg"),
+    ("fb-set-charcoal", "baanrao-moo-krata-set-charcoal-1200.jpg"),         # r10: owner set photo (was set-moo-krata, customer)
     ("peaceii-topdown-pan", "baanrao-moo-krata-spread-topdown-1200.jpg"),
 ]
 
@@ -76,6 +76,7 @@ P = {
         alt_th="ลานนั่งทานบ้านเราหมูกระทะ ไฟประดับ โต๊ะไม้ ต้นไม้ และเคาน์เตอร์ป้ายไฟโลโก้ร้าน ช่วงเย็นก่อนฟ้ามืด",
         alt_en="The Baan Rao Moo Krata courtyard in the early evening before dark: string lights, wooden tables, trees and the logo-sign counter",
         cap_th="ลานกว้าง ร่มรื่น ไฟประดับรอบร้าน", cap_en="A leafy courtyard strung with lights. Open daily 17:00–22:00."),
+    # replaced on the page in r10 by fb-set-charcoal (kept for rollback; not in JSON-LD any more)
     "set-moo-krata": dict(kind="customer", by="Sasithonk", stem="baanrao-moo-krata-set-table", files=[(480, 480), (800, 800)],
         alt_th="ชุดหมูกระทะจัดเต็มโต๊ะยาว น้ำจิ้ม ผักสด ข้าวโพด และจานหมูกับทะเล ร้านบ้านเราหมูกระทะ อุดรธานี",
         alt_en="A long table set for moo krata at Baan Rao, Udon Thani: dipping sauces, fresh veg, corn and a pork and seafood plate",
@@ -88,6 +89,7 @@ P = {
         alt_th="เตาถ่านหมูกระทะไฟแดงร้อน ถ้วยน้ำจิ้มสูตรบ้านเรา และชามหมูหมัก บนโต๊ะไม้ บ้านเราหมูกระทะ",
         alt_en="A glowing charcoal stove under the pan, a bowl of our dipping sauce and marinated pork on a wooden table at Baan Rao",
         cap_th='น้ำจิ้มสูตรบ้านเรา <span class="nw">จิ้มคำแรกก็ติดใจ</span>', cap_en="Our family’s own dipping sauce. One dip and you’re hooked."),
+    # replaced on the page in r10 by fb-beef-plate-night (kept for rollback; uploader still to verify, README #16)
     "customer-food-02": dict(kind="customer", by="จีรศักดิ์ แหล้ยัง", stem="baanrao-somtam-papaya-salad", files=[(480, 600), (800, 1000)],
         alt_th="ส้มตำมะละกอใส่กุ้งแห้ง ถั่วแระ มะเขือเทศ และมะนาว ร้านบ้านเราหมูกระทะ อุดรธานี",
         alt_en="Som tam (green papaya salad) with dried shrimp, soybeans, tomato and lime at Baan Rao Moo Krata, Udon Thani",
@@ -118,10 +120,12 @@ P = {
         alt_en="The covered dining courtyard at Baan Rao Moo Krata at night, with string lights, the counter, the lit logo sign and wooden tables",
         cap_th="ไฟระยิบระยับยามค่ำ นั่งชิลได้ทั้งคืน", cap_en="Fairy lights and warm evenings. Open daily 17:00–22:00."),
     # ---- menu category cards (r5) ----
+    # replaced on the page in r10 by fb-seafood-bowl (kept for rollback)
     "hellosammy-dish-02": dict(kind="customer", by="hellosammy0601", stem="baanrao-prawn-salad-seafood", files=[(480, 480), (800, 800)],
         alt_th="เมนูแซ่บใส่กุ้งตัวโต ข้าวโพด มะเขือเทศ หอมใหญ่ และต้นหอม ร้านบ้านเราหมูกระทะ อุดรธานี",
         alt_en="A spicy Thai dish with big prawns, corn, tomato, onion and spring onion at Baan Rao Moo Krata, Udon Thani",
         cap_th="กุ้งตัวโต แซ่บๆ", cap_en="Big prawns, nice and spicy"),
+    # replaced on the page in r10 by fb-somtam-oval (kept for rollback)
     "peaceii-papaya": dict(kind="customer", by="Peaceii Keeratika", stem="baanrao-somtam-plate", files=[(480, 480), (800, 800)],
         alt_th="ส้มตำมะละกอจานใหญ่ ใส่มะเขือเทศ ถั่วฝักยาว และถั่วลิสง ร้านบ้านเราหมูกระทะ อุดรธานี",
         alt_en="A big plate of som tam (green papaya salad) with tomato, long beans and peanuts at Baan Rao Moo Krata, Udon Thani",
@@ -134,10 +138,47 @@ P = {
         cap_th="ผักสดจัดเต็มถาด", cap_en="A full tray of fresh vegetables"),
     # r9: the yam talay photo (customer อภิสิทธิ์ นวลปักษี), square crop for the noodles & sides card (it left the menu photo row;
     # the 4:5 row files of "apisit-seafood-salad" are kept so it can go back into MENU_PHOTOS)
+    # replaced on the page in r10 by owner-beef-noodle-soup (kept for rollback)
     "apisit-yam-card": dict(kind="customer", by="อภิสิทธิ์ นวลปักษี", stem="baanrao-yam-woon-sen-talay-square", files=[(480, 480), (800, 800)],
         alt_th="ยำวุ้นเส้นทะเลรสจัดจ้าน กุ้ง หอยแมลงภู่ ไส้กรอก มะเขือเทศ หอมใหญ่ และขึ้นฉ่าย ในจานขาว ร้านบ้านเราหมูกระทะ อุดรธานี",
         alt_en="Spicy glass-noodle seafood salad (yam woon sen talay) with shrimp, a mussel, Thai sausage, tomato, onion and Chinese celery on a white plate at Baan Rao Moo Krata, Udon Thani",
         cap_th="ยำวุ้นเส้นทะเล", cap_en="Spicy glass-noodle seafood salad"),
+    # ---- r10: owner's own Facebook photos (owner okayed use and editing; no credit). Masters outside the repo in
+    # /workspace/baanrao/photos/fb/r10/ (see PHOTO-SOURCES.md for post dates and URLs). They replace customer photos
+    # hellosammy-dish-02 (seafood card), set-moo-krata (sets), customer-food-02 (menu row #3), peaceii-papaya (salads card);
+    # those entries stay in P (files kept) so a slot can be switched back.
+    "fb-seafood-bowl": dict(kind="owner", stem="baanrao-seafood-suki-bowl", files=[(480, 480), (800, 800)],
+        alt_th="ชุดทะเลลงต้ม กุ้ง ปูอัด ปลาหมึก หมูสไลซ์ และไข่ ในชามน้ำซุป บ้านเราหมูกระทะ",
+        alt_en="Seafood for the broth: prawns, crab sticks, squid, sliced pork and eggs in a bowl at Baan Rao Moo Krata",
+        cap_th="ชุดทะเลลงต้ม", cap_en="Seafood for the broth"),
+    "fb-set-charcoal": dict(kind="owner", stem="baanrao-moo-krata-set-charcoal", files=[(480, 480), (800, 800)],
+        alt_th="ชุดหมูกระทะเตาถ่านครบชุด เตาถ่าน ชามน้ำซุป ถาดผัก ยำ ส้มตำ ปีกไก่ และเนื้อสไลซ์สองจาน บ้านเราหมูกระทะ",
+        alt_en="A full charcoal moo krata set at Baan Rao Moo Krata: grill, broth bowl, vegetable tray, yam, som tam, chicken wings and two plates of sliced meat",
+        cap_th="ชุดเริ่มต้น ฿199 อิ่มคุ้มทั้งโต๊ะ", cap_en="Sets from ฿199. Great value for the whole table.",
+        # the photo shows extra side dishes (yam, som tam, wings) next to the set: say so under the photo
+        note_th="ภาพประกอบรวมเมนูสั่งเพิ่ม", note_en="Pictured with extra side dishes"),
+    # menu photo row #3: 4:5 file; from 960 px the row is 4:3, so a separate 4:3 crop is served there (art direction)
+    "fb-beef-plate-night": dict(kind="owner", stem="baanrao-sliced-beef-plate-night-4x5", files=[(480, 600), (800, 1000)],
+        art=[("(min-width: 960px)", "baanrao-sliced-beef-plate-night-4x3", [(480, 360), (800, 600)])],
+        alt_th="เนื้อสไลซ์ลายสวยเต็มจาน ท่ามกลางไฟประดับยามค่ำ บ้านเราหมูกระทะ",
+        alt_en="A plate of marbled sliced beef under fairy lights at night, Baan Rao Moo Krata",
+        cap_th="เนื้อสไลซ์ลายสวย ปิ้งแป๊บเดียวก็นุ่ม", cap_en="Beautifully marbled sliced beef, tender after a quick grill"),
+    "fb-somtam-oval": dict(kind="owner", stem="baanrao-somtam-oval-plate", files=[(480, 480), (800, 800)],
+        alt_th="ส้มตำไทยใส่มะเขือเทศจานรี บ้านเราหมูกระทะ",
+        alt_en="Som tam (green papaya salad) with tomatoes on an oval plate at Baan Rao Moo Krata",
+        cap_th="ส้มตำไทย", cap_en="Som tam"),
+    # r10: drinks card. Owner photo supplied by Lee on 4 Oct 2026 (master: /workspace/baanrao/photos/owner-drinks/).
+    # The cup's printed number is 065 615 4656 (current), so it isn't hidden.
+    "owner-iced-red-soda": dict(kind="owner", stem="baanrao-iced-red-soda", files=[(480, 480), (800, 800)],
+        alt_th="น้ำแดงโซดาเย็นในแก้วเราคาเฟ่ บ้านเราหมูกระทะ",
+        alt_en="Iced red soda in a Rao Cafe cup at Baan Rao Moo Krata",
+        cap_th="น้ำแดงโซดาเย็นๆ", cap_en="Iced red soda"),
+    # r10: noodles card. Owner photo of the beef noodle soup (lunch menu, 11:00–15:30), supplied by Lee on 4 Oct 2026
+    # (master: /workspace/baanrao/photos/owner-noodles/). Replaces apisit-yam-card on the card.
+    "owner-beef-noodle-soup": dict(kind="owner", stem="baanrao-beef-noodle-soup", files=[(480, 480), (800, 800)],
+        alt_th="ก๋วยเตี๋ยวเนื้อน้ำตก เนื้อเปื่อย ลูกชิ้นเนื้อ และถั่วงอก บ้านเราหมูกระทะ",
+        alt_en="Beef noodle soup with tender beef, beef balls and bean sprouts at Baan Rao Moo Krata",
+        cap_th="ก๋วยเตี๋ยวเนื้อ", cap_en="Beef noodle soup"),
     # PLACEHOLDERS: gold line drawings from tools/placeholders/*.svg (tools/make_photos.py placeholders). Not photos.
     "placeholder-noodles": dict(kind="placeholder", stem="baanrao-menu-placeholder-noodles", files=[(480, 480), (800, 800)],
         alt_th="ภาพตัวอย่าง ไม่ใช่ภาพจริงจากร้าน: ภาพลายเส้นสีทอง ชามเส้นควันกรุ่นกับตะเกียบ ไข่ต้ม และจานเล็ก",
@@ -173,7 +214,11 @@ def picture(pid, sizes, cls="", eager=False, stem=None, files=None, pcls=""):
     load = 'fetchpriority="high" decoding="async"' if eager else 'loading="lazy" decoding="async"'
     c = f' class="{cls}"' if cls else ""
     pc = f' class="{pcls}"' if pcls else ""
-    return (f'<picture{pc}>'
+    art = "".join(   # art direction (e.g. a 4:3 crop where the layout shows 4:3): AVIF + WebP per media query
+        f'<source media="{m}" type="image/avif" srcset="{srcset(s, f, "avif")}" sizes="{sizes}">'
+        f'<source media="{m}" type="image/webp" srcset="{srcset(s, f, "webp")}" sizes="{sizes}">'
+        for m, s, f in (p.get("art", []) if stem == p["stem"] else []))
+    return (f'<picture{pc}>{art}'
             f'<source type="image/avif" srcset="{srcset(stem, files, "avif")}" sizes="{sizes}">'
             f'<source type="image/webp" srcset="{srcset(stem, files, "webp")}" sizes="{sizes}">'
             f'<img{c} src="images/{stem}-{files[0][0]}.jpg" srcset="{srcset(stem, files, "jpg")}" sizes="{sizes}" '
@@ -225,8 +270,10 @@ def block_about():
 
 def block_sets():
     pid = SETS if on(SETS) else SETS_OWNER
-    return (f'<figure class="sets-photo">{picture(pid, "(min-width: 960px) 300px, 100vw", cls="sets-img")}'
-            f'<figcaption>{cap(pid)}</figcaption>{credit(pid)}</figure>')
+    p = P[pid]
+    note = (f'<small class="sets-note" data-en="{esc(p["note_en"])}">{p["note_th"]}</small>' if p.get("note_th") else "")
+    return (f'<figure class="sets-photo{" has-note" if note else ""}">{picture(pid, "(min-width: 960px) 300px, 100vw", cls="sets-img")}'
+            f'{note}<figcaption>{cap(pid)}</figcaption>{credit(pid)}</figure>')
 
 def block_menu_photos():
     items = [i for i in MENU_PHOTOS if on(i)]

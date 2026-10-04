@@ -167,9 +167,10 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
   - New photo sizes are made with `tools/make_photos.py` (needs Pillow ≥ 11.3; sources are kept outside the repo).
     Budgets: hero 1200 px AVIF ≤120 KB / WebP ≤160 KB / JPEG ≤220 KB; cards 800 px WebP ≤60 KB / JPEG ≤90 KB.
   - **Menu category cards** (meats, seafood, salads, noodles, veg, drinks) each have a picture, set in `MENU_CARDS`
-    in `tools/photos.py`. Vegetables (r7/r8) and noodles & sides (r9, the yam talay photo moved from the menu photo row) have real
-    customer photos; only drinks is still a **PLACEHOLDER** (gold line drawing with a "ภาพตัวอย่าง / Sample photo" badge)
-    until a real photo turns up (see `PHOTO-SOURCES.md`). The menu photo row (`MENU_PHOTOS`) takes 3 or 4 photos: with 3,
+    in `tools/photos.py`. Vegetables (r7/r8) has a real customer photo; since r10 the seafood,
+    salads and sets photos and menu photo row #3 are the owner's own Facebook photos, and noodles & sides (beef noodle soup) and
+    drinks are owner photos sent by Lee. No card uses a **PLACEHOLDER** any more (the gold line drawings with a
+    "ภาพตัวอย่าง / Sample photo" badge are kept for rollback; see `PHOTO-SOURCES.md`). The menu photo row (`MENU_PHOTOS`) takes 3 or 4 photos: with 3,
     the first one is full width below 640 px, then it is 3 across (classes `mp-n3`/`mp-n4`). **To swap in a real photo:** put the original (≥ 800 px, ideally square, no
     people's faces) in `/workspace/baanrao/photos/…`, add a square crop to `menu_cards()` in `tools/make_photos.py` and
     run `python3 tools/make_photos.py menu-cards` (makes `-480`/`-800` AVIF/WebP/JPEG); add an entry to `P` in
@@ -185,7 +186,7 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
 ## 6. Details the owner must confirm before going live
 
 **Confirmed by the owner:**
-- **Opening hours**: 17:00–22:00 every day. Booking slots run 17:00–21:00 (last seating 1 h before close).
+- **Opening hours**: moo krata 17:00–22:00 every day; lunch beef noodle soup 11:00–15:30 Tuesday–Sunday (no noodles on Mondays; owner via Lee, 4 Oct 2026). Booking slots (moo krata evenings only) run 17:00–21:00 (last seating 1 h before close).
 
 **Double-check (taken from the shop's own recent signage / videos):**
 1. **Address** — shown as *168 ซอยอุดมทรัพย์ หมู่ 7 บ้านเก่าน้อย ต.บ้านเลื่อม อ.เมืองอุดรธานี 41000*. Is the map pin (17.440569, 102.794069) on the entrance?
@@ -202,8 +203,8 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
    **Until then LINE is hidden on the site and booking is by phone** (see §5: setting `LINE_URL` brings it back).
 8. **Parking** — site says "parking for cars and motorbikes at the restaurant". How many cars?
 9. **Menu** — category cards (meats, seafood, salads, noodles/sides, veg, drinks) are examples; send a fuller menu to add.
-   **Photos wanted:** noodles & sides, fresh vegetables and drinks still use sample drawings ("ภาพตัวอย่าง"). Real photos of
-   these (and of a seafood plate before grilling) would replace them.
+   **Photos:** every menu card has a real photo since r10 (drinks: the owner's iced red soda). Any future drinks photo:
+   soft drinks, water or ice only (no alcohol and no beer/liquor brands: Thai alcohol advertising rules).
 10. **Live music** — which nights? **GrabFood** — is the shop on Grab? All GrabFood claims were removed (no store
     could be found; the FAQ now says there's no delivery yet). If there is a store, send its share link (`https://r.grab.com/…`). **Rao Cafe** — address/link?
 11. **Booking capacity** — guests per 30-minute slot (default 40) and largest online group (default 20).
@@ -217,6 +218,7 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
     (placeholder). Send a photo of the menu board (≥1200 px) to replace it.
 16. **Som tam photo credit** — uploader to verify: our sources disagree (จีรศักดิ์ แหล้ยัง vs Baster Nutnaree) for
     `customer-food-02`. Check it on the Google listing; see `PHOTO-SOURCES.md`. (Also: are the beans in it ถั่วแระ or สะตอ? The alt says ถั่วแระ.)
+    (r10: that som tam photo is no longer on the page, since the menu photo row now uses the owner's beef photo; the question stays open in case it comes back.)
 
 Photos: the owner is happy for the shop's own photos to be used and edited. The Google Maps photos from customers
 belong to the people who uploaded them; Lee has approved using them, and each one carries a small on-page credit.

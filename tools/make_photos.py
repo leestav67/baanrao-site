@@ -126,6 +126,65 @@ def menu_cards():
     # plate (right) and the orange bowl (top) cropped out
     card(load('apisit-seafood-salad.jpg').crop((30, 560, 1200, 1730)), 'baanrao-yam-woon-sen-talay-square')
 
+FB = '/workspace/baanrao/photos/fb/r10/'
+
+def load_fb(name):
+    """Owner's Facebook photos (r10). FB serves sRGB JPEGs without EXIF; same conversion path as load()."""
+    im = Image.open(FB + name)
+    icc = im.info.get('icc_profile')
+    im = ImageOps.exif_transpose(im).convert('RGB')
+    if icc:
+        im = ImageCms.profileToProfile(im, ImageCms.ImageCmsProfile(io.BytesIO(icc)), SRGB, outputMode='RGB')
+    return im
+
+def upto(im, w):
+    """Scale a crop up to w px wide when it's a little smaller (LANCZOS + a light unsharp mask); see each call."""
+    if im.width >= w:
+        return im
+    return im.resize((w, round(im.height * w / im.width)), Image.LANCZOS).filter(ImageFilter.UnsharpMask(1.0, 30, 2))
+
+def fb_r10():
+    """r10: owner's own Facebook photos replace 4 customer photos (seafood card, sets, menu row #3, salads card).
+    Crop boxes are in pixels of the downloaded originals (see PHOTO-SOURCES.md for post dates and URLs)."""
+    # SEAFOOD card: 22 Mar 2026 post, photo 2 of 5 (2048x1365): the whole orange seafood/suki bowl, veg tray cropped out
+    card(load_fb('fb-15-0322-2-seafood-platter.jpg').crop((0, 170, 1070, 1240)), 'baanrao-seafood-suki-bowl')
+    # SETS: 22 Mar 2026 post, photo 3 of 5 (1366x2048): the full set. Square starts right of the diner's arm/shirt
+    # (x < ~300) and below the hand reaching in at the top left (y < ~520), so it's 1056 px: scaled to 1200 for JSON-LD
+    st = upto(load_fb('fb-14-0322-3-hotpot-table.jpg').crop((310, 530, 1366, 1586)), 1200)
+    card(st, 'baanrao-moo-krata-set-charcoal')
+    jsonld(st, 'baanrao-moo-krata-set-charcoal')
+    # MENU photo row #3: 17 Apr 2026 post (1536x2048): plate of sliced beef, fairy-light bokeh. 4:5 for the row below
+    # 960 px, 4:3 from 960 px (the row is 4:3 there; served with <source media>), plate kept whole in both
+    bp = load_fb('fb-11-pork-sides-0417.jpg')
+    card(bp.crop((0, 40, 1536, 1960)), 'baanrao-sliced-beef-plate-night-4x5')
+    card(bp.crop((0, 700, 1536, 1852)), 'baanrao-sliced-beef-plate-night-4x3')
+    # SALADS card: 18 Mar 2026 post (2048x1367): the som tam on its oval plate. The yam plate (left), the veg tray (top),
+    # the chicken wings (bottom) and the sauce bowl / table sign (right) all touch it, so the clean square is 623 px:
+    # scaled to 800
+    card(upto(load_fb('fb-18-two-salads-0318.jpg').crop((955, 362, 1578, 985)), 800), 'baanrao-somtam-oval-plate')
+
+OD = '/workspace/baanrao/photos/owner-drinks/'
+
+def owner_drinks():
+    """r10: drinks card. Owner photo supplied by Lee on 4 Oct 2026 (master outside the repo, Display P3 -> sRGB).
+    Square on the iced red soda (Rao Cafe cup; the number printed on it is 065 615 4656, the current one, so it stays);
+    the plant and figurine are partly in. The cup stays whole inside the 3:2 and 4:3 bands the card uses at some widths."""
+    im = Image.open(OD + 'iced-red-soda-rao-cafe.png')
+    icc = im.info.get('icc_profile')
+    im = ImageOps.exif_transpose(im).convert('RGB')
+    if icc:
+        im = ImageCms.profileToProfile(im, ImageCms.ImageCmsProfile(io.BytesIO(icc)), SRGB, outputMode='RGB')
+    card(im.crop((0, 530, 930, 1460)), 'baanrao-iced-red-soda')
+
+ON = '/workspace/baanrao/photos/owner-noodles/'
+
+def owner_noodles():
+    """r10: noodles card. Owner photo of the beef noodle soup (lunch menu), supplied by Lee on 4 Oct 2026; master outside
+    the repo (1108x1477 PNG, sRGB). Square over the whole bowl. (Lee sent 3 more; not used: one has an AI-generated
+    watermark and two have AI-looking wood backgrounds.)"""
+    im = ImageOps.exif_transpose(Image.open(ON + 'beef-noodle-soup.png')).convert('RGB')
+    card(im.crop((0, 268, 1108, 1376)), 'baanrao-beef-noodle-soup')
+
 def placeholders():
     """Menu-card PLACEHOLDERS: gold line drawings (tools/placeholders/*.svg), NOT photos. Rendered with
     headless Chrome (Playwright), then saved like any other card. Replace them with real photos: see README."""
@@ -143,9 +202,9 @@ def placeholders():
         b.close()
 
 if __name__ == '__main__' and len(sys.argv) > 1:
-    # python3 tools/make_photos.py menu-cards placeholders og   (only those sets; no args = everything)
+    # python3 tools/make_photos.py menu-cards placeholders og fb-r10 owner-drinks owner-noodles   (only those sets; no args = everything)
     for what in sys.argv[1:]:
-        {'menu-cards': menu_cards, 'placeholders': placeholders, 'og': og_night}[what]()
+        {'menu-cards': menu_cards, 'placeholders': placeholders, 'og': og_night, 'fb-r10': fb_r10, 'owner-drinks': owner_drinks, 'owner-noodles': owner_noodles}[what]()
     sys.exit(0)
 
 if __name__ == '__main__':
@@ -194,4 +253,7 @@ if __name__ == '__main__':
     card(night, 'baanrao-dining-area-night-4x3')
     jsonld(night, 'baanrao-dining-area-night-4x3')   # 1200x900 for JSON-LD
     menu_cards()
+    fb_r10()
+    owner_drinks()
+    owner_noodles()
     placeholders()
