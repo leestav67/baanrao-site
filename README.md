@@ -1,7 +1,7 @@
 # บ้านเราหมูกระทะ · Baan Rao Moo Krata — website
 
 Static, mobile-first restaurant site (HTML + CSS + vanilla JS). Bookings go through
-**phone** for now (LINE is switched off until the real link arrives, see §5); a real online booking system (Google Sheets + Google Apps Script) is built in
+**phone** (primary) and **LINE chat** (same number, see §5); a real online booking system (Google Sheets + Google Apps Script) is built in
 and switches on with one setting. Thai is the page at `/`. English is a real page at `/en/`, generated
 at build time from the Thai page (`python3 tools/build_en.py .`). The TH/EN links remember the choice;
 an old `?lang=en` link redirects to `/en/`.
@@ -36,10 +36,9 @@ Open <http://localhost:8000>. English page: build it first with `python3 tools/b
 (demo password: `demo`).
 
 **Booking while `BOOKING_API_URL` is empty (now):** the booking section shows the **"จองโต๊ะง่ายๆ โทรหาเราได้เลย"**
-card with **โทรจอง 065 615 4656** and the note "LINE ของร้าน เปิดให้ทักเร็วๆ นี้" (that note shows only while
-LINE is off). The online form is hidden, so guests never get a fake confirmation, a fake booking code or fake
-"เต็ม" (full) slots. The hero and the mobile bar lead with Call (and Map). Once `LINE_URL` is set, a
-**จองผ่าน LINE** button comes back next to Call.
+card with **โทรจอง 065 615 4656** plus a LINE chat button (`https://line.me/R/ti/p/~0656154656`). The online form is hidden, so guests never get a fake
+confirmation, a fake booking code or fake "เต็ม" (full) slots. The hero and the mobile bar lead with Call; LINE sits next to it
+(“แชท LINE / Chat on LINE”).
 
 **Once `BOOKING_API_URL` is set (§3):** the LINE card disappears and the real online form shows
 (date → time → details → confirmation with a booking reference), with real availability from the Sheet.
@@ -143,10 +142,9 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
 
 - **LINE link:** only in `js/config.js` → `LINE_URL` (and `LINE_ID` for the displayed ID). Every LINE button
   (header, hero, booking card, promo, contact card, footer, mobile bar) reads it.
-  **LINE is OFF right now** (`LINE_URL: ""`, the old link was a 404): `<html class="no-line">` plus the CSS rule
-  `html.no-line [data-cfg-href="LINE_URL"]` hide every LINE button, and booking is phone-only.
-  **To bring LINE back, just set `LINE_URL`** (e.g. the `https://lin.ee/…` add-friend link) and `LINE_ID`:
-  `js/main.js` removes the `no-line` class and all the buttons reappear. Optionally also mention LINE again in
+  **LINE is ON** (`LINE_URL: "https://line.me/R/ti/p/~0656154656"`, `LINE_ID: "065 615 4656"` — Lee, 6 Oct 2026, same as the shop phone).
+  Empty `LINE_URL` would hide every LINE button via `<html class="no-line">` and the CSS rule
+  `html.no-line [data-cfg-href="LINE_URL"]`. Phone stays the primary booking channel. Optionally also mention LINE again in
   the FAQ booking answer (visible + JSON-LD in `index.html` and `tools/head-en.html`), the og/twitter
   descriptions and `llms.txt`, which say "call 065 615 4656" for now. The `href="#contact"` in the
   HTML is only a no-JavaScript fallback. Once the real link is confirmed, you can also add it to `"sameAs"`
@@ -198,10 +196,9 @@ remaining seats for that slot, and only then writes the row. Full slots show as 
 4. **“5 แถม เนื้อออส 1” promo** — exact terms (5 sets? which days?) and is it still running?
 5. **60/40 co-payment scheme via G-Wallet / เป๋าตัง** (posted 1 July 2026) — still running? The shop sign calls it “ไทยช่วยไทย พลัส 60/40”; the site says “คนละครึ่งพลัส 60/40” — which name is right?
 6. **Permission to use the TikTok videos** on the website (8 clips from @boom_berler).
-7. **LINE link returned 404, owner to check.** `https://line.me/R/ti/p/@BaanRaoMookata` returned 404 in testing (Oct 2026), like a
-   non-existent ID. In LINE OA Manager → Home → *Gain friends (เพิ่มเพื่อน)* copy the official add-friend link
-   (`https://lin.ee/…`) and the real LINE ID, and put them in `js/config.js` (`LINE_URL`, `LINE_ID`).
-   **Until then LINE is hidden on the site and booking is by phone** (see §5: setting `LINE_URL` brings it back).
+7. **LINE** — restored (Lee, 6 Oct 2026): same number as the shop phone, 065 615 4656.
+   Click-to-chat URL in `js/config.js`: `https://line.me/R/ti/p/~0656154656` (`LINE_ID` shown as `065 615 4656`). Phone stays primary for bookings;
+   hero/contact labels say “แชท LINE / Chat on LINE”. The old `@BaanRaoMookata` link was a 404 and is not used.
 8. **Parking** — site says "parking for cars and motorbikes at the restaurant". How many cars?
 9. **Menu** — category cards (meats, seafood, salads, noodles/sides, veg, drinks) are examples; send a fuller menu to add.
    **Photos:** every menu card has a real photo since r10 (drinks: the owner's iced red soda). Any future drinks photo:

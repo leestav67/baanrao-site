@@ -14,8 +14,7 @@
     var keys = a.getAttribute('data-cfg-href').split('|');
     for (var i = 0; i < keys.length; i++) { var v = (C[keys[i]] || '').trim(); if (v) { a.href = v; break; } }
   });
-  // No working LINE link yet: hide every LINE button (each one sits next to a Call button).
-  // <html class="no-line"> is set in the HTML so nothing flashes; it comes off as soon as LINE_URL is set.
+  // Empty LINE_URL: hide every LINE button (html.no-line). With LINE_URL set, buttons stay visible.
   document.documentElement.classList.toggle('no-line', !(C.LINE_URL || '').trim());
   if (C.LINE_ID) document.querySelectorAll('.js-line-id').forEach(function (el) { el.textContent = C.LINE_ID; });
 

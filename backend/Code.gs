@@ -33,7 +33,7 @@ var CONFIG = {
   MAX_PARTY_SIZE: 20,
   DAYS_AHEAD: 60,
   MIN_LEAD_MINUTES: 30,                  // can't book a slot starting in < 30 min
-  LINE_ID: '@BaanRaoMookata',
+  LINE_ID: '065 615 4656',
   PHONE_DISPLAY: '065 615 4656',
   MAPS_URL: 'https://maps.google.com/?cid=10793292857098184680'
 };

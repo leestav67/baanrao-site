@@ -23,13 +23,12 @@ window.SITE_CONFIG = {
   DAYS_AHEAD: 60,               // how far ahead guests can book
 
   // ---- LINE (the ONE place for the LINE link: every LINE button on the site reads it) ----
-  // ⚠ The placeholder line.me link used before returned 404 in testing (Oct 2026), so LINE is off for now.
-  // Owner: LINE OA Manager → Home → Gain friends (เพิ่มเพื่อน) → copy the add-friend link
-  // (looks like https://lin.ee/XXXXXXX) and paste it below, plus the real LINE ID.
-  // While LINE_URL is empty every LINE button is hidden (html.no-line) and booking is by phone only.
-  // Re-enable LINE: set LINE_URL (and LINE_ID, shown on the contact card and in the footer), then rebuild/deploy.
-  LINE_URL: "",
-  LINE_ID: "",
+  // Lee (6 Oct 2026): LINE is the same number as the shop phone, 065 615 4656.
+  // Click-to-chat URL uses the same R/ti/p/ pattern the site used before (with ~ for a phone ID).
+  // Phone stays the primary booking channel; LINE is an extra chat option.
+  // While LINE_URL is empty every LINE button is hidden (html.no-line).
+  LINE_URL: "https://line.me/R/ti/p/~0656154656",
+  LINE_ID: "065 615 4656",
 
   // ---- PHONE ----
   PHONE: "0656154656",
