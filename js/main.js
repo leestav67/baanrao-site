@@ -37,10 +37,99 @@
     });
   }
 
+  // Stay at the same spot when switching TH ↔ EN (hash of the section in view; fraction fallback).
+  // Without JS the language links still just open / or /en/ — progressive enhancement only.
+  var SCROLL_KEY = 'brm_lang_scroll';
+  function nearestAnchorId() {
+    // Skip sticky #top — it always sits under the probe. Prefer the section that
+    // currently owns a point just under the header; #noodles (inside #menu) wins by
+    // being the innermost match. Fall back to #top only near the true page top.
+    var els = document.querySelectorAll('section[id], #noodles');
+    var probe = Math.min(140, Math.max(64, innerHeight * 0.2));
+    var best = '', bestH = Infinity;
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i], id = el.id;
+      if (!id) continue;
+      var r = el.getBoundingClientRect();
+      if (r.top <= probe && r.bottom > probe + 40) {
+        if (r.height < bestH) { bestH = r.height; best = id; }
+      }
+    }
+    if (best) return best;
+    if (scrollY < 100) return 'top';
+    var near = '', dist = Infinity;
+    for (var j = 0; j < els.length; j++) {
+      var el2 = els[j], r2 = el2.getBoundingClientRect();
+      if (r2.bottom < 0 || r2.top > innerHeight) continue;
+      var d = Math.abs(r2.top - probe);
+      if (d < dist) { dist = d; near = el2.id; }
+    }
+    return near;
+  }
+  function scrollToId(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var header = document.getElementById('top');
+    var pad = header ? Math.min(header.offsetHeight + 8, 120) : 70;
+    var y = el.getBoundingClientRect().top + scrollY - pad;
+    scrollTo(0, Math.max(0, Math.round(y)));
+  }
+  function settle(fn) {
+    fn();
+    addEventListener('load', fn);
+    setTimeout(fn, 50);
+    setTimeout(fn, 300);
+    setTimeout(fn, 1000);
+    setTimeout(fn, 2000);
+    document.querySelectorAll('img').forEach(function (img) {
+      if (!img.complete) img.addEventListener('load', fn, { once: true });
+    });
+    if ('ResizeObserver' in window) {
+      var ro = new ResizeObserver(fn);
+      ro.observe(document.documentElement);
+      setTimeout(function () { try { ro.disconnect(); } catch (e) {} }, 2500);
+    }
+  }
+  // Re-pin #hash after images/fonts shift the layout (language switch and ordinary deep links).
+  (function pinHash() {
+    var id = (location.hash || '').replace(/^#/, '');
+    if (!id || !document.getElementById(id)) return;
+    settle(function () { scrollToId(id); });
+  })();
+  (function restoreLangScroll() {
+    try {
+      var raw = sessionStorage.getItem(SCROLL_KEY);
+      if (raw == null) return;
+      sessionStorage.removeItem(SCROLL_KEY);
+      if (location.hash) return; // #section from the click path wins
+      var f = parseFloat(raw);
+      if (!(f >= 0) || f > 1.05) return;
+      var go = function () {
+        var max = Math.max(1, Math.max(document.documentElement.scrollHeight, document.body.scrollHeight) - innerHeight);
+        scrollTo(0, Math.round(Math.min(1, f) * max));
+      };
+      settle(go);
+    } catch (err) {}
+  })();
+
   var t = document.getElementById('langToggle');
   if (t) t.addEventListener('click', function (e) {
     var a = e.target.closest('a[hreflang]');
-    if (a) { try { localStorage.setItem(KEY, a.getAttribute('hreflang')); } catch (err) {} }
+    if (!a) return;
+    var dest = a.getAttribute('hreflang');
+    try { localStorage.setItem(KEY, dest); } catch (err) {}
+    if (dest === PAGE) return;
+    var base = (a.getAttribute('href') || '').split('#')[0];
+    var id = nearestAnchorId();
+    if (id) {
+      a.setAttribute('href', base + '#' + id);
+    } else {
+      try {
+        var max = Math.max(1, Math.max(document.documentElement.scrollHeight, document.body.scrollHeight) - innerHeight);
+        sessionStorage.setItem(SCROLL_KEY, String(scrollY / max));
+      } catch (err) {}
+      if (base) a.setAttribute('href', base);
+    }
   });
 
   // hours from config (one place to edit)
